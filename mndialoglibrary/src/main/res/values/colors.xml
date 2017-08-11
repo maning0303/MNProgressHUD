@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="mn_colorDialogWindowBg">#00000000</color>
+    <color name="mn_colorDialogTrans">#00000000</color>
+    <color name="mn_colorDialogViewBg">#dd000000</color>
+    <color name="mn_colorDialogTextColor">#ffffff</color>
+    <color name="mn_colorDialogProgressBarColor">#ffffff</color>
+    <color name="mn_colorDialogImageTintColor">#ffffff</color>
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorDialogProgressRimColor">#a9a9a9</color>
+    <color name="colorDialogWindowBg">#2aff5555</color>
+    <color name="colorDialogViewBg">#a5ffffff</color>
+    <color name="colorDialogViewBg2">#ecae5700</color>
+    <color name="colorDialogTextColor">#1cb3ce</color>
+    <color name="colorDialogProgressBarColor">#c67204</color>
+
+
+    <color name="colorDialogTest">#02d4a6</color>
+    <color name="colorDialogTest2">#ffd000</color>
+    <color name="white">#FFFFFF</color>
+</resources>
