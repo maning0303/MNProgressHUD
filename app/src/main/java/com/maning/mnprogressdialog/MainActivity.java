@@ -18,6 +18,8 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String text01 = "从前有坐山,山上有坐庙,庙里有个老和尚在讲故事,讲的什么啊,从前有座山,山里有座庙,庙里有个盆,盆里有个锅,锅里有个碗,碗里有个匙,匙里有个花生仁,我吃了,你谗了,我的故事讲完了.";
+
     private Context mContext;
 
     private Handler mHandler = new Handler();
@@ -152,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void showProgressDialog02() {
         configDialogDefault();
-        mMProgressDialog.show("我是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文案");
+        mMProgressDialog.show(text01);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -242,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setBackgroundStrokeWidth(1)
                 .setBackgroundCornerRadius(10)
                 .build();
-        MToast.makeTextShort(mContext, "我是很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长自定义Toast", config).show();
+        MToast.makeTextShort(mContext, text01, config).show();
     }
 
     private void showToastCustom2() {
@@ -252,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setBackgroundColor(getMyColor(R.color.colorDialogTest))
                 .setBackgroundCornerRadius(10)
                 .build();
-        MToast.makeTextShort(mContext, "我是很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长自定义Toast", config).show();
+        MToast.makeTextShort(mContext, text01, config).show();
     }
 
     private void showToastCustom() {
@@ -283,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showStatusDialog03() {
         mMStatusDialog = new MStatusDialog(this);
-        mMStatusDialog.showHint("您已经成为了金卡会员,恭喜!!您已经成为了金卡会员,恭喜!!您已经成为了金卡会员,恭喜!!您已经成为了金卡会员,恭喜!!");
+        mMStatusDialog.showHint(text01);
     }
 
     private void showStatusDialog04() {
