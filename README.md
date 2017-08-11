@@ -12,8 +12,8 @@
 ### MStatusDialog
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_004.png)
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_005.png)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_006.png)
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_007.png)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_008.png)
 
 ### MSToast
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_toast_001.png)
