@@ -12,8 +12,6 @@
 ### MStatusDialog
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_004.png)
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_005.png)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_007.png)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_008.png)
 
 ### MSToast
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_toast_001.png)
@@ -140,3 +138,4 @@ Name | Describe |
 [MNZXingCode](https://github.com/maning0303/MNZXingCode) | 快速集成二维码扫描和生成二维码 |
 [MNChangeSkin](https://github.com/maning0303/MNChangeSkin) | Android夜间模式，通过Theme实现 |
 [SwitcherView](https://github.com/maning0303/SwitcherView) | 垂直滚动的广告栏文字展示。 |
+
