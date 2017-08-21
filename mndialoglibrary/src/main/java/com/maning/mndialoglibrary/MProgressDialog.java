@@ -80,6 +80,11 @@ public class MProgressDialog implements View.OnClickListener {
         tv_show.setText(defaultTextShow);
 
         //设置默认配置
+        configView();
+
+    }
+
+    private void configView() {
         mDialog.setCanceledOnTouchOutside(mBuilder.canceledOnTouchOutside);
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
 
@@ -95,7 +100,11 @@ public class MProgressDialog implements View.OnClickListener {
         progress_wheel.setRimWidth(mBuilder.progressRimWidth);
 
         tv_show.setTextColor(mBuilder.textColor);
+    }
 
+    public void refreshBuilder(Builder builder) {
+        mBuilder = builder;
+        configView();
     }
 
     public void show() {

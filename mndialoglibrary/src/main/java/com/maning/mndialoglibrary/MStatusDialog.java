@@ -30,6 +30,7 @@ public class MStatusDialog {
 
     private Builder mBuilder;
 
+    private RelativeLayout dialog_window_background;
     private RelativeLayout dialog_view_bg;
     private ImageView imageStatus;
     private TextView tvShow;
@@ -67,19 +68,32 @@ public class MStatusDialog {
         mDialog.getWindow().setAttributes(layoutParams);
 
         //获取布局
+        dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
         dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
         imageStatus = (ImageView) mProgressDialogView.findViewById(R.id.imageStatus);
         tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
 
         //默认配置
+        configView();
+
+    }
+
+    private void configView() {
+        dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
         tvShow.setTextColor(mBuilder.textColor);
         GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
         myGrad.setColor(mBuilder.backgroundViewColor);
         myGrad.setStroke(dip2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
         myGrad.setCornerRadius(dip2px(mContext, mBuilder.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
-
     }
+
+
+    public void refreshBuilder(Builder builder) {
+        mBuilder = builder;
+        configView();
+    }
+
 
     public void show(String msg, Drawable drawable) {
         show(msg, drawable, 2000);

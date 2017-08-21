@@ -99,22 +99,16 @@
 ### 2:MStatusDialog 状态Dialog代码使用:
 ``` java
 
-                MStatusDialog mMStatusDialog = new MStatusDialog(this);
-                //背景色
-                mMStatusDialog.setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2));
-                //文字的颜色
-                mMStatusDialog.setTextColor(getMyColor(R.color.colorAccent));
-                //背景View的圆角大小db
-                mMStatusDialog.setBackgroundViewCornerRadius(2);
-                //背景View的边框大小和颜色
-                mMStatusDialog.setBackgroundViewStrokeWidthAndColor(2, getMyColor(R.color.white));
-
-
-                //四种显示:
-                mMStatusDialog.showSuccess("***");
-                mMStatusDialog.showError("***");
-                mMStatusDialog.showHint("***");
-                mMStatusDialog.showCustom(mContext.getResources().getDrawable(R.mipmap.ic_launcher), "自定义图片和颜色");
+        MStatusDialog mMStatusDialog = new MStatusDialog.Builder(mContext)
+                //
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                .setTextColor(getMyColor(R.color.colorAccent))
+                .setStrokeColor(getMyColor(R.color.white))
+                .setStrokeWidth(2)
+                .setCornerRadius(10)
+                .build();
+        mMStatusDialog.show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
 
 ```
 
