@@ -133,7 +133,7 @@ public class MStatusDialog {
         public Builder(Context context) {
             mContext = context;
             //默认配置
-            backgroundWindowColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
+            backgroundWindowColor = mContext.getResources().getColor(R.color.mn_colorDialogWindowBg);
             backgroundViewColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
             strokeColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
             textColor = mContext.getResources().getColor(R.color.mn_colorDialogTextColor);

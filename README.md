@@ -1,5 +1,5 @@
 # MNProgressDialog [![](https://jitpack.io/v/maning0303/MNProgressHUD.svg)](https://jitpack.io/#maning0303/MNProgressHUD)
-一个常用的自定义弹框封装,加载ProgressDialog,状态显示的StatusDialog和自定义Toast,全部支持背景颜色,圆角,边框和文字的自定义。
+一个常用的自定义弹框封装,加载ProgressDialog,状态显示的StatusDialog和自定义Toast,全部支持背景颜色,圆角,边框和文字的自定义,构建者模式,链式调用。
 
 
 ## 截图：
@@ -38,7 +38,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.0.0'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.0.1'
 	}
 ```
 
@@ -57,42 +57,27 @@
 ### 1:MProgressDialog 加载Dialog代码使用:
 ``` java
 
-        //新建一个ProgressDialog
-        MProgressDialog mMProgressDialog = new MProgressDialog(this);
-        //设置点击外面消失
-        mMProgressDialog.setCanceledOnTouchOutside(false);
-        //设置窗体的背景色
-        mMProgressDialog.setBackgroundWindowColor(color01);
-        //设置ProgressDialog的背景色
-        mMProgressDialog.setBackgroundViewColor(color02);
-        //设置Progress颜色
-        mMProgressDialog.setProgressColor(color03);
-        //设置Progress宽度(db)
-        mMProgressDialog.setProgressWidth(progressWidth);
-        //设置文本的颜色
-        mMProgressDialog.setDialogTextColor(color04);
-        //设置ProgressDialog的背景的圆角大小(db)
-        mMProgressDialog.setBackgroundViewCornerRadius(cornerRadius);
-        //设置内圈的颜色
-        mMProgressDialog.setProgressRimColor(getMyColor(R.color.colorDialogProgressRimColor));
-        //设置内圈的宽度
-        mMProgressDialog.setProgressRimWidth(1);
-
-        //加载显示
+        //新建一个Dialog
+        mMProgressDialog = new MProgressDialog.Builder(this)
+                .isCanceledOnTouchOutside(true)
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
+                .setCornerRadius(20)
+                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
+                .setProgressWidth(3)
+                .setStrokeColor(getMyColor(R.color.colorAccent))
+                .setStrokeWidth(2)
+                .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
+                    @Override
+                    public void dismiss() {
+                        //关闭监听
+                    }
+                })
+                .build()
+        ;
         mMProgressDialog.show();
-        //mMProgressDialog.showNoText();
-        //mMProgressDialog.show("自定义文案");
 
-        //进度显示(0~1.0)
-        mMProgressDialog.setDialogProgress(0.5);
-
-        //Dialog消失的监听
-        mMProgressDialog.setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-            @Override
-            public void dismiss() {
-
-            }
-        });
 
 ```
 
