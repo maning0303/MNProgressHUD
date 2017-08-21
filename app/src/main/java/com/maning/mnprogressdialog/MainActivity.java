@@ -87,34 +87,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void configDialogDefault() {
         //新建一个Dialog
-        mMProgressDialog = new MProgressDialog(this);
-        mMProgressDialog.setCanceledOnTouchOutside(true);
-        mMProgressDialog.setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-            @Override
-            public void dismiss() {
-                mHandler.removeCallbacksAndMessages(null);
-            }
-        });
-    }
-
-    private void configDialogCustom() {
-        //新建一个Dialog
-        mMProgressDialog = new MProgressDialog(this);
-
-        mMProgressDialog.setCanceledOnTouchOutside(true);
-        mMProgressDialog.setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg));
-        mMProgressDialog.setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg));
-        mMProgressDialog.setProgressColor(getMyColor(R.color.colorDialogProgressBarColor));
-        mMProgressDialog.setDialogTextColor(getMyColor(R.color.colorDialogTextColor));
-        mMProgressDialog.setProgressWidth(3);
-        mMProgressDialog.setBackgroundViewCornerRadius(20);
-        mMProgressDialog.setBackgroundViewStrokeWidthAndColor(2, getMyColor(R.color.colorAccent));
-        mMProgressDialog.setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-            @Override
-            public void dismiss() {
-                mHandler.removeCallbacksAndMessages(null);
-            }
-        });
+        mMProgressDialog = new MProgressDialog.Builder(mContext)
+                .isCanceledOnTouchOutside(true)
+                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
+                    @Override
+                    public void dismiss() {
+                        mHandler.removeCallbacksAndMessages(null);
+                    }
+                })
+                .build();
     }
 
 
@@ -123,16 +104,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void configDialogWithProgress() {
         //新建一个Dialog
-        mMProgressDialog = new MProgressDialog(this);
-        mMProgressDialog.setProgressRimColor(getMyColor(R.color.colorDialogProgressRimColor));
-        mMProgressDialog.setProgressRimWidth(1);
-
-        mMProgressDialog.setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-            @Override
-            public void dismiss() {
-                mHandler.removeCallbacksAndMessages(null);
-            }
-        });
+        mMProgressDialog = new MProgressDialog.Builder(mContext)
+                .isCanceledOnTouchOutside(true)
+                .setProgressRimColor(getMyColor(R.color.colorDialogProgressRimColor))
+                .setProgressRimWidth(1)
+                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
+                    @Override
+                    public void dismiss() {
+                        mHandler.removeCallbacksAndMessages(null);
+                    }
+                })
+                .build();
     }
 
 
@@ -142,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void showProgressDialog01() {
-        configDialogDefault();
+        mMProgressDialog = new MProgressDialog(mContext);
         mMProgressDialog.show();
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -175,7 +157,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void showProgressDialog04() {
-        configDialogCustom();
+//        configDialogCustom();
+
+        //新建一个Dialog
+        mMProgressDialog = new MProgressDialog.Builder(this)
+                .isCanceledOnTouchOutside(true)
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
+                .setCornerRadius(20)
+                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
+                .setProgressWidth(3)
+                .setStrokeColor(getMyColor(R.color.colorAccent))
+                .setStrokeWidth(2)
+                .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
+                    @Override
+                    public void dismiss() {
+                        mHandler.removeCallbacksAndMessages(null);
+                        MToast.makeTextShort(mContext, "Dialog消失了").show();
+                    }
+                })
+                .build()
+        ;
         mMProgressDialog.show();
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -302,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TimerTask task;
 
     private void initTimer() {
+        destroyTimer();
         timer = new Timer();
         task = new TimerTask() {
             @Override
@@ -311,15 +315,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
                         if (currentProgress < 1.0f) {
                             int pro = (int) (currentProgress * 100);
-                            mMProgressDialog.setDialogText("视频下载进度: " + pro + "%");
-                            mMProgressDialog.setDialogProgress(currentProgress);
+                            mMProgressDialog.setDialogProgress(currentProgress, "视频下载进度: " + pro + "%");
 
                             currentProgress += 0.1;
                         } else {
                             destroyTimer();
                             currentProgress = 0.0f;
-                            mMProgressDialog.setDialogProgress(1.0f);
-                            mMProgressDialog.setDialogText("完成");
+                            mMProgressDialog.setDialogProgress(1.0f, "完成");
                             //关闭
                             mHandler.postDelayed(new Runnable() {
                                 @Override
@@ -337,10 +339,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void destroyTimer() {
-        timer.cancel();
-        task.cancel();
-        timer = null;
-        task = null;
+        if (timer != null && task != null) {
+            timer.cancel();
+            task.cancel();
+            timer = null;
+            task = null;
+        }
     }
 
 }
