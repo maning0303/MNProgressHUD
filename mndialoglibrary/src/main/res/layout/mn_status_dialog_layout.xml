@@ -35,7 +35,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/mn_icon_dialog_ok"
                 />
 
             <TextView

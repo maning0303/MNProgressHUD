@@ -19,12 +19,15 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String text01 = "从前有坐山,山上有坐庙,庙里有个老和尚在讲故事,讲的什么啊,从前有座山,山里有座庙,庙里有个盆,盆里有个锅,锅里有个碗,碗里有个匙,匙里有个花生仁,我吃了,你谗了,我的故事讲完了.";
-
     private Context mContext;
-
     private Handler mHandler = new Handler();
 
+
     private MProgressDialog mMProgressDialog;
+    private float currentProgress = 0.0f;
+    private Timer timer;
+    private TimerTask task;
+
 
     private MStatusDialog mMStatusDialog;
 
@@ -35,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn05;
     private Button btn06;
     private Button btn07;
-    private Button btn08;
-    private Button btn09;
     private Button btn10;
     private Button btn11;
     private Button btn12;
@@ -63,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn05 = (Button) findViewById(R.id.btn05);
         btn06 = (Button) findViewById(R.id.btn06);
         btn07 = (Button) findViewById(R.id.btn07);
-        btn08 = (Button) findViewById(R.id.btn08);
-        btn09 = (Button) findViewById(R.id.btn09);
         btn10 = (Button) findViewById(R.id.btn10);
         btn11 = (Button) findViewById(R.id.btn11);
         btn12 = (Button) findViewById(R.id.btn12);
@@ -77,13 +76,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn05.setOnClickListener(this);
         btn06.setOnClickListener(this);
         btn07.setOnClickListener(this);
-        btn08.setOnClickListener(this);
-        btn09.setOnClickListener(this);
         btn10.setOnClickListener(this);
         btn11.setOnClickListener(this);
         btn12.setOnClickListener(this);
         btn13.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn01:
+                showProgressDialog01();
+                break;
+            case R.id.btn02:
+                showProgressDialog02();
+                break;
+            case R.id.btn03:
+                showProgressDialog03();
+                break;
+            case R.id.btn04:
+                showProgressDialog04();
+                break;
+            case R.id.btn05:
+                showProgressDialog05();
+                break;
+            case R.id.btn06:
+                showStatusDialog01();
+                break;
+            case R.id.btn07:
+                showStatusDialog02();
+                break;
+            case R.id.btn10:
+                showToast();
+                break;
+            case R.id.btn11:
+                showToastCustom();
+                break;
+            case R.id.btn12:
+                showToastCustom2();
+                break;
+            case R.id.btn13:
+                showToastCustom3();
+                break;
+        }
+    }
+
+
+    /**
+     * --------------------MProgressDialog start -------------------
+     */
 
     private void configDialogDefault() {
         //新建一个Dialog
@@ -126,39 +167,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void showProgressDialog01() {
         mMProgressDialog = new MProgressDialog(mContext);
         mMProgressDialog.show();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMProgressDialog.dismiss();
-            }
-        }, 3000);
+        //延时关闭
+        delayDismissProgressDialog();
     }
 
     public void showProgressDialog02() {
         configDialogDefault();
         mMProgressDialog.show(text01);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMProgressDialog.dismiss();
-            }
-        }, 3000);
+        //延时关闭
+        delayDismissProgressDialog();
     }
 
     public void showProgressDialog03() {
         configDialogDefault();
         mMProgressDialog.showNoText();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMProgressDialog.dismiss();
-            }
-        }, 3000);
+        //延时关闭
+        delayDismissProgressDialog();
     }
 
     public void showProgressDialog04() {
-//        configDialogCustom();
-
         //新建一个Dialog
         mMProgressDialog = new MProgressDialog.Builder(this)
                 .isCanceledOnTouchOutside(true)
@@ -180,12 +207,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build()
         ;
         mMProgressDialog.show();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMProgressDialog.dismiss();
-            }
-        }, 3000);
+        //延时关闭
+        delayDismissProgressDialog();
     }
 
 
@@ -194,115 +217,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMProgressDialog.showWithProgress();
         initTimer();
     }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn01:
-                showProgressDialog01();
-                break;
-            case R.id.btn02:
-                showProgressDialog02();
-                break;
-            case R.id.btn03:
-                showProgressDialog03();
-                break;
-            case R.id.btn04:
-                showProgressDialog04();
-                break;
-            case R.id.btn05:
-                showProgressDialog05();
-                break;
-            case R.id.btn06:
-                showStatusDialog01();
-                break;
-            case R.id.btn07:
-                showStatusDialog02();
-                break;
-            case R.id.btn08:
-                showStatusDialog03();
-                break;
-            case R.id.btn09:
-                showStatusDialog04();
-                break;
-            case R.id.btn10:
-                showToast();
-                break;
-            case R.id.btn11:
-                showToastCustom();
-                break;
-            case R.id.btn12:
-                showToastCustom2();
-                break;
-            case R.id.btn13:
-                showToastCustom3();
-                break;
-        }
-    }
-
-    private void showToastCustom3() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setBackgroundStrokeColor(Color.WHITE)
-                .setBackgroundStrokeWidth(1)
-                .setBackgroundCornerRadius(10)
-                .build();
-        MToast.makeTextShort(mContext, text01, config).show();
-    }
-
-    private void showToastCustom2() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setGravity(MToastConfig.MToastGravity.CENTRE)
-                .setTextColor(getMyColor(R.color.colorAccent))
-                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
-                .setBackgroundCornerRadius(10)
-                .build();
-        MToast.makeTextShort(mContext, text01, config).show();
-    }
-
-    private void showToastCustom() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setTextColor(getMyColor(R.color.white))
-                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
-                .setToastIcon(mContext.getResources().getDrawable(R.mipmap.ic_launcher))
-                .build();
-        MToast.makeTextShort(mContext, "我是自定义Toast", config).show();
-
-    }
-
-    private void showToast() {
-        MToast.makeTextShort(mContext, "我是默认Toast").show();
-    }
-
-
-    private void showStatusDialog01() {
-        mMStatusDialog = new MStatusDialog(this);
-        mMStatusDialog.showSuccess("保存成功");
-    }
-
-    private void showStatusDialog02() {
-        mMStatusDialog = new MStatusDialog(this);
-        mMStatusDialog.setImageTintColor(getMyColor(R.color.colorAccent));
-        mMStatusDialog.showError("提交数据失败,请重新尝试!,这个图片颜色可以随意替换");
-    }
-
-    private void showStatusDialog03() {
-        mMStatusDialog = new MStatusDialog(this);
-        mMStatusDialog.showHint(text01);
-    }
-
-    private void showStatusDialog04() {
-        mMStatusDialog = new MStatusDialog(this);
-        mMStatusDialog.setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2));
-        mMStatusDialog.setTextColor(getMyColor(R.color.colorAccent));
-        mMStatusDialog.setBackgroundViewCornerRadius(2);
-        mMStatusDialog.setBackgroundViewStrokeWidthAndColor(2, getMyColor(R.color.white));
-        mMStatusDialog.showCustom(mContext.getResources().getDrawable(R.mipmap.ic_launcher), "自定义图片和颜色");
-    }
-
-    private float currentProgress = 0.0f;
-    private Timer timer;
-    private TimerTask task;
 
     private void initTimer() {
         destroyTimer();
@@ -346,5 +260,83 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             task = null;
         }
     }
+
+    private void delayDismissProgressDialog() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMProgressDialog.dismiss();
+            }
+        }, 3000);
+    }
+
+
+    /** --------------------MProgressDialog end ------------------- */
+
+
+    /**
+     * --------------------MToast start -------------------
+     */
+
+    private void showToastCustom3() {
+        MToastConfig config = new MToastConfig.Builder()
+                .setBackgroundStrokeColor(Color.WHITE)
+                .setBackgroundStrokeWidth(1)
+                .setBackgroundCornerRadius(10)
+                .build();
+        MToast.makeTextShort(mContext, text01, config).show();
+    }
+
+    private void showToastCustom2() {
+        MToastConfig config = new MToastConfig.Builder()
+                .setGravity(MToastConfig.MToastGravity.CENTRE)
+                .setTextColor(getMyColor(R.color.colorAccent))
+                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                .setBackgroundCornerRadius(10)
+                .build();
+        MToast.makeTextShort(mContext, text01, config).show();
+    }
+
+    private void showToastCustom() {
+        MToastConfig config = new MToastConfig.Builder()
+                .setTextColor(getMyColor(R.color.white))
+                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                .setToastIcon(mContext.getResources().getDrawable(R.mipmap.ic_launcher))
+                .build();
+        MToast.makeTextShort(mContext, "我是自定义Toast", config).show();
+
+    }
+
+    private void showToast() {
+        MToast.makeTextShort(mContext, "我是默认Toast").show();
+    }
+
+
+    /** --------------------MToast start ------------------- */
+
+
+    /**
+     * --------------------MStatusDialog start -------------------
+     */
+
+    private void showStatusDialog01() {
+        mMStatusDialog = new MStatusDialog(this);
+        mMStatusDialog.show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+    }
+
+    private void showStatusDialog02() {
+        mMStatusDialog = new MStatusDialog.Builder(mContext)
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                .setTextColor(getMyColor(R.color.colorAccent))
+                .setStrokeColor(getMyColor(R.color.white))
+                .setStrokeWidth(2)
+                .setCornerRadius(10)
+                .build();
+        mMStatusDialog.show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
+    }
+
+    /** --------------------MStatusDialog end ------------------- */
+
 
 }

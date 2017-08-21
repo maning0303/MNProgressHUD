@@ -99,7 +99,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:stateListAnimator="@null"
-                android:text="Success显示"
+                android:text="默认提示Dialog"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"/>
 
@@ -111,43 +111,10 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:stateListAnimator="@null"
-                android:text="Error显示"
+                android:text="自定义提示Dialog"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"/>
 
-
-            <Button
-                android:id="@+id/btn08"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:stateListAnimator="@null"
-                android:text="Info显示"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            >
-
-            <Button
-                android:id="@+id/btn09"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:stateListAnimator="@null"
-                android:text="自定义图片"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
 
         </LinearLayout>
 

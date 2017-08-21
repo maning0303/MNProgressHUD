@@ -3,10 +3,10 @@ package com.maning.mndialoglibrary;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,14 +28,19 @@ public class MStatusDialog {
     private Context mContext;
     private Dialog mDialog;
 
+    private Builder mBuilder;
+
     private RelativeLayout dialog_view_bg;
     private ImageView imageStatus;
     private TextView tvShow;
 
-    private int imageTintColor;
-
     public MStatusDialog(Context context) {
+        this(context, new Builder(context));
+    }
+
+    public MStatusDialog(Context context, Builder builder) {
         mContext = context;
+        mBuilder = builder;
         //初始化
         initDialog();
     }
@@ -67,44 +72,21 @@ public class MStatusDialog {
         tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
 
         //默认配置
-        setBackgroundViewCornerRadius(6);
-        setTextColor(mContext.getResources().getColor(R.color.mn_colorDialogTextColor));
-        setBackgroundViewColor(mContext.getResources().getColor(R.color.mn_colorDialogViewBg));
-        setBackgroundViewStrokeWidthAndColor(0.0f, mContext.getResources().getColor(R.color.mn_colorDialogTrans));
-        setImageTintColor(mContext.getResources().getColor(R.color.mn_colorDialogImageTintColor));
+        tvShow.setTextColor(mBuilder.textColor);
+        GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
+        myGrad.setColor(mBuilder.backgroundViewColor);
+        myGrad.setStroke(dip2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
+        myGrad.setCornerRadius(dip2px(mContext, mBuilder.cornerRadius));
+        dialog_view_bg.setBackground(myGrad);
+
     }
 
-    private void setImageShow(int flag) {
-        if (flag == 1) {
-            imageStatus.setImageResource(R.drawable.mn_icon_dialog_ok);
-        } else if (flag == 2) {
-            imageStatus.setImageResource(R.drawable.mn_icon_dialog_error);
-        } else if (flag == 3) {
-            imageStatus.setImageResource(R.drawable.mn_icon_dialog_hint);
-        }
+    public void show(String msg, Drawable drawable) {
+        show(msg, drawable, 2000);
     }
 
-    public void showSuccess(String msg) {
-        setImageShow(1);
-        show(msg);
-    }
-
-    public void showError(String msg) {
-        setImageShow(2);
-        show(msg);
-    }
-
-    public void showHint(String msg) {
-        setImageShow(3);
-        show(msg);
-    }
-
-    public void showCustom(Drawable customDrawable, String msg) {
-        imageStatus.setImageDrawable(customDrawable);
-        show(msg);
-    }
-
-    private void show(String msg) {
+    public void show(String msg, Drawable drawable, long delayMillis) {
+        imageStatus.setImageDrawable(drawable);
         tvShow.setText(msg);
         mDialog.show();
         mHandler.postDelayed(new Runnable() {
@@ -113,51 +95,73 @@ public class MStatusDialog {
                 mDialog.dismiss();
                 mHandler.removeCallbacksAndMessages(null);
             }
-        }, 2000);
+        }, delayMillis);
     }
 
-    private int getColor(String colorStr) {
-        int color = Color.parseColor(colorStr);
-        return color;
-    }
 
-    //设置颜色
-    public void setBackgroundViewColor(int colorID) {
-        GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
-        myGrad.setColor(colorID);
-        dialog_view_bg.setBackground(myGrad);
-    }
+    public static final class Builder {
 
-    public void setBackgroundViewColor(String colorStr) {
-        GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
-        myGrad.setColor(getColor(colorStr));
-        dialog_view_bg.setBackground(myGrad);
-    }
+        private Context mContext;
 
-    //设置边框的颜色和宽度
-    public void setBackgroundViewStrokeWidthAndColor(float width, int colorID) {
-        GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
-        myGrad.setStroke(dip2px(mContext, width), colorID);
-        dialog_view_bg.setBackground(myGrad);
-    }
+        //窗体背景色
+        int backgroundWindowColor;
+        //View背景色
+        int backgroundViewColor;
+        //View边框的颜色
+        int strokeColor;
+        //View背景圆角
+        float cornerRadius;
+        //View边框的宽度
+        float strokeWidth;
+        //文字的颜色
+        int textColor;
 
-    /**
-     * 设置圆角
-     * @param radius 圆角
-     */
-    public void setBackgroundViewCornerRadius(float radius) {
-        /*设置圆角*/
-        GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
-        myGrad.setCornerRadius(dip2px(mContext, radius));
-        dialog_view_bg.setBackground(myGrad);
-    }
+        public Builder(Context context) {
+            mContext = context;
+            //默认配置
+            backgroundWindowColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
+            backgroundViewColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
+            strokeColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
+            textColor = mContext.getResources().getColor(R.color.mn_colorDialogTextColor);
+            cornerRadius = 6;
+            strokeWidth = 0;
+        }
 
-    public void setImageTintColor(int colorID) {
-        imageTintColor = colorID;
-    }
+        public MStatusDialog build() {
+            return new MStatusDialog(mContext, this);
+        }
 
-    public void setTextColor(int colorID) {
-        tvShow.setTextColor(colorID);
+
+        public Builder setBackgroundWindowColor(@Nullable int backgroundWindowColor) {
+            this.backgroundWindowColor = backgroundWindowColor;
+            return this;
+        }
+
+        public Builder setBackgroundViewColor(@Nullable int backgroundViewColor) {
+            this.backgroundViewColor = backgroundViewColor;
+            return this;
+        }
+
+        public Builder setStrokeColor(@Nullable int strokeColor) {
+            this.strokeColor = strokeColor;
+            return this;
+        }
+
+        public Builder setStrokeWidth(@Nullable float strokeWidth) {
+            this.strokeWidth = strokeWidth;
+            return this;
+        }
+
+        public Builder setCornerRadius(@Nullable float cornerRadius) {
+            this.cornerRadius = cornerRadius;
+            return this;
+        }
+
+        public Builder setTextColor(@Nullable int textColor) {
+            this.textColor = textColor;
+            return this;
+        }
+
     }
 
 }

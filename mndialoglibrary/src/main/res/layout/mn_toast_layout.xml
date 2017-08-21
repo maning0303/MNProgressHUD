@@ -26,7 +26,6 @@
             android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/mn_icon_dialog_hint"
             />
 
         <TextView
