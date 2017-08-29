@@ -81,6 +81,7 @@ public class MStatusDialog {
     private void configView() {
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
         tvShow.setTextColor(mBuilder.textColor);
+
         GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
         myGrad.setColor(mBuilder.backgroundViewColor);
         myGrad.setStroke(dip2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);

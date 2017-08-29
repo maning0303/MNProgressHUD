@@ -239,7 +239,9 @@ public class MProgressDialog implements View.OnClickListener {
             cornerRadius = 6;
             strokeWidth = 0;
             progressColor = mContext.getResources().getColor(R.color.mn_colorDialogProgressBarColor);
+            progressRimColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
             progressWidth = 2;
+            progressRimWidth = 0;
             textColor = mContext.getResources().getColor(R.color.mn_colorDialogTextColor);
             dialogDismissListener = null;
         }

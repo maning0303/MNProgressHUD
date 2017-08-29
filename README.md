@@ -36,7 +36,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.0.1'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.0.2'
 	}
 ```
 
@@ -57,19 +57,34 @@
 
         //新建一个Dialog
         mMProgressDialog = new MProgressDialog.Builder(this)
+                //点击外部是否可以取消
                 .isCanceledOnTouchOutside(true)
+                //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                //View背景的颜色
                 .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
+                //View背景的圆角
                 .setCornerRadius(20)
-                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
-                .setProgressWidth(3)
+                //View 边框的颜色
                 .setStrokeColor(getMyColor(R.color.colorAccent))
+                //View 边框的宽度
                 .setStrokeWidth(2)
+                //Progress 颜色
+                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
+                //Progress 宽度
+                .setProgressWidth(3)
+                //Progress 内圈颜色
+                .setProgressRimColor(Color.YELLOW)
+                //Progress 内圈宽度
+                .setProgressRimWidth(2)
+                //文字的颜色
                 .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                //取消的监听
                 .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
                     @Override
                     public void dismiss() {
-                        //关闭监听
+                        mHandler.removeCallbacksAndMessages(null);
+                        MToast.makeTextShort(mContext, "Dialog消失了").show();
                     }
                 })
                 .build()
@@ -83,14 +98,19 @@
 ``` java
 
         MStatusDialog mMStatusDialog = new MStatusDialog.Builder(mContext)
-                //
-                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
-                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
-                .setTextColor(getMyColor(R.color.colorAccent))
-                .setStrokeColor(getMyColor(R.color.white))
-                .setStrokeWidth(2)
-                .setCornerRadius(10)
-                .build();
+                        //全屏背景窗体的颜色
+                        .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                        //View背景的颜色
+                        .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                        //字体的颜色
+                        .setTextColor(getMyColor(R.color.colorAccent))
+                        //View边框的颜色
+                        .setStrokeColor(getMyColor(R.color.white))
+                        //View边框的宽度
+                        .setStrokeWidth(2)
+                        //View圆角大小
+                        .setCornerRadius(10)
+                        .build();
         mMStatusDialog.show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
 
 ```

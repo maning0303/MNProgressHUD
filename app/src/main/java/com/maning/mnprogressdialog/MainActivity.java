@@ -188,15 +188,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void showProgressDialog04() {
         //新建一个Dialog
         mMProgressDialog = new MProgressDialog.Builder(this)
+                //点击外部是否可以取消
                 .isCanceledOnTouchOutside(true)
+                //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                //View背景的颜色
                 .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
+                //View背景的圆角
                 .setCornerRadius(20)
-                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
-                .setProgressWidth(3)
+                //View 边框的颜色
                 .setStrokeColor(getMyColor(R.color.colorAccent))
+                //View 边框的宽度
                 .setStrokeWidth(2)
+                //Progress 颜色
+                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
+                //Progress 宽度
+                .setProgressWidth(3)
+                //Progress 内圈颜色
+                .setProgressRimColor(Color.YELLOW)
+                //Progress 内圈宽度
+                .setProgressRimWidth(4)
+                //文字的颜色
                 .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                //取消的监听
                 .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
                     @Override
                     public void dismiss() {
@@ -326,11 +340,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showStatusDialog02() {
         mMStatusDialog = new MStatusDialog.Builder(mContext)
+                //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                //View背景的颜色
                 .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                //字体的颜色
                 .setTextColor(getMyColor(R.color.colorAccent))
+                //View边框的颜色
                 .setStrokeColor(getMyColor(R.color.white))
+                //View边框的宽度
                 .setStrokeWidth(2)
+                //View圆角大小
                 .setCornerRadius(10)
                 .build();
         mMStatusDialog.show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
