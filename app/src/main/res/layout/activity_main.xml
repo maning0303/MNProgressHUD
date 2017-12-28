@@ -67,17 +67,6 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"/>
 
-        <Button
-            android:id="@+id/btn05"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:stateListAnimator="@null"
-            android:text="带进度条的显示"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"/>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"

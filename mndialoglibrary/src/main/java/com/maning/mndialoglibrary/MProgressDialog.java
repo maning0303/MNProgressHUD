@@ -107,6 +107,10 @@ public class MProgressDialog implements View.OnClickListener {
         configView();
     }
 
+    public boolean isShowing() {
+        return mDialog.isShowing();
+    }
+
     public void show() {
         dismiss();
         tv_show.setVisibility(View.VISIBLE);
@@ -149,19 +153,6 @@ public class MProgressDialog implements View.OnClickListener {
         }
     }
 
-    public void showWithProgress() {
-        dismiss();
-        progress_wheel.stopSpinning();
-        progress_wheel.setLinearProgress(true);
-        progress_wheel.setProgress(0.0f);
-        tv_show.setVisibility(View.VISIBLE);
-        tv_show.setText(defaultTextShow);
-        if (mDialog != null) {
-            mDialog.show();
-        }
-    }
-
-
     /**
      * dp 的单位 转成为 px(像素)
      */
@@ -187,14 +178,6 @@ public class MProgressDialog implements View.OnClickListener {
 
     public void setOnDialogDismissListener(OnDialogDismissListener dialogDismissListener) {
         mBuilder.dialogDismissListener = dialogDismissListener;
-    }
-
-
-    //---------------------分割线----------------------带有进度条的Dialog
-
-    public void setDialogProgress(float progress, String dialogText) {
-        progress_wheel.setProgress(progress);
-        tv_show.setText(dialogText);
     }
 
 

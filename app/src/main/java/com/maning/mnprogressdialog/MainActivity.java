@@ -24,10 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private MProgressDialog mMProgressDialog;
-    private float currentProgress = 0.0f;
-    private Timer timer;
-    private TimerTask task;
-
 
     private MStatusDialog mMStatusDialog;
 
@@ -35,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn02;
     private Button btn03;
     private Button btn04;
-    private Button btn05;
     private Button btn06;
     private Button btn07;
     private Button btn10;
@@ -61,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn02 = (Button) findViewById(R.id.btn02);
         btn03 = (Button) findViewById(R.id.btn03);
         btn04 = (Button) findViewById(R.id.btn04);
-        btn05 = (Button) findViewById(R.id.btn05);
         btn06 = (Button) findViewById(R.id.btn06);
         btn07 = (Button) findViewById(R.id.btn07);
         btn10 = (Button) findViewById(R.id.btn10);
@@ -73,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn02.setOnClickListener(this);
         btn03.setOnClickListener(this);
         btn04.setOnClickListener(this);
-        btn05.setOnClickListener(this);
         btn06.setOnClickListener(this);
         btn07.setOnClickListener(this);
         btn10.setOnClickListener(this);
@@ -96,9 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn04:
                 showProgressDialog04();
-                break;
-            case R.id.btn05:
-                showProgressDialog05();
                 break;
             case R.id.btn06:
                 showStatusDialog01();
@@ -138,26 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 })
                 .build();
     }
-
-
-    /**
-     * 带有下载进度的显示
-     */
-    private void configDialogWithProgress() {
-        //新建一个Dialog
-        mMProgressDialog = new MProgressDialog.Builder(mContext)
-                .isCanceledOnTouchOutside(true)
-                .setProgressRimColor(getMyColor(R.color.colorDialogProgressRimColor))
-                .setProgressRimWidth(1)
-                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-                    @Override
-                    public void dismiss() {
-                        mHandler.removeCallbacksAndMessages(null);
-                    }
-                })
-                .build();
-    }
-
 
     private int getMyColor(int colorID) {
         return mContext.getResources().getColor(colorID);
@@ -223,56 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMProgressDialog.show();
         //延时关闭
         delayDismissProgressDialog();
-    }
-
-
-    public void showProgressDialog05() {
-        configDialogWithProgress();
-        mMProgressDialog.showWithProgress();
-        initTimer();
-    }
-
-    private void initTimer() {
-        destroyTimer();
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentProgress < 1.0f) {
-                            int pro = (int) (currentProgress * 100);
-                            mMProgressDialog.setDialogProgress(currentProgress, "视频下载进度: " + pro + "%");
-
-                            currentProgress += 0.1;
-                        } else {
-                            destroyTimer();
-                            currentProgress = 0.0f;
-                            mMProgressDialog.setDialogProgress(1.0f, "完成");
-                            //关闭
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mMProgressDialog.dismiss();
-
-                                }
-                            }, 500);
-                        }
-                    }
-                });
-            }
-        };
-        timer.schedule(task, 0, 1000); //延时1000ms后执行，1000ms执行一次
-    }
-
-    private void destroyTimer() {
-        if (timer != null && task != null) {
-            timer.cancel();
-            task.cancel();
-            timer = null;
-            task = null;
-        }
     }
 
     private void delayDismissProgressDialog() {
