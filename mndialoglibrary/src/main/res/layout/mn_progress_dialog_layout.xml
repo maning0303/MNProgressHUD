@@ -30,7 +30,7 @@
             android:paddingTop="10dp"
             >
 
-            <com.maning.mndialoglibrary.MProgressWheel
+            <com.maning.mndialoglibrary.view.MProgressWheel
                 android:id="@+id/progress_wheel"
                 android:layout_width="45dp"
                 android:layout_height="45dp"

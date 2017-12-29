@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  设置背景色  -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="2dp" />
+            <solid android:color="#b4b4b4" />
+        </shape>
+    </item>
+
+    <!--  设置二级进度条颜色  -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip
+            android:clipOrientation="horizontal"
+            >
+            <shape>
+                <corners android:radius="2dp" />
+                <solid android:color="#dae1e1e1" />
+            </shape>
+        </clip>
+    </item>
+
+    <!--  设置进度条颜色  -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="2dp" />
+                <solid android:color="#FFFFFF" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

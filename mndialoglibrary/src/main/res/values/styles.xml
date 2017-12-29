@@ -1,7 +1,7 @@
 <resources>
 
     <!-- 自定义Dialog -->
-    <style name="MNCustomProgressDialog" parent="@android:style/Theme.Dialog">
+    <style name="MNCustomDialog" parent="@android:style/Theme.Dialog">
         <!-- 无边框 -->
         <item name="android:windowFrame">@null</item>
         <!-- 是否浮现在activity之上 -->
@@ -26,6 +26,14 @@
         <attr name="mn_fillRadius" format="boolean" />
         <attr name="mn_barWidth" format="dimension" />
         <attr name="mn_linearProgress" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MNCircularProgressBar">
+        <attr name="mn_progress" format="integer" />
+        <attr name="mn_progressbar_color" format="color" />
+        <attr name="mn_background_progressbar_color" format="color" />
+        <attr name="mn_progressbar_width" format="dimension" />
+        <attr name="mn_background_progressbar_width" format="dimension" />
     </declare-styleable>
 
 </resources>

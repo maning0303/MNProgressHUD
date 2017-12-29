@@ -7,5 +7,9 @@
     <color name="mn_colorDialogTextColor">#ffffff</color>
     <color name="mn_colorDialogProgressBarColor">#ffffff</color>
     <color name="mn_colorDialogImageTintColor">#ffffff</color>
+    <!--进度条相关的颜色-->
+    <color name="mn_colorDialogProgressBarBgColor">#b4b4b4</color>
+    <color name="mn_colorDialogProgressBarProgressColor">#FFFFFF</color>
+    <color name="mn_colorDialogProgressBarSecondProgressColor">#ff9c9c</color>
 
 </resources>

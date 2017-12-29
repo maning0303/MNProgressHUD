@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.maning.mndialoglibrary.MProgressBarDialog;
 import com.maning.mndialoglibrary.MProgressDialog;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mndialoglibrary.MToast;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private MProgressDialog mMProgressDialog;
+    private MProgressBarDialog mProgressBarDialog;
 
     private MStatusDialog mMStatusDialog;
 
@@ -37,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn11;
     private Button btn12;
     private Button btn13;
+    private Button btn14;
+    private Button btn15;
+    private Button btn16;
+    private Button btn17;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn11 = (Button) findViewById(R.id.btn11);
         btn12 = (Button) findViewById(R.id.btn12);
         btn13 = (Button) findViewById(R.id.btn13);
+        btn14 = (Button) findViewById(R.id.btn14);
+        btn15 = (Button) findViewById(R.id.btn15);
+        btn16 = (Button) findViewById(R.id.btn16);
+        btn17 = (Button) findViewById(R.id.btn17);
 
         btn01.setOnClickListener(this);
         btn02.setOnClickListener(this);
@@ -73,6 +83,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn11.setOnClickListener(this);
         btn12.setOnClickListener(this);
         btn13.setOnClickListener(this);
+        btn14.setOnClickListener(this);
+        btn15.setOnClickListener(this);
+        btn16.setOnClickListener(this);
+        btn17.setOnClickListener(this);
     }
 
     @Override
@@ -108,9 +122,144 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn13:
                 showToastCustom3();
                 break;
+            case R.id.btn14:
+                configProgressbarHorizontalDialog();
+                initTimer();
+                break;
+            case R.id.btn15:
+                configProgressbarHorizontalDialog2();
+                initTimer();
+                break;
+            case R.id.btn16:
+                configProgressbarCircleDialog();
+                initTimer();
+                break;
+            case R.id.btn17:
+                configProgressbarCircleDialog2();
+                initTimer();
+                break;
+
         }
     }
 
+    /**
+     * --------------------MProgressBarDialog start -------------------
+     */
+    private void configProgressbarCircleDialog() {
+        //新建一个Dialog
+        mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
+                .build();
+    }
+
+    private void configProgressbarCircleDialog2() {
+        //新建一个Dialog
+        mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
+                //全屏背景窗体的颜色
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                //View背景的颜色
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                //字体的颜色
+                .setTextColor(getMyColor(R.color.colorAccent))
+                //View边框的颜色
+                .setStrokeColor(getMyColor(R.color.white))
+                //View边框的宽度
+                .setStrokeWidth(2)
+                //View圆角大小
+                .setCornerRadius(10)
+                //ProgressBar背景色
+                .setProgressbarBackgroundColor(Color.BLUE)
+                //ProgressBar 颜色
+                .setProgressColor(Color.GREEN)
+                //圆形内圈的宽度
+                .setCircleProgressBarWidth(2)
+                //圆形外圈的宽度
+                .setCircleProgressBarBackgroundWidth(6)
+                .build();
+    }
+
+    private void configProgressbarHorizontalDialog() {
+        //新建一个Dialog
+        mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Horizontal)
+                .build();
+    }
+
+    private void configProgressbarHorizontalDialog2() {
+        //新建一个Dialog
+        mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Horizontal)
+                //全屏背景窗体的颜色
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                //View背景的颜色
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                //字体的颜色
+                .setTextColor(getMyColor(R.color.colorAccent))
+                //View边框的颜色
+                .setStrokeColor(getMyColor(R.color.white))
+                //View边框的宽度
+                .setStrokeWidth(2)
+                //View圆角大小
+                .setCornerRadius(10)
+                //ProgressBar背景色
+                .setProgressbarBackgroundColor(Color.BLUE)
+                //ProgressBar 颜色
+                .setProgressColor(Color.GREEN)
+                //Progress圆角
+                .setProgressCornerRadius(0)
+                //水平进度条的高度
+                .setHorizontalProgressBarHeight(10)
+                .build();
+    }
+
+    private Timer timer;
+    private TimerTask task;
+    private float currentProgress;
+
+    private void initTimer() {
+        destroyTimer();
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (currentProgress < 100f) {
+                            mProgressBarDialog.showProgress((int) currentProgress, "当前进度为：" + currentProgress + "%");
+                            currentProgress += 5;
+                        } else {
+                            destroyTimer();
+                            currentProgress = 0.0f;
+                            mProgressBarDialog.showProgress(100, "完成");
+                            //关闭
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mProgressBarDialog.dismiss();
+                                }
+                            }, 500);
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(task, 0, 200); //延时1000ms后执行，1000ms执行一次
+    }
+
+    private void destroyTimer() {
+        if (timer != null && task != null) {
+            timer.cancel();
+            task.cancel();
+            timer = null;
+            task = null;
+        }
+    }
+
+    /**
+     * --------------------MProgressBarDialog end -------------------
+     */
 
     /**
      * --------------------MProgressDialog start -------------------

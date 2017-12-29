@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import static com.maning.mndialoglibrary.MProgressDialog.dip2px;
+import com.maning.mndialoglibrary.utils.MSizeUtils;
 
 /**
  * Created by maning on 2017/8/10.
@@ -50,7 +50,7 @@ public class MStatusDialog {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);// 得到加载view
-        mDialog = new Dialog(mContext, R.style.MNCustomProgressDialog);// 创建自定义样式dialog
+        mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
         mDialog.setCancelable(false);// 不可以用“返回键”取消
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setContentView(mProgressDialogView);// 设置布局
@@ -84,8 +84,8 @@ public class MStatusDialog {
 
         GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
         myGrad.setColor(mBuilder.backgroundViewColor);
-        myGrad.setStroke(dip2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
-        myGrad.setCornerRadius(dip2px(mContext, mBuilder.cornerRadius));
+        myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
     }
 

@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn01"
@@ -28,7 +24,7 @@
                 android:stateListAnimator="@null"
                 android:text="show(默认)"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn02"
@@ -40,7 +36,7 @@
                 android:stateListAnimator="@null"
                 android:text="show(多文本)"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn03"
@@ -52,7 +48,7 @@
                 android:stateListAnimator="@null"
                 android:text="show(没有文本)"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
@@ -65,21 +61,19 @@
             android:stateListAnimator="@null"
             android:text="自定义(外部点击消失)"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
-            android:background="#ffe100"
-            />
+            android:background="#ffe100" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn06"
@@ -90,7 +84,7 @@
                 android:stateListAnimator="@null"
                 android:text="默认提示Dialog"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn07"
@@ -102,7 +96,7 @@
                 android:stateListAnimator="@null"
                 android:text="自定义提示Dialog"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
 
         </LinearLayout>
@@ -112,15 +106,13 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
-            android:background="#ffe100"
-            />
+            android:background="#ffe100" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn10"
@@ -131,7 +123,7 @@
                 android:stateListAnimator="@null"
                 android:text="Toast默认"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn11"
@@ -143,7 +135,7 @@
                 android:stateListAnimator="@null"
                 android:text="Toast自定义"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
@@ -151,8 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn12"
@@ -163,7 +154,7 @@
                 android:stateListAnimator="@null"
                 android:text="Toast自定义2"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn13"
@@ -175,11 +166,77 @@
                 android:stateListAnimator="@null"
                 android:text="Toast自定义3"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffe100" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn14"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="水平进度条"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btn15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="水平进度条自定义"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn16"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="圆形进度条"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btn17"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="圆形进度条自定义"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

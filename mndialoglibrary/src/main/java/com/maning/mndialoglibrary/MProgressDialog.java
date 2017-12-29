@@ -13,6 +13,9 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.utils.MSizeUtils;
+import com.maning.mndialoglibrary.view.MProgressWheel;
+
 /**
  * Created by maning on 2017/8/9.
  * 进度Dialog
@@ -48,7 +51,7 @@ public class MProgressDialog implements View.OnClickListener {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);// 得到加载view
-        mDialog = new Dialog(mContext, R.style.MNCustomProgressDialog);// 创建自定义样式dialog
+        mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
         mDialog.setCancelable(false);// 不可以用“返回键”取消
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setContentView(mProgressDialogView);// 设置布局
@@ -90,12 +93,12 @@ public class MProgressDialog implements View.OnClickListener {
 
         GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
         myGrad.setColor(mBuilder.backgroundViewColor);
-        myGrad.setStroke(dip2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
-        myGrad.setCornerRadius(dip2px(mContext, mBuilder.cornerRadius));
+        myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
 
         progress_wheel.setBarColor(mBuilder.progressColor);
-        progress_wheel.setBarWidth(dip2px(mContext, mBuilder.progressWidth));
+        progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mBuilder.progressWidth));
         progress_wheel.setRimColor(mBuilder.progressRimColor);
         progress_wheel.setRimWidth(mBuilder.progressRimWidth);
 
@@ -152,15 +155,6 @@ public class MProgressDialog implements View.OnClickListener {
             }
         }
     }
-
-    /**
-     * dp 的单位 转成为 px(像素)
-     */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
 
     @Override
     public void onClick(View view) {
