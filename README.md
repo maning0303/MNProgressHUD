@@ -10,10 +10,10 @@
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_003.png)
 
 ### MProgressBarDialog (水平进度条和圆形进度条)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_003.png)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_004.png)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_002.png)
-![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_001.png)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_003.jpg)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_004.jpg)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_002.jpg)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_001.jpg)
 
 ### MStatusDialog
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_004.png)
