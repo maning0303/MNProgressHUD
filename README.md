@@ -9,6 +9,12 @@
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_006.png)
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_003.png)
 
+### MProgressBarDialog (水平进度条和圆形进度条)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_003.png)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_004.png)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_002.png)
+![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_progressbar_dialog_001.png)
+
 ### MStatusDialog
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_004.png)
 ![](https://github.com/maning0303/MNProgressHUD/raw/master/screenshots/mn_dialog_005.png)
@@ -36,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.0.3'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.0.5'
 	}
 ```
 
@@ -94,6 +100,42 @@
 
 ```
 
+### 1:MProgressBarDialog 进度条Dialog代码使用:
+``` java
+
+        //新建一个Dialog
+        mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+               .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
+               //全屏背景窗体的颜色
+               .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+               //View背景的颜色
+               .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+               //字体的颜色
+               .setTextColor(getMyColor(R.color.colorAccent))
+               //View边框的颜色
+               .setStrokeColor(getMyColor(R.color.white))
+               //View边框的宽度
+               .setStrokeWidth(2)
+               //View圆角大小
+               .setCornerRadius(10)
+               //ProgressBar背景色
+               .setProgressbarBackgroundColor(Color.BLUE)
+               //ProgressBar 颜色
+               .setProgressColor(Color.GREEN)
+               //圆形内圈的宽度
+               .setCircleProgressBarWidth(4)
+               //圆形外圈的宽度
+               .setCircleProgressBarBackgroundWidth(4)
+               //水平进度条Progress圆角
+               .setProgressCornerRadius(0)
+               //水平进度条的高度
+               .setHorizontalProgressBarHeight(10)
+               .build();
+        mMProgressDialog.show();
+
+
+```
+
 ### 2:MStatusDialog 状态Dialog代码使用:
 ``` java
 
@@ -139,8 +181,9 @@
 ```
 
 ## 感谢：
-#### 源码里面的MNProgressWheel 使用的是下面的这个库,改了个名字,以免冲突!
+#### 源码里面使用了下面库,改了个名字,以免冲突，非常感谢!
 #### [materialish-progress](https://github.com/pnikosis/materialish-progress)
+#### [CircularProgressBar](https://github.com/lopspower/CircularProgressBar)
 
 
 ## 推荐:

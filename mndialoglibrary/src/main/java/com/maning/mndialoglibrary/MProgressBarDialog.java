@@ -207,7 +207,7 @@ public class MProgressBarDialog {
         int progressbarBackgroundColor;
         //Progressbar 条颜色
         int progressColor;
-        //Progress圆角
+        //水平进度条Progress圆角
         float progressCornerRadius;
         //style:0:水平，1:圆形
         int style;

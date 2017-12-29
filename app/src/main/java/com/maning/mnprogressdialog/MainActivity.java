@@ -173,9 +173,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //ProgressBar 颜色
                 .setProgressColor(Color.GREEN)
                 //圆形内圈的宽度
-                .setCircleProgressBarWidth(2)
+                .setCircleProgressBarWidth(4)
                 //圆形外圈的宽度
-                .setCircleProgressBarBackgroundWidth(6)
+                .setCircleProgressBarBackgroundWidth(4)
                 .build();
     }
 
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setProgressbarBackgroundColor(Color.BLUE)
                 //ProgressBar 颜色
                 .setProgressColor(Color.GREEN)
-                //Progress圆角
+                //水平进度条Progress圆角
                 .setProgressCornerRadius(0)
                 //水平进度条的高度
                 .setHorizontalProgressBarHeight(10)
