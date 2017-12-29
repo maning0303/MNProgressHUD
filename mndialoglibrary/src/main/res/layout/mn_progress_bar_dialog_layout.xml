@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="40dp"
-        android:background="@drawable/mn_progress_bar_dialog_bg"
+        android:background="@drawable/mn_dialog_view_bg"
         android:minHeight="100dp"
         android:minWidth="100dp"
         android:visibility="visible">
@@ -43,7 +43,6 @@
                     android:layout_marginBottom="10dp"
                     android:max="100"
                     android:progress="20"
-                    android:progressDrawable="@drawable/mn_progress_bar_horizontal"
                     android:secondaryProgress="80"
                     android:visibility="visible" />
 

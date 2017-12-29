@@ -91,7 +91,7 @@ public class MProgressDialog implements View.OnClickListener {
         mDialog.setCanceledOnTouchOutside(mBuilder.canceledOnTouchOutside);
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
 
-        GradientDrawable myGrad = (GradientDrawable) dialog_view_bg.getBackground();
+        GradientDrawable myGrad = new GradientDrawable();
         myGrad.setColor(mBuilder.backgroundViewColor);
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));

@@ -85,7 +85,7 @@ public class MToast {
         //文字的颜色
         tvShowToast.setTextColor(ToastTextColor);
         //背景色和圆角
-        GradientDrawable myGrad = (GradientDrawable) toastBackgroundView.getBackground();
+        GradientDrawable myGrad = new GradientDrawable();
         myGrad.setCornerRadius(dip2px(context, ToastBackgroundCornerRadius));
         myGrad.setColor(ToastBackgroundColor);
         myGrad.setStroke(dip2px(context, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="80dp"
-        android:background="@drawable/mn_progress_dialog_bg"
+        android:background="@drawable/mn_dialog_view_bg"
         android:minHeight="100dp"
         android:minWidth="100dp">
 
