@@ -28,28 +28,28 @@ public class MToast {
     private static ImageView ivLeftShow;
     private static LinearLayout toastBackgroundView;
 
-    public static Toast makeTextLong(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
-        return make(config, context, message, Toast.LENGTH_LONG);
+    public static void makeTextLong(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
+        make(config, context, message, Toast.LENGTH_LONG).show();
     }
 
-    public static Toast makeTextShort(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
-        return make(config, context, message, Toast.LENGTH_SHORT);
+    public static void makeTextShort(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
+        make(config, context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static Toast makeTextLong(@NonNull Context context, @NonNull CharSequence message) {
-        return make(null, context, message, Toast.LENGTH_LONG);
+    public static void makeTextLong(@NonNull Context context, @NonNull CharSequence message) {
+        make(null, context, message, Toast.LENGTH_LONG).show();
     }
 
-    public static Toast makeTextShort(@NonNull Context context, @NonNull CharSequence message) {
-        return make(null, context, message, Toast.LENGTH_SHORT);
+    public static void makeTextShort(@NonNull Context context, @NonNull CharSequence message) {
+        make(null, context, message, Toast.LENGTH_SHORT).show();
     }
 
-    private static Toast makeText(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
-        return make(config, context, message, duration);
+    private static void makeText(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
+        make(config, context, message, duration).show();
     }
 
-    private static Toast makeText(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        return make(null, context, message, duration);
+    private static void makeText(@NonNull Context context, @NonNull CharSequence message, int duration) {
+        make(null, context, message, duration).show();
     }
 
     private static Toast make(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
@@ -106,6 +106,5 @@ public class MToast {
 
         return currentToast;
     }
-
 
 }

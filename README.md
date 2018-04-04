@@ -60,47 +60,96 @@
 
 ### 1:MProgressDialog 加载Dialog代码使用:
 ``` java
-
-        //新建一个Dialog
-        mMProgressDialog = new MProgressDialog.Builder(this)
-                //点击外部是否可以取消
-                .isCanceledOnTouchOutside(true)
-                //全屏背景窗体的颜色
-                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
-                //View背景的颜色
-                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
-                //View背景的圆角
-                .setCornerRadius(20)
-                //View 边框的颜色
-                .setStrokeColor(getMyColor(R.color.colorAccent))
-                //View 边框的宽度
-                .setStrokeWidth(2)
-                //Progress 颜色
-                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
-                //Progress 宽度
-                .setProgressWidth(3)
-                //Progress 内圈颜色
-                .setProgressRimColor(Color.YELLOW)
-                //Progress 内圈宽度
-                .setProgressRimWidth(2)
-                //文字的颜色
-                .setTextColor(getMyColor(R.color.colorDialogTextColor))
-                //取消的监听
-                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-                    @Override
-                    public void dismiss() {
-                        mHandler.removeCallbacksAndMessages(null);
-                        MToast.makeTextShort(mContext, "Dialog消失了").show();
-                    }
-                })
-                .build()
-        ;
-        mMProgressDialog.show();
+        
+        //默认
+        MProgressDialog.showProgress(this);
+        //自定义文字
+        MProgressDialog.showProgress(this,"自定义文字");
+        //不需要文字
+        MProgressDialog.showProgress(this,"");
+        
+        //自定义背景
+        MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                 //点击外部是否可以取消
+                 .isCanceledOnTouchOutside(true)
+                 //全屏背景窗体的颜色
+                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                 //View背景的颜色
+                 .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
+                 //View背景的圆角
+                 .setCornerRadius(20)
+                 //View 边框的颜色
+                 .setStrokeColor(getMyColor(R.color.colorAccent))
+                 //View 边框的宽度
+                 .setStrokeWidth(2)
+                 //Progress 颜色
+                 .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
+                 //Progress 宽度
+                 .setProgressWidth(3)
+                 //Progress 内圈颜色
+                 .setProgressRimColor(Color.YELLOW)
+                 //Progress 内圈宽度
+                 .setProgressRimWidth(4)
+                 //文字的颜色
+                 .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                 //ProgressBar 颜色
+                 .setProgressColor(Color.GREEN)
+                 .build();
+        MProgressDialog.showProgress(this,"数据上传中...",mDialogConfig);
 
 
 ```
 
-### 1:MProgressBarDialog 进度条Dialog代码使用:
+
+### 2:MStatusDialog 状态Dialog代码使用:
+``` java
+        //默认
+        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        
+        //自定义
+        MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                        //全屏背景窗体的颜色
+                        .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                        //View背景的颜色
+                        .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                        //字体的颜色
+                        .setTextColor(getMyColor(R.color.colorAccent))
+                        //View边框的颜色
+                        .setStrokeColor(getMyColor(R.color.white))
+                        //View边框的宽度
+                        .setStrokeWidth(2)
+                        //View圆角大小
+                        .setCornerRadius(10)
+                        .build();
+        new MStatusDialog(mContext,mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
+
+```
+
+### 3:MToast 代码使用:
+``` java
+
+        MToastConfig config = new MToastConfig.Builder()
+                //设置显示的位置
+                .setGravity(MToastConfig.MToastGravity.CENTRE)
+                //文字的颜色
+                .setTextColor(getMyColor(R.color.colorAccent))
+                //背景色
+                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                //背景圆角
+                .setBackgroundCornerRadius(10)
+                //背景边框的颜色
+                .setBackgroundStrokeColor(Color.WHITE)
+                //背景边框的宽度
+                .setBackgroundStrokeWidth(1)
+                .build();
+
+        //多种方法
+        MToast.makeTextShort(mContext, "Toast", config);
+        MToast.makeTextShort(mContext, "Toast");
+
+```
+
+### 4:MProgressBarDialog 进度条Dialog代码使用:
 ``` java
 
         //新建一个Dialog
@@ -136,49 +185,6 @@
 
 ```
 
-### 2:MStatusDialog 状态Dialog代码使用:
-``` java
-
-        MStatusDialog mMStatusDialog = new MStatusDialog.Builder(mContext)
-                        //全屏背景窗体的颜色
-                        .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
-                        //View背景的颜色
-                        .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
-                        //字体的颜色
-                        .setTextColor(getMyColor(R.color.colorAccent))
-                        //View边框的颜色
-                        .setStrokeColor(getMyColor(R.color.white))
-                        //View边框的宽度
-                        .setStrokeWidth(2)
-                        //View圆角大小
-                        .setCornerRadius(10)
-                        .build();
-        mMStatusDialog.show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
-
-```
-
-### 3:MToast 代码使用:
-``` java
-
-        MToastConfig config = new MToastConfig.Builder()
-                //设置显示的位置
-                .setGravity(MToastConfig.MToastGravity.CENTRE)
-                //文字的颜色
-                .setTextColor(getMyColor(R.color.colorAccent))
-                //背景色
-                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
-                //背景圆角
-                .setBackgroundCornerRadius(10)
-                //背景边框的颜色
-                .setBackgroundStrokeColor(Color.WHITE)
-                //背景边框的宽度
-                .setBackgroundStrokeWidth(1)
-                .build();
-
-        //多种方法
-        MToast.makeTextShort(mContext, "", config).show();
-
-```
 
 ## 感谢：
 #### 源码里面使用了下面库,改了个名字,以免冲突，非常感谢!

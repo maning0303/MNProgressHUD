@@ -14,9 +14,9 @@ public class MToastConfig {
         CENTRE, BOTTOM
     }
 
-    public int ToastTextColor = Color.parseColor("#FFFFFF");
-    public int ToastBackgroundColor = Color.parseColor("#DD000000");
-    public float ToastBackgroundCornerRadius = 30.0f;
+    public int ToastTextColor = Color.parseColor("#FFFFFFFF");
+    public int ToastBackgroundColor = Color.parseColor("#b2000000");
+    public float ToastBackgroundCornerRadius = 6.0f;
     public float ToastBackgroundStrokeWidth = 0.0f;
     public int ToastBackgroundStrokeColor = Color.parseColor("#00000000");
     public MToastGravity ToastGravity = MToastGravity.BOTTOM;

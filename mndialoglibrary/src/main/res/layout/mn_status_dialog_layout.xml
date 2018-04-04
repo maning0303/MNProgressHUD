@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_window_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -44,9 +44,10 @@
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="6"
-                android:text="成功"
+                android:text=""
+                tools:text="成功"
                 android:textColor="@color/mn_colorDialogTextColor"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:visibility="visible"
                 />
 

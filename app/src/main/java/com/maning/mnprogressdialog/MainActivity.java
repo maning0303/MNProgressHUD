@@ -169,6 +169,100 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+    /**
+     * --------------------MProgressDialog start -------------------
+     */
+
+    private int getMyColor(int colorID) {
+        return mContext.getResources().getColor(colorID);
+    }
+
+
+    private void delayDismissProgressDialog() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                MProgressDialog.dismissProgress();
+            }
+        }, 3000);
+    }
+
+
+    /** --------------------MProgressDialog end ------------------- */
+
+
+    /**
+     * --------------------MToast start -------------------
+     */
+
+    private void showToastCustom3() {
+        MToastConfig config = new MToastConfig.Builder()
+                .setBackgroundStrokeColor(Color.YELLOW)
+                .setBackgroundStrokeWidth(1)
+                .setBackgroundCornerRadius(20)
+                .build();
+        MToast.makeTextShort(mContext, text01, config);
+    }
+
+    private void showToastCustom2() {
+        MToastConfig config = new MToastConfig.Builder()
+                .setGravity(MToastConfig.MToastGravity.CENTRE)
+                .setTextColor(Color.MAGENTA)
+                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                .setBackgroundCornerRadius(10)
+                .build();
+        MToast.makeTextShort(mContext, text01, config);
+    }
+
+    private void showToastCustom() {
+        MToastConfig config = new MToastConfig.Builder()
+                .setTextColor(getMyColor(R.color.white))
+                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                .setToastIcon(mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok))
+                .build();
+        MToast.makeTextShort(mContext, "欢迎使用自定义Toast", config);
+
+    }
+
+    private void showToast() {
+        MToast.makeTextShort(mContext, "我是默认Toast");
+    }
+
+
+    /** --------------------MToast start ------------------- */
+
+
+    /**
+     * --------------------MStatusDialog start -------------------
+     */
+
+    private void showStatusDialog01() {
+        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+    }
+
+    private void showStatusDialog02() {
+        MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                //全屏背景窗体的颜色
+                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                //View背景的颜色
+                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
+                //字体的颜色
+                .setTextColor(getMyColor(R.color.colorAccent))
+                //View边框的颜色
+                .setStrokeColor(getMyColor(R.color.white))
+                //View边框的宽度
+                .setStrokeWidth(2)
+                //View圆角大小
+                .setCornerRadius(10)
+                .build();
+        new MStatusDialog(mContext,mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
+    }
+
+    /** --------------------MStatusDialog end ------------------- */
+
+
+
     /**
      * --------------------MProgressBarDialog start -------------------
      */
@@ -287,97 +381,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * --------------------MProgressBarDialog end -------------------
      */
-
-    /**
-     * --------------------MProgressDialog start -------------------
-     */
-
-    private int getMyColor(int colorID) {
-        return mContext.getResources().getColor(colorID);
-    }
-
-
-    private void delayDismissProgressDialog() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                MProgressDialog.dismissProgress();
-            }
-        }, 3000);
-    }
-
-
-    /** --------------------MProgressDialog end ------------------- */
-
-
-    /**
-     * --------------------MToast start -------------------
-     */
-
-    private void showToastCustom3() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setBackgroundStrokeColor(Color.WHITE)
-                .setBackgroundStrokeWidth(1)
-                .setBackgroundCornerRadius(10)
-                .build();
-        MToast.makeTextShort(mContext, text01, config).show();
-    }
-
-    private void showToastCustom2() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setGravity(MToastConfig.MToastGravity.CENTRE)
-                .setTextColor(getMyColor(R.color.colorAccent))
-                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
-                .setBackgroundCornerRadius(10)
-                .build();
-        MToast.makeTextShort(mContext, text01, config).show();
-    }
-
-    private void showToastCustom() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setTextColor(getMyColor(R.color.white))
-                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
-                .setToastIcon(mContext.getResources().getDrawable(R.mipmap.ic_launcher))
-                .build();
-        MToast.makeTextShort(mContext, "我是自定义Toast", config).show();
-
-    }
-
-    private void showToast() {
-        MToast.makeTextShort(mContext, "我是默认Toast").show();
-    }
-
-
-    /** --------------------MToast start ------------------- */
-
-
-    /**
-     * --------------------MStatusDialog start -------------------
-     */
-
-    private void showStatusDialog01() {
-        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
-    }
-
-    private void showStatusDialog02() {
-        MDialogConfig mDialogConfig = new MDialogConfig.Builder()
-                //全屏背景窗体的颜色
-                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
-                //View背景的颜色
-                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
-                //字体的颜色
-                .setTextColor(getMyColor(R.color.colorAccent))
-                //View边框的颜色
-                .setStrokeColor(getMyColor(R.color.white))
-                //View边框的宽度
-                .setStrokeWidth(2)
-                //View圆角大小
-                .setCornerRadius(10)
-                .build();
-        new MStatusDialog(mContext,mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
-    }
-
-    /** --------------------MStatusDialog end ------------------- */
-
-
 }
