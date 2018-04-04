@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 
 /**
@@ -28,7 +29,7 @@ public class MStatusDialog {
     private Context mContext;
     private Dialog mDialog;
 
-    private Builder mBuilder;
+    private MDialogConfig mDialogConfig;
 
     private RelativeLayout dialog_window_background;
     private RelativeLayout dialog_view_bg;
@@ -36,12 +37,12 @@ public class MStatusDialog {
     private TextView tvShow;
 
     public MStatusDialog(Context context) {
-        this(context, new Builder(context));
+        this(context, new MDialogConfig.Builder().build());
     }
 
-    public MStatusDialog(Context context, Builder builder) {
+    public MStatusDialog(Context context, MDialogConfig mDialogConfig) {
         mContext = context;
-        mBuilder = builder;
+        this.mDialogConfig = mDialogConfig;
         //初始化
         initDialog();
     }
@@ -79,22 +80,15 @@ public class MStatusDialog {
     }
 
     private void configView() {
-        dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
-        tvShow.setTextColor(mBuilder.textColor);
+        dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
+        tvShow.setTextColor(mDialogConfig.textColor);
 
         GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setColor(mBuilder.backgroundViewColor);
-        myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
-        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
+        myGrad.setColor(mDialogConfig.backgroundViewColor);
+        myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
     }
-
-
-    public void refreshBuilder(Builder builder) {
-        mBuilder = builder;
-        configView();
-    }
-
 
     public void show(String msg, Drawable drawable) {
         show(msg, drawable, 2000);
@@ -112,71 +106,4 @@ public class MStatusDialog {
             }
         }, delayMillis);
     }
-
-
-    public static final class Builder {
-
-        private Context mContext;
-
-        //窗体背景色
-        int backgroundWindowColor;
-        //View背景色
-        int backgroundViewColor;
-        //View边框的颜色
-        int strokeColor;
-        //View背景圆角
-        float cornerRadius;
-        //View边框的宽度
-        float strokeWidth;
-        //文字的颜色
-        int textColor;
-
-        public Builder(Context context) {
-            mContext = context;
-            //默认配置
-            backgroundWindowColor = mContext.getResources().getColor(R.color.mn_colorDialogWindowBg);
-            backgroundViewColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
-            strokeColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
-            textColor = mContext.getResources().getColor(R.color.mn_colorDialogTextColor);
-            cornerRadius = 6;
-            strokeWidth = 0;
-        }
-
-        public MStatusDialog build() {
-            return new MStatusDialog(mContext, this);
-        }
-
-
-        public Builder setBackgroundWindowColor(@Nullable int backgroundWindowColor) {
-            this.backgroundWindowColor = backgroundWindowColor;
-            return this;
-        }
-
-        public Builder setBackgroundViewColor(@Nullable int backgroundViewColor) {
-            this.backgroundViewColor = backgroundViewColor;
-            return this;
-        }
-
-        public Builder setStrokeColor(@Nullable int strokeColor) {
-            this.strokeColor = strokeColor;
-            return this;
-        }
-
-        public Builder setStrokeWidth(@Nullable float strokeWidth) {
-            this.strokeWidth = strokeWidth;
-            return this;
-        }
-
-        public Builder setCornerRadius(@Nullable float cornerRadius) {
-            this.cornerRadius = cornerRadius;
-            return this;
-        }
-
-        public Builder setTextColor(@Nullable int textColor) {
-            this.textColor = textColor;
-            return this;
-        }
-
-    }
-
 }

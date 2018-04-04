@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.view.MProgressWheel;
 
@@ -21,34 +21,19 @@ import com.maning.mndialoglibrary.view.MProgressWheel;
  * 进度Dialog
  */
 
-public class MProgressDialog implements View.OnClickListener {
+public class MProgressDialog {
 
-    //常量
-    private static final String defaultTextShow = "加载中...";
-
-    private Dialog mDialog;
-    private Context mContext;
-    private Builder mBuilder;
+    private static Dialog mDialog;
+    private static MDialogConfig mDialogConfig;
 
     //布局
-    private RelativeLayout dialog_window_background;
-    private RelativeLayout dialog_view_bg;
-    private MProgressWheel progress_wheel;
-    private TextView tv_show;
+    private static RelativeLayout dialog_window_background;
+    private static RelativeLayout dialog_view_bg;
+    private static MProgressWheel progress_wheel;
+    private static TextView tv_show;
 
-    public MProgressDialog(Context context) {
-        this(context, new Builder(context));
-    }
 
-    public MProgressDialog(Context context, Builder builder) {
-        mContext = context;
-        mBuilder = builder;
-        //初始化
-        initDialog();
-    }
-
-    private void initDialog() {
-
+    private static void initDialog(Context mContext) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);// 得到加载view
         mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
@@ -75,225 +60,88 @@ public class MProgressDialog implements View.OnClickListener {
         progress_wheel = (MProgressWheel) mProgressDialogView.findViewById(R.id.progress_wheel);
         tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
 
-        //点击事件
-        dialog_window_background.setOnClickListener(this);
-
         //默认相关
-        progress_wheel.stopSpinning();
-        tv_show.setText(defaultTextShow);
+        progress_wheel.spin();
 
-        //设置默认配置
-        configView();
-
+        //设置配置
+        if (mDialogConfig == null) {
+            mDialogConfig = new MDialogConfig.Builder().build();
+        }
+        configView(mContext);
+        //点击事件
+        dialog_window_background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //取消Dialog
+                if (mDialogConfig != null && mDialogConfig.canceledOnTouchOutside) {
+                    dismissProgress();
+                }
+            }
+        });
     }
 
-    private void configView() {
-        mDialog.setCanceledOnTouchOutside(mBuilder.canceledOnTouchOutside);
-        dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
+    private static void configView(Context mContext) {
+        mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
+        dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
 
         GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setColor(mBuilder.backgroundViewColor);
-        myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
-        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
+        myGrad.setColor(mDialogConfig.backgroundViewColor);
+        myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
 
-        progress_wheel.setBarColor(mBuilder.progressColor);
-        progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mBuilder.progressWidth));
-        progress_wheel.setRimColor(mBuilder.progressRimColor);
-        progress_wheel.setRimWidth(mBuilder.progressRimWidth);
+        progress_wheel.setBarColor(mDialogConfig.progressColor);
+        progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mDialogConfig.progressWidth));
+        progress_wheel.setRimColor(mDialogConfig.progressRimColor);
+        progress_wheel.setRimWidth(mDialogConfig.progressRimWidth);
 
-        tv_show.setTextColor(mBuilder.textColor);
+        tv_show.setTextColor(mDialogConfig.textColor);
     }
 
-    public void refreshBuilder(Builder builder) {
-        mBuilder = builder;
-        configView();
+    public static void showProgress(Context context) {
+        showProgress(context, "加载中");
     }
 
-    public boolean isShowing() {
-        return mDialog.isShowing();
+    public static void showProgress(Context context, String msg) {
+        showProgress(context, msg, null);
     }
 
-    public void show() {
-        dismiss();
-        tv_show.setVisibility(View.VISIBLE);
-        tv_show.setText(defaultTextShow);
-        if (mDialog != null) {
-            progress_wheel.spin();
+    public static void showProgress(Context context, MDialogConfig mDialogConfig) {
+        showProgress(context, "加载中", mDialogConfig);
+    }
+
+    public static void showProgress(Context context, String msg, MDialogConfig mDialogConfig) {
+        MProgressDialog.mDialogConfig = mDialogConfig;
+        dismissProgress();
+        initDialog(context);
+        if (mDialog != null && tv_show != null) {
+            if (TextUtils.isEmpty(msg)) {
+                tv_show.setVisibility(View.GONE);
+            } else {
+                tv_show.setVisibility(View.VISIBLE);
+                tv_show.setText(msg);
+            }
             mDialog.show();
         }
     }
 
-    public void showNoText() {
-        dismiss();
-        tv_show.setVisibility(View.GONE);
-        if (mDialog != null) {
-            progress_wheel.spin();
-            mDialog.show();
-        }
-    }
-
-    public void show(String msg) {
-        dismiss();
-        if (TextUtils.isEmpty(msg)) {
-            msg = defaultTextShow;
-        }
-        tv_show.setVisibility(View.VISIBLE);
-        tv_show.setText(msg);
-        if (mDialog != null) {
-            progress_wheel.spin();
-            mDialog.show();
-        }
-    }
-
-    public void dismiss() {
+    public static void dismissProgress() {
         if (mDialog != null && mDialog.isShowing()) {
-            progress_wheel.stopSpinning();
             mDialog.dismiss();
-            if (mBuilder.dialogDismissListener != null) {
-                mBuilder.dialogDismissListener.dismiss();
-            }
+            //清除
+            mDialog = null;
+            mDialogConfig = null;
+            dialog_window_background = null;
+            dialog_view_bg = null;
+            progress_wheel = null;
+            tv_show = null;
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.dialog_window_background) {
-            //取消Dialog
-            if (mBuilder.canceledOnTouchOutside) {
-                dismiss();
-            }
+    public static boolean isShowing() {
+        if (mDialog != null) {
+            return mDialog.isShowing();
         }
+        return false;
     }
-
-    public interface OnDialogDismissListener {
-        void dismiss();
-    }
-
-    public void setOnDialogDismissListener(OnDialogDismissListener dialogDismissListener) {
-        mBuilder.dialogDismissListener = dialogDismissListener;
-    }
-
-
-    //---------------------构建者模式--------------------
-    public static final class Builder {
-
-        private Context mContext;
-
-        //点击外部可以取消
-        boolean canceledOnTouchOutside;
-        //窗体背景色
-        int backgroundWindowColor;
-        //View背景色
-        int backgroundViewColor;
-        //View边框的颜色
-        int strokeColor;
-        //View背景圆角
-        float cornerRadius;
-        //View边框的宽度
-        float strokeWidth;
-        //Progress的颜色
-        int progressColor;
-        //Progress的宽度
-        float progressWidth;
-        //progress背景环的颜色
-        int progressRimColor;
-        //progress背景环的宽度
-        int progressRimWidth;
-        //文字的颜色
-        int textColor;
-        //消失的监听
-        OnDialogDismissListener dialogDismissListener;
-
-
-        public Builder(Context context) {
-            mContext = context;
-            //默认参数
-            canceledOnTouchOutside = false;
-            backgroundWindowColor = mContext.getResources().getColor(R.color.mn_colorDialogWindowBg);
-            backgroundViewColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
-            strokeColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
-            cornerRadius = 6;
-            strokeWidth = 0;
-            progressColor = mContext.getResources().getColor(R.color.mn_colorDialogProgressBarColor);
-            progressRimColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
-            progressWidth = 2;
-            progressRimWidth = 0;
-            textColor = mContext.getResources().getColor(R.color.mn_colorDialogTextColor);
-            dialogDismissListener = null;
-        }
-
-        public MProgressDialog build() {
-            return new MProgressDialog(mContext, this);
-        }
-
-        /**
-         * 设置点击外部取消Dialog
-         *
-         * @param canceledOnTouchOutside
-         * @return
-         */
-        public Builder isCanceledOnTouchOutside(@Nullable boolean canceledOnTouchOutside) {
-            this.canceledOnTouchOutside = canceledOnTouchOutside;
-            return this;
-        }
-
-        public Builder setBackgroundWindowColor(@Nullable int backgroundWindowColor) {
-            this.backgroundWindowColor = backgroundWindowColor;
-            return this;
-        }
-
-        public Builder setBackgroundViewColor(@Nullable int backgroundViewColor) {
-            this.backgroundViewColor = backgroundViewColor;
-            return this;
-        }
-
-        public Builder setStrokeColor(@Nullable int strokeColor) {
-            this.strokeColor = strokeColor;
-            return this;
-        }
-
-        public Builder setStrokeWidth(@Nullable float strokeWidth) {
-            this.strokeWidth = strokeWidth;
-            return this;
-        }
-
-        public Builder setCornerRadius(@Nullable float cornerRadius) {
-            this.cornerRadius = cornerRadius;
-            return this;
-        }
-
-        public Builder setProgressColor(@Nullable int progressColor) {
-            this.progressColor = progressColor;
-            return this;
-        }
-
-        public Builder setProgressWidth(@Nullable float progressWidth) {
-            this.progressWidth = progressWidth;
-            return this;
-        }
-
-        public Builder setProgressRimColor(int progressRimColor) {
-            this.progressRimColor = progressRimColor;
-            return this;
-        }
-
-        public Builder setProgressRimWidth(int progressRimWidth) {
-            this.progressRimWidth = progressRimWidth;
-            return this;
-        }
-
-        public Builder setTextColor(@Nullable int textColor) {
-            this.textColor = textColor;
-            return this;
-        }
-
-        public Builder setOnDialogDismissListener(OnDialogDismissListener dialogDismissListener) {
-            this.dialogDismissListener = dialogDismissListener;
-            return this;
-        }
-
-    }
-
-
 }

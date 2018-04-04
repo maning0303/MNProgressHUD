@@ -8,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.MProgressBarDialog;
 import com.maning.mndialoglibrary.MProgressDialog;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mndialoglibrary.MToast;
-import com.maning.mndialoglibrary.MToastConfig;
+import com.maning.mndialoglibrary.config.MToastConfig;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,10 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler mHandler = new Handler();
 
 
-    private MProgressDialog mMProgressDialog;
     private MProgressBarDialog mProgressBarDialog;
-
-    private MStatusDialog mMStatusDialog;
 
     private Button btn01;
     private Button btn02;
@@ -51,9 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mContext = this;
 
         initViews();
-
-        mMStatusDialog = new MStatusDialog(this);
-
     }
 
 
@@ -93,16 +88,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn01:
-                showProgressDialog01();
+                MProgressDialog.showProgress(this);
+                //延时关闭
+                delayDismissProgressDialog();
                 break;
             case R.id.btn02:
-                showProgressDialog02();
+                MProgressDialog.showProgress(this,text01);
+                //延时关闭
+                delayDismissProgressDialog();
                 break;
             case R.id.btn03:
-                showProgressDialog03();
+                MProgressDialog.showProgress(this,"");
+                //延时关闭
+                delayDismissProgressDialog();
                 break;
             case R.id.btn04:
-                showProgressDialog04();
+                MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                        //点击外部是否可以取消
+                        .isCanceledOnTouchOutside(true)
+                        //全屏背景窗体的颜色
+                        .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
+                        //View背景的颜色
+                        .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
+                        //View背景的圆角
+                        .setCornerRadius(20)
+                        //View 边框的颜色
+                        .setStrokeColor(getMyColor(R.color.colorAccent))
+                        //View 边框的宽度
+                        .setStrokeWidth(2)
+                        //Progress 颜色
+                        .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
+                        //Progress 宽度
+                        .setProgressWidth(3)
+                        //Progress 内圈颜色
+                        .setProgressRimColor(Color.YELLOW)
+                        //Progress 内圈宽度
+                        .setProgressRimWidth(4)
+                        //文字的颜色
+                        .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                        //ProgressBar 颜色
+                        .setProgressColor(Color.GREEN)
+                        .build();
+                MProgressDialog.showProgress(this,"数据上传中...",mDialogConfig);
                 break;
             case R.id.btn06:
                 showStatusDialog01();
@@ -265,90 +292,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * --------------------MProgressDialog start -------------------
      */
 
-    private void configDialogDefault() {
-        //新建一个Dialog
-        mMProgressDialog = new MProgressDialog.Builder(mContext)
-                .isCanceledOnTouchOutside(true)
-                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-                    @Override
-                    public void dismiss() {
-                        mHandler.removeCallbacksAndMessages(null);
-                    }
-                })
-                .build();
-    }
-
     private int getMyColor(int colorID) {
         return mContext.getResources().getColor(colorID);
     }
 
 
-    private void showProgressDialog01() {
-        mMProgressDialog = new MProgressDialog(mContext);
-        mMProgressDialog.show();
-        //延时关闭
-        delayDismissProgressDialog();
-    }
-
-    public void showProgressDialog02() {
-        configDialogDefault();
-        mMProgressDialog.show(text01);
-        //延时关闭
-        delayDismissProgressDialog();
-    }
-
-    public void showProgressDialog03() {
-        configDialogDefault();
-        mMProgressDialog.showNoText();
-        //延时关闭
-        delayDismissProgressDialog();
-    }
-
-    public void showProgressDialog04() {
-        //新建一个Dialog
-        mMProgressDialog = new MProgressDialog.Builder(this)
-                //点击外部是否可以取消
-                .isCanceledOnTouchOutside(true)
-                //全屏背景窗体的颜色
-                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
-                //View背景的颜色
-                .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg))
-                //View背景的圆角
-                .setCornerRadius(20)
-                //View 边框的颜色
-                .setStrokeColor(getMyColor(R.color.colorAccent))
-                //View 边框的宽度
-                .setStrokeWidth(2)
-                //Progress 颜色
-                .setProgressColor(getMyColor(R.color.colorDialogProgressBarColor))
-                //Progress 宽度
-                .setProgressWidth(3)
-                //Progress 内圈颜色
-                .setProgressRimColor(Color.YELLOW)
-                //Progress 内圈宽度
-                .setProgressRimWidth(4)
-                //文字的颜色
-                .setTextColor(getMyColor(R.color.colorDialogTextColor))
-                //取消的监听
-                .setOnDialogDismissListener(new MProgressDialog.OnDialogDismissListener() {
-                    @Override
-                    public void dismiss() {
-                        mHandler.removeCallbacksAndMessages(null);
-                        MToast.makeTextShort(mContext, "Dialog消失了").show();
-                    }
-                })
-                .build()
-        ;
-        mMProgressDialog.show();
-        //延时关闭
-        delayDismissProgressDialog();
-    }
-
     private void delayDismissProgressDialog() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mMProgressDialog.dismiss();
+                MProgressDialog.dismissProgress();
             }
         }, 3000);
     }
@@ -403,12 +356,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
 
     private void showStatusDialog01() {
-        mMStatusDialog = new MStatusDialog(this);
-        mMStatusDialog.show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
     }
 
     private void showStatusDialog02() {
-        mMStatusDialog = new MStatusDialog.Builder(mContext)
+        MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                 //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                 //View背景的颜色
@@ -422,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //View圆角大小
                 .setCornerRadius(10)
                 .build();
-        mMStatusDialog.show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
+        new MStatusDialog(mContext,mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
     }
 
     /** --------------------MStatusDialog end ------------------- */

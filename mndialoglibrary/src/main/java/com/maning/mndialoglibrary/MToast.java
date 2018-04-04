@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.maning.mndialoglibrary.config.MToastConfig;
+import com.maning.mndialoglibrary.utils.MSizeUtils;
+
 
 /**
  * Created by maning on 2017/8/11.
@@ -86,9 +89,9 @@ public class MToast {
         tvShowToast.setTextColor(ToastTextColor);
         //背景色和圆角
         GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setCornerRadius(dip2px(context, ToastBackgroundCornerRadius));
+        myGrad.setCornerRadius(MSizeUtils.dp2px(context, ToastBackgroundCornerRadius));
         myGrad.setColor(ToastBackgroundColor);
-        myGrad.setStroke(dip2px(context, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
+        myGrad.setStroke(MSizeUtils.dp2px(context, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
         toastBackgroundView.setBackground(myGrad);
         //文字
         tvShowToast.setText(message);
@@ -98,19 +101,11 @@ public class MToast {
         if (ToastGravity == MToastConfig.MToastGravity.CENTRE) {
             currentToast.setGravity(Gravity.CENTER, 0, 0);
         } else {
-            currentToast.setGravity(Gravity.BOTTOM, 0, dip2px(context, 80));
+            currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(context, 80));
         }
 
         return currentToast;
     }
 
-
-    /**
-     * dp 的单位 转成为 px(像素)
-     */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
 
 }

@@ -1,4 +1,4 @@
-package com.maning.mndialoglibrary;
+package com.maning.mndialoglibrary.config;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
