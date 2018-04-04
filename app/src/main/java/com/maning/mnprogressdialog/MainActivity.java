@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn15;
     private Button btn16;
     private Button btn17;
+    private Button btn18;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn15 = (Button) findViewById(R.id.btn15);
         btn16 = (Button) findViewById(R.id.btn16);
         btn17 = (Button) findViewById(R.id.btn17);
+        btn18 = (Button) findViewById(R.id.btn18);
 
         btn01.setOnClickListener(this);
         btn02.setOnClickListener(this);
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn15.setOnClickListener(this);
         btn16.setOnClickListener(this);
         btn17.setOnClickListener(this);
+        btn18.setOnClickListener(this);
     }
 
     @Override
@@ -164,6 +167,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn17:
                 configProgressbarCircleDialog2();
                 initTimer();
+                break;
+            case R.id.btn18:
+                new TestFragmentDialog().showDialog(MainActivity.this);
                 break;
 
         }
