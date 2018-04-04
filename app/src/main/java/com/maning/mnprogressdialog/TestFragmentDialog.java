@@ -3,7 +3,6 @@ package com.maning.mnprogressdialog;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 
 import com.maning.mndialoglibrary.base.BaseFragmentDialog;
@@ -59,12 +58,12 @@ public class TestFragmentDialog extends BaseFragmentDialog {
     }
 
     /**
-     * 初始化相关
+     * Dialog初始化相关
      */
     @Override
-    protected void init() {
+    public void initDialog() {
         //点击外部不可取消,默认false
-        getDialog().setCanceledOnTouchOutside(false);
+        getDialog().setCanceledOnTouchOutside(true);
     }
 
     /**

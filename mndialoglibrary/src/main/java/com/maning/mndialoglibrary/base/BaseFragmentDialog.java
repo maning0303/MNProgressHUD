@@ -54,16 +54,18 @@ public abstract class BaseFragmentDialog extends DialogFragment {
             }
         });
         //初始化其他可以覆盖上面
-        init();
+        initDialog();
         return initView(inflater);
     }
 
 
     protected abstract View initView(LayoutInflater inflater);
 
-    protected abstract int initAnimations();
+    public void initDialog(){
 
-    protected abstract void init();
+    }
+
+    protected abstract int initAnimations();
 
     public float initBackgroundAlpha() {
         return 0.8f;
