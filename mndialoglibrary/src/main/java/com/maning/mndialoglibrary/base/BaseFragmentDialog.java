@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,9 @@ import com.maning.mndialoglibrary.R;
  * </pre>
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
+
+    private FragmentActivity mActivity;
+    private boolean isShowing = false;
 
     @Nullable
     @Override
@@ -72,13 +76,48 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     }
 
     @Override
+    public void dismiss() {
+        super.dismiss();
+        isShowing = false;
+    }
+
+    @Override
+    public void dismissAllowingStateLoss() {
+        super.dismissAllowingStateLoss();
+        isShowing = false;
+    }
+
+    public void showDialog(FragmentActivity mActivity) {
+        if (isShowing()) {
+            return;
+        }
+        if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
+            this.mActivity = mActivity;
+            FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
+            show(supportFragmentManager, mActivity.getLocalClassName());
+        }
+    }
+
+    @Override
+    public void show(FragmentManager manager, String tag) {
+        isShowing = true;
+        super.show(manager, tag);
+    }
+
+    public boolean isShowing() {
+        if ((isShowing) || (getDialog() != null && getDialog().isShowing())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         Window window = getDialog().getWindow();
         if (window != null) {
             WindowManager.LayoutParams windowParams = window.getAttributes();
-            float alpha = initBackgroundAlpha();
-            windowParams.dimAmount = alpha;
+            windowParams.dimAmount = initBackgroundAlpha();
             windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
             windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             window.setAttributes(windowParams);
@@ -88,6 +127,8 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        isShowing = false;
+        mActivity = null;
     }
 
 }

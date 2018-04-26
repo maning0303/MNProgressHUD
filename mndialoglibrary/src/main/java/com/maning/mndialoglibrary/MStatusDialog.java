@@ -103,6 +103,9 @@ public class MStatusDialog {
             public void run() {
                 mDialog.dismiss();
                 mHandler.removeCallbacksAndMessages(null);
+                if(mDialogConfig != null && mDialogConfig.onDialogDismissListener != null){
+                    mDialogConfig.onDialogDismissListener.onDismiss();
+                }
             }
         }, delayMillis);
     }

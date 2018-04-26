@@ -1,7 +1,10 @@
 package com.maning.mndialoglibrary.config;
 
 import android.graphics.Color;
+import android.media.midi.MidiManager;
 import android.support.annotation.Nullable;
+
+import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
 
 /**
  * Created by maning on 2017/8/11.
@@ -31,6 +34,9 @@ public class MDialogConfig {
     public int progressRimWidth = 0;
     //文字的颜色
     public int textColor = Color.WHITE;
+    //消失的监听
+    public OnDialogDismissListener onDialogDismissListener;
+
 
 
     private MDialogConfig() {
@@ -106,6 +112,11 @@ public class MDialogConfig {
 
         public Builder setTextColor(@Nullable int textColor) {
             mToastConfig.textColor = textColor;
+            return this;
+        }
+        
+        public Builder setOnDialogDismissListener(OnDialogDismissListener onDialogDismissListener) {
+            mToastConfig.onDialogDismissListener = onDialogDismissListener;
             return this;
         }
     }

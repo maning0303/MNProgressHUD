@@ -128,6 +128,10 @@ public class MProgressDialog {
     public static void dismissProgress() {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
+            //判断是不是有监听
+            if(mDialogConfig.onDialogDismissListener != null){
+                mDialogConfig.onDialogDismissListener.onDismiss();
+            }
             //清除
             mDialog = null;
             mDialogConfig = null;
