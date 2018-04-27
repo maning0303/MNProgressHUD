@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.0.6'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.0.7'
 	}
 ```
 
