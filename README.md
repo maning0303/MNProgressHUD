@@ -94,6 +94,13 @@
                  .setTextColor(getMyColor(R.color.colorDialogTextColor))
                  //ProgressBar 颜色
                  .setProgressColor(Color.GREEN)
+                 //关闭的监听
+                 .setOnDialogDismissListener(new OnDialogDismissListener() {
+                     @Override
+                     public void onDismiss() {
+                         MToast.makeTextShort(mContext,"监听到了ProgressDialog关闭了");
+                     }
+                 })
                  .build();
         MProgressDialog.showProgress(this,"数据上传中...",mDialogConfig);
 
@@ -120,6 +127,13 @@
                         .setStrokeWidth(2)
                         //View圆角大小
                         .setCornerRadius(10)
+                        //关闭的监听
+                        .setOnDialogDismissListener(new OnDialogDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                MToast.makeTextShort(mContext,"监听到了MStatusDialog关闭了");
+                            }
+                        })
                         .build();
         new MStatusDialog(mContext,mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
 
