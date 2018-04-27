@@ -43,10 +43,6 @@ public class TestFragmentDialog extends BaseFragmentDialog {
         return view;
     }
 
-    public void showDialog(FragmentActivity fragmentActivity) {
-        show(fragmentActivity.getSupportFragmentManager(), "");
-    }
-
     /**
      * 动画
      *

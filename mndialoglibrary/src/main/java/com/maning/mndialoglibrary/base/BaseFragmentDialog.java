@@ -77,8 +77,8 @@ public abstract class BaseFragmentDialog extends DialogFragment {
 
     @Override
     public void dismiss() {
-        super.dismiss();
         isShowing = false;
+        super.dismiss();
     }
 
     @Override

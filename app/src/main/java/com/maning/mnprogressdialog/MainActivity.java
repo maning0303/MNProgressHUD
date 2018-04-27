@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn16;
     private Button btn17;
     private Button btn18;
+    private TestFragmentDialog testFragmentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,10 +178,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 initTimer();
                 break;
             case R.id.btn18:
-                new TestFragmentDialog().showDialog(MainActivity.this);
+                showFragmentDialog();
+                showFragmentDialog();
                 break;
 
         }
+    }
+
+    private void showFragmentDialog() {
+        if(testFragmentDialog != null && testFragmentDialog.isShowing()){
+            return;
+        }
+        testFragmentDialog = new TestFragmentDialog();
+        testFragmentDialog.showDialog(MainActivity.this);
+        testFragmentDialog.showDialog(MainActivity.this);
     }
 
 
