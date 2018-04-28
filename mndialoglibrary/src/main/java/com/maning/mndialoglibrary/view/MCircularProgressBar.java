@@ -1,6 +1,7 @@
 package com.maning.mndialoglibrary.view;
 
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.maning.mndialoglibrary.R;
@@ -21,6 +23,7 @@ public class MCircularProgressBar extends View {
 
     // Properties
     private float progress = 0;
+    private float lastProgress = 0;
     private float strokeWidth = 10;
     private float backgroundStrokeWidth = 10;
     private int color = Color.BLACK;
@@ -97,8 +100,34 @@ public class MCircularProgressBar extends View {
     }
 
     public void setProgress(float progress) {
+        setProgress(progress, false);
+    }
+
+    public void setProgress(float progress, boolean animal) {
         this.progress = (progress <= 100) ? progress : 100;
-        invalidate();
+        if (animal) {
+            //开启动画
+            startAnim();
+            this.lastProgress = progress;
+        } else {
+            invalidate();
+        }
+
+    }
+
+    //动画
+    public void startAnim() {
+        ValueAnimator mAngleAnim = ValueAnimator.ofFloat(lastProgress, progress);
+        mAngleAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+        mAngleAnim.setDuration(200);
+        mAngleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                progress = (float) valueAnimator.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        mAngleAnim.start();
     }
 
     public float getProgressBarWidth() {

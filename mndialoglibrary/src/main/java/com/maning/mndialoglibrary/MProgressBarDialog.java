@@ -1,5 +1,6 @@
 package com.maning.mndialoglibrary;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -148,25 +150,62 @@ public class MProgressBarDialog {
     }
 
     public void showProgress(int progress, String message) {
-        showProgress(progress, 0, message);
+        showProgress(progress, 0, message, false);
     }
 
-    public void showProgress(int progress, int secondProgress, String message) {
+    public void showProgress(int progress, String message, boolean animate) {
+        showProgress(progress, 0, message, animate);
+    }
+
+    public void showProgress(final int progress, final int secondProgress, String message) {
+        showProgress(progress, secondProgress, message, false);
+    }
+
+    public void showProgress(final int progress, final int secondProgress, String message, boolean animate) {
         if (mBuilder.style == MProgressBarDialogStyle_Horizontal) {
             if (horizontalProgressBar.getVisibility() == View.GONE) {
                 horizontalProgressBar.setVisibility(View.VISIBLE);
             }
-            horizontalProgressBar.setProgress(progress);
-            horizontalProgressBar.setSecondaryProgress(secondProgress);
+            if (!animate) {
+                horizontalProgressBar.setProgress(progress);
+                horizontalProgressBar.setSecondaryProgress(secondProgress);
+            }else{
+                //动画形式：一级进度
+                ValueAnimator progressAnim = ValueAnimator.ofFloat(horizontalProgressBar.getProgress(), progress);
+                progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+                progressAnim.setDuration(200);
+                progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        float progressCurrent = (float) valueAnimator.getAnimatedValue();
+                        horizontalProgressBar.setProgress((int) progressCurrent);
+                    }
+                });
+                progressAnim.start();
+                //动画形式：二级进度
+                ValueAnimator progressSecondAnim = ValueAnimator.ofFloat(horizontalProgressBar.getSecondaryProgress(), secondProgress);
+                progressSecondAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+                progressSecondAnim.setDuration(200);
+                progressSecondAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        float progressCurrent = (float) valueAnimator.getAnimatedValue();
+                        horizontalProgressBar.setProgress((int) progressCurrent);
+                    }
+                });
+                progressSecondAnim.start();
+            }
         } else {
             if (circularProgressBar.getVisibility() == View.GONE) {
                 circularProgressBar.setVisibility(View.VISIBLE);
             }
-            circularProgressBar.setProgress(progress);
+            //添加动画平滑过度
+            circularProgressBar.setProgress(progress,animate);
         }
         tvShow.setText(message);
         mDialog.show();
     }
+
 
     public boolean isShowing() {
         if (mDialog != null) {
