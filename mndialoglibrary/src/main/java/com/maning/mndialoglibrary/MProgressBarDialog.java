@@ -41,6 +41,10 @@ public class MProgressBarDialog {
     //圆形的
     public final static int MProgressBarDialogStyle_Circle = 1;
 
+    //动画时长
+    private long mDuration = 300;
+
+
     private Context mContext;
     private Dialog mDialog;
 
@@ -150,7 +154,7 @@ public class MProgressBarDialog {
     }
 
     public void showProgress(int progress, String message) {
-        showProgress(progress, 0, message, false);
+        showProgress(progress, 0, message, true);
     }
 
     public void showProgress(int progress, String message, boolean animate) {
@@ -158,7 +162,7 @@ public class MProgressBarDialog {
     }
 
     public void showProgress(final int progress, final int secondProgress, String message) {
-        showProgress(progress, secondProgress, message, false);
+        showProgress(progress, secondProgress, message, true);
     }
 
     public void showProgress(final int progress, final int secondProgress, String message, boolean animate) {
@@ -171,26 +175,26 @@ public class MProgressBarDialog {
                 horizontalProgressBar.setSecondaryProgress(secondProgress);
             }else{
                 //动画形式：一级进度
-                ValueAnimator progressAnim = ValueAnimator.ofFloat(horizontalProgressBar.getProgress(), progress);
+                ValueAnimator progressAnim = ValueAnimator.ofInt(horizontalProgressBar.getProgress(), progress);
                 progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-                progressAnim.setDuration(200);
+                progressAnim.setDuration(mDuration);
                 progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        float progressCurrent = (float) valueAnimator.getAnimatedValue();
-                        horizontalProgressBar.setProgress((int) progressCurrent);
+                        int progressCurrent = (int) valueAnimator.getAnimatedValue();
+                        horizontalProgressBar.setProgress(progressCurrent);
                     }
                 });
                 progressAnim.start();
                 //动画形式：二级进度
-                ValueAnimator progressSecondAnim = ValueAnimator.ofFloat(horizontalProgressBar.getSecondaryProgress(), secondProgress);
+                ValueAnimator progressSecondAnim = ValueAnimator.ofInt(horizontalProgressBar.getSecondaryProgress(), secondProgress);
                 progressSecondAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-                progressSecondAnim.setDuration(200);
+                progressSecondAnim.setDuration(mDuration);
                 progressSecondAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        float progressCurrent = (float) valueAnimator.getAnimatedValue();
-                        horizontalProgressBar.setProgress((int) progressCurrent);
+                        int progressCurrent = (int) valueAnimator.getAnimatedValue();
+                        horizontalProgressBar.setSecondaryProgress(progressCurrent);
                     }
                 });
                 progressSecondAnim.start();

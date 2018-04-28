@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 delayDismissProgressDialog();
                 break;
             case R.id.btn02:
-                MProgressDialog.showProgress(this,text01);
+                MProgressDialog.showProgress(this, text01);
                 //延时关闭
                 delayDismissProgressDialog();
                 break;
             case R.id.btn03:
-                MProgressDialog.showProgress(this,"");
+                MProgressDialog.showProgress(this, "");
                 //延时关闭
                 delayDismissProgressDialog();
                 break;
@@ -137,11 +137,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
                             public void onDismiss() {
-                                MToast.makeTextShort(mContext,"监听到了ProgressDialog关闭了");
+                                MToast.makeTextShort(mContext, "监听到了ProgressDialog关闭了");
                             }
                         })
                         .build();
-                MProgressDialog.showProgress(this,"数据上传中...",mDialogConfig);
+                MProgressDialog.showProgress(this, "数据上传中...", mDialogConfig);
                 break;
             case R.id.btn06:
                 showStatusDialog01();
@@ -163,22 +163,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn14:
                 configProgressbarHorizontalDialog();
-                initTimer();
+                startProgress(true);
                 break;
             case R.id.btn15:
                 configProgressbarHorizontalDialog2();
-                initTimer();
+                startProgress(false);
                 break;
             case R.id.btn16:
                 configProgressbarCircleDialog();
-                initTimer();
+                startProgress(true);
                 break;
             case R.id.btn17:
                 configProgressbarCircleDialog2();
-                initTimer();
+                startProgress(false);
                 break;
             case R.id.btn18:
-                showFragmentDialog();
                 showFragmentDialog();
                 break;
 
@@ -186,11 +185,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showFragmentDialog() {
-        if(testFragmentDialog != null && testFragmentDialog.isShowing()){
+        if (testFragmentDialog != null && testFragmentDialog.isShowing()) {
             return;
         }
         testFragmentDialog = new TestFragmentDialog();
-        testFragmentDialog.showDialog(MainActivity.this);
         testFragmentDialog.showDialog(MainActivity.this);
     }
 
@@ -284,15 +282,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setOnDialogDismissListener(new OnDialogDismissListener() {
                     @Override
                     public void onDismiss() {
-                        MToast.makeTextShort(mContext,"监听到了MStatusDialog关闭了");
+                        MToast.makeTextShort(mContext, "监听到了MStatusDialog关闭了");
                     }
                 })
                 .build();
-        new MStatusDialog(mContext,mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
+        new MStatusDialog(mContext, mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
     }
 
     /** --------------------MStatusDialog end ------------------- */
-
 
 
     /**
@@ -366,48 +363,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
     }
 
-    private Timer timer;
-    private TimerTask task;
-    private float currentProgress;
+    //当前进度
+    private int currentProgress;
+    //是否开启动画：平滑过度，默认开启
+    private boolean animal = true;
 
-    private void initTimer() {
-        destroyTimer();
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                mHandler.post(new Runnable() {
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (currentProgress < 100) {
+                mProgressBarDialog.showProgress(currentProgress, "当前进度为：" + currentProgress + "%", animal);
+                currentProgress += 5;
+                mHandler.postDelayed(runnable, 200);
+            } else {
+                mHandler.removeCallbacks(runnable);
+                currentProgress = 0;
+                mProgressBarDialog.showProgress(100, "完成", animal);
+                //关闭
+                mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (currentProgress < 100f) {
-                            mProgressBarDialog.showProgress((int) currentProgress, "当前进度为：" + currentProgress + "%");
-                            currentProgress += 5;
-                        } else {
-                            destroyTimer();
-                            currentProgress = 0.0f;
-                            mProgressBarDialog.showProgress(100, "完成");
-                            //关闭
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mProgressBarDialog.dismiss();
-                                }
-                            }, 500);
-                        }
+                        mProgressBarDialog.dismiss();
                     }
-                });
+                }, 500);
             }
-        };
-        timer.schedule(task, 0, 200); //延时1000ms后执行，1000ms执行一次
-    }
-
-    private void destroyTimer() {
-        if (timer != null && task != null) {
-            timer.cancel();
-            task.cancel();
-            timer = null;
-            task = null;
         }
+    };
+
+    private void startProgress(boolean animal) {
+        this.animal = animal;
+        mHandler.post(runnable);
     }
 
     /**

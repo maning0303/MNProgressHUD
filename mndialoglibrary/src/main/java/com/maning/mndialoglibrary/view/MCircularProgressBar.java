@@ -28,6 +28,8 @@ public class MCircularProgressBar extends View {
     private float backgroundStrokeWidth = 10;
     private int color = Color.BLACK;
     private int backgroundColor = Color.GRAY;
+    //动画时长
+    private long mDuration = 300;
 
     // Object used to draw
     private int startAngle = -90;
@@ -100,7 +102,7 @@ public class MCircularProgressBar extends View {
     }
 
     public void setProgress(float progress) {
-        setProgress(progress, false);
+        setProgress(progress, true);
     }
 
     public void setProgress(float progress, boolean animal) {
@@ -119,7 +121,7 @@ public class MCircularProgressBar extends View {
     public void startAnim() {
         ValueAnimator mAngleAnim = ValueAnimator.ofFloat(lastProgress, progress);
         mAngleAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-        mAngleAnim.setDuration(200);
+        mAngleAnim.setDuration(mDuration);
         mAngleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
