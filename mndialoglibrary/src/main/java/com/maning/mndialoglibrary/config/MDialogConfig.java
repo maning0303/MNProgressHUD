@@ -38,7 +38,7 @@ public class MDialogConfig {
     //消失的监听
     public OnDialogDismissListener onDialogDismissListener;
     //Dialog进出动画
-    public int animationID;
+    public int animationID = 0;
 
 
     private MDialogConfig() {
