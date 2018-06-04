@@ -94,6 +94,8 @@
                  .setTextColor(getMyColor(R.color.colorDialogTextColor))
                  //ProgressBar 颜色
                  .setProgressColor(Color.GREEN)
+                 //dialog动画
+                 .setAnimationID(R.style.animate_dialog_custom)
                  //关闭的监听
                  .setOnDialogDismissListener(new OnDialogDismissListener() {
                      @Override
@@ -127,6 +129,8 @@
                         .setStrokeWidth(2)
                         //View圆角大小
                         .setCornerRadius(10)
+                        //dialog动画
+                        .setAnimationID(R.style.animate_dialog_custom)
                         //关闭的监听
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
@@ -193,8 +197,18 @@
                .setProgressCornerRadius(0)
                //水平进度条的高度
                .setHorizontalProgressBarHeight(10)
+               //dialog动画
+               .setAnimationID(R.style.animate_dialog_custom)
                .build();
-        mMProgressDialog.show();
+       /**
+        * 显示dialog
+        *
+        * @param progress       当前进度
+        * @param secondProgress 二级进度
+        * @param message        消息体
+        * @param animate        是否平滑过度动画
+        */
+        mMProgressDialog.showProgress(int progress,int secondProgress, String message, boolean animate);
 
 
 ```

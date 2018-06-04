@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setTextColor(getMyColor(R.color.colorDialogTextColor))
                         //ProgressBar 颜色
                         .setProgressColor(Color.GREEN)
+                        //dialog动画
+                        .setAnimationID(R.style.animate_dialog_custom)
                         //关闭的监听
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
@@ -278,6 +280,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setStrokeWidth(2)
                 //View圆角大小
                 .setCornerRadius(10)
+                //动画
+                .setAnimationID(R.style.animate_dialog_custom)
                 //关闭的监听
                 .setOnDialogDismissListener(new OnDialogDismissListener() {
                     @Override
@@ -326,6 +330,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCircleProgressBarWidth(4)
                 //圆形外圈的宽度
                 .setCircleProgressBarBackgroundWidth(4)
+                //dialog动画
+                .setAnimationID(R.style.animate_dialog_custom)
                 .build();
     }
 
@@ -360,6 +366,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setProgressCornerRadius(0)
                 //水平进度条的高度
                 .setHorizontalProgressBarHeight(10)
+                //dialog动画
+                .setAnimationID(R.style.animate_dialog_custom)
                 .build();
     }
 
@@ -385,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
                         mProgressBarDialog.dismiss();
                     }
-                }, 500);
+                }, 1000);
             }
         }
     };

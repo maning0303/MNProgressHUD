@@ -4,16 +4,12 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -87,6 +82,10 @@ public class MProgressBarDialog {
         layoutParams.width = screenW;
         layoutParams.height = screenH;
         mDialog.getWindow().setAttributes(layoutParams);
+        //设置动画
+        if (mBuilder.animationID != 0) {
+            mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
+        }
 
         //获取布局
         dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -165,6 +164,14 @@ public class MProgressBarDialog {
         showProgress(progress, secondProgress, message, true);
     }
 
+    /**
+     * 显示dialog
+     *
+     * @param progress       当前进度
+     * @param secondProgress 二级进度
+     * @param message        消息体
+     * @param animate        是否平滑过度动画
+     */
     public void showProgress(final int progress, final int secondProgress, String message, boolean animate) {
         if (mBuilder.style == MProgressBarDialogStyle_Horizontal) {
             if (horizontalProgressBar.getVisibility() == View.GONE) {
@@ -173,7 +180,7 @@ public class MProgressBarDialog {
             if (!animate) {
                 horizontalProgressBar.setProgress(progress);
                 horizontalProgressBar.setSecondaryProgress(secondProgress);
-            }else{
+            } else {
                 //动画形式：一级进度
                 ValueAnimator progressAnim = ValueAnimator.ofInt(horizontalProgressBar.getProgress(), progress);
                 progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -204,7 +211,7 @@ public class MProgressBarDialog {
                 circularProgressBar.setVisibility(View.VISIBLE);
             }
             //添加动画平滑过度
-            circularProgressBar.setProgress(progress,animate);
+            circularProgressBar.setProgress(progress, animate);
         }
         tvShow.setText(message);
         mDialog.show();
@@ -259,6 +266,8 @@ public class MProgressBarDialog {
         int circleProgressBarBackgroundWidth;
         // horizontalProgressBar 宽度
         int horizontalProgressBarHeight;
+        //Dialog进出动画
+        int animationID;
 
         public Builder(Context context) {
             mContext = context;
@@ -276,6 +285,7 @@ public class MProgressBarDialog {
             circleProgressBarWidth = 3;
             circleProgressBarBackgroundWidth = 1;
             horizontalProgressBarHeight = 4;
+            animationID = 0;
         }
 
         public MProgressBarDialog build() {
@@ -348,6 +358,10 @@ public class MProgressBarDialog {
             return this;
         }
 
+        public Builder setAnimationID(@StyleRes int resId) {
+            this.animationID = resId;
+            return this;
+        }
     }
 
 }

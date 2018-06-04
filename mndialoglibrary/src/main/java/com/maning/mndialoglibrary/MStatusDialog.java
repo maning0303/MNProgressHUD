@@ -67,6 +67,10 @@ public class MStatusDialog {
         layoutParams.width = screenW;
         layoutParams.height = screenH;
         mDialog.getWindow().setAttributes(layoutParams);
+        //设置动画
+        if (mDialogConfig.animationID != 0) {
+            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+        }
 
         //获取布局
         dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -103,7 +107,7 @@ public class MStatusDialog {
             public void run() {
                 mDialog.dismiss();
                 mHandler.removeCallbacksAndMessages(null);
-                if(mDialogConfig != null && mDialogConfig.onDialogDismissListener != null){
+                if (mDialogConfig != null && mDialogConfig.onDialogDismissListener != null) {
                     mDialogConfig.onDialogDismissListener.onDismiss();
                 }
             }

@@ -3,6 +3,7 @@ package com.maning.mndialoglibrary.config;
 import android.graphics.Color;
 import android.media.midi.MidiManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 
 import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
 
@@ -36,7 +37,8 @@ public class MDialogConfig {
     public int textColor = Color.WHITE;
     //消失的监听
     public OnDialogDismissListener onDialogDismissListener;
-
+    //Dialog进出动画
+    public int animationID;
 
 
     private MDialogConfig() {
@@ -114,9 +116,14 @@ public class MDialogConfig {
             mToastConfig.textColor = textColor;
             return this;
         }
-        
+
         public Builder setOnDialogDismissListener(OnDialogDismissListener onDialogDismissListener) {
             mToastConfig.onDialogDismissListener = onDialogDismissListener;
+            return this;
+        }
+
+        public Builder setAnimationID(@StyleRes int resId) {
+            mToastConfig.animationID = resId;
             return this;
         }
     }
