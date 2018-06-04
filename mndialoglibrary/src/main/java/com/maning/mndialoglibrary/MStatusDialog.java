@@ -67,10 +67,6 @@ public class MStatusDialog {
         layoutParams.width = screenW;
         layoutParams.height = screenH;
         mDialog.getWindow().setAttributes(layoutParams);
-        //设置动画
-        if (mDialogConfig.animationID != 0) {
-            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
-        }
 
         //获取布局
         dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -92,6 +88,11 @@ public class MStatusDialog {
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
+
+        //设置动画
+        if (mDialogConfig.animationID != 0) {
+            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+        }
     }
 
     public void show(String msg, Drawable drawable) {

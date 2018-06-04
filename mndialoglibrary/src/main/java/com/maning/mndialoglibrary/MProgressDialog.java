@@ -52,10 +52,6 @@ public class MProgressDialog {
         layoutParams.width = screenW;
         layoutParams.height = screenH;
         mDialog.getWindow().setAttributes(layoutParams);
-        //设置动画
-        if (mDialogConfig.animationID != 0) {
-            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
-        }
 
 
         //布局相关
@@ -67,10 +63,6 @@ public class MProgressDialog {
         //默认相关
         progress_wheel.spin();
 
-        //设置配置
-        if (mDialogConfig == null) {
-            mDialogConfig = new MDialogConfig.Builder().build();
-        }
         configView(mContext);
         //点击事件
         dialog_window_background.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +77,10 @@ public class MProgressDialog {
     }
 
     private static void configView(Context mContext) {
+        //设置动画
+        if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
+            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+        }
         mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
         dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
 
@@ -115,6 +111,10 @@ public class MProgressDialog {
     }
 
     public static void showProgress(Context context, String msg, MDialogConfig mDialogConfig) {
+        //设置配置
+        if (mDialogConfig == null) {
+            mDialogConfig = new MDialogConfig.Builder().build();
+        }
         MProgressDialog.mDialogConfig = mDialogConfig;
         dismissProgress();
         initDialog(context);
@@ -133,7 +133,7 @@ public class MProgressDialog {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
             //判断是不是有监听
-            if(mDialogConfig.onDialogDismissListener != null){
+            if (mDialogConfig.onDialogDismissListener != null) {
                 mDialogConfig.onDialogDismissListener.onDismiss();
             }
             //清除
