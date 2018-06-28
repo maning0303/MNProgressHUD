@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setProgressColor(Color.GREEN)
                         //dialog动画
                         .setAnimationID(R.style.animate_dialog_custom)
+                        //padding
+                        .setPadding(40, 10, 40, 10)
                         //关闭的监听
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
@@ -277,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //字体的颜色
                 .setTextColor(getMyColor(R.color.colorAccent))
                 //文字大小
-                .setTextSize(15)
+                .setTextSize(13)
                 //View边框的颜色
                 .setStrokeColor(getMyColor(R.color.white))
                 //View边框的宽度
@@ -286,6 +288,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCornerRadius(10)
                 //动画
                 .setAnimationID(R.style.animate_dialog_custom)
+                //图片的宽高dp
+                .setImgWidthAndHeight(60, 60)
+                //padding
+                .setPadding(40, 10, 40, 10)
                 //关闭的监听
                 .setOnDialogDismissListener(new OnDialogDismissListener() {
                     @Override
@@ -294,7 +300,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 })
                 .build();
-        new MStatusDialog(mContext, mDialogConfig).show("提交数据失败,请重新尝试!", mContext.getResources().getDrawable(R.mipmap.ic_launcher), 1000);
+        new MStatusDialog(mContext, mDialogConfig)
+                .show("恭喜你，签到成功\n积分+10",
+                        mContext.getResources().getDrawable(R.drawable.icon_staues_test),
+                        1500);
     }
 
     /** --------------------MStatusDialog end ------------------- */

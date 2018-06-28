@@ -82,6 +82,13 @@ public class MProgressDialog {
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
+        dialog_view_bg.setPadding(
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingLeft),
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingTop),
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingRight),
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingBottom)
+        );
+
         //Progress设置
         progress_wheel.setBarColor(mDialogConfig.progressColor);
         progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mDialogConfig.progressWidth));

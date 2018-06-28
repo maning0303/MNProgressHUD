@@ -42,6 +42,15 @@ public class MDialogConfig {
     //Dialog进出动画
     public int animationID = 0;
 
+    //StatusDialog专用：中间图片宽高
+    public int imgWidth = 40;
+    public int imgHeight = 40;
+    //StatusDialog专用：布局的Padding--int left, int top, int right, int bottom
+    public int paddingLeft = 12;
+    public int paddingTop = 12;
+    public int paddingRight = 12;
+    public int paddingBottom = 12;
+
 
     private MDialogConfig() {
     }
@@ -131,6 +140,20 @@ public class MDialogConfig {
 
         public Builder setAnimationID(@StyleRes int resId) {
             mToastConfig.animationID = resId;
+            return this;
+        }
+
+        public Builder setImgWidthAndHeight(int imgWidth, int imgHeight) {
+            mToastConfig.imgWidth = imgWidth;
+            mToastConfig.imgHeight = imgHeight;
+            return this;
+        }
+        
+        public Builder setPadding(int paddingLeft, int paddingTop, int paddingRight, int paddingBottom) {
+            mToastConfig.paddingLeft = paddingLeft;
+            mToastConfig.paddingTop = paddingTop;
+            mToastConfig.paddingRight = paddingRight;
+            mToastConfig.paddingBottom = paddingBottom;
             return this;
         }
     }

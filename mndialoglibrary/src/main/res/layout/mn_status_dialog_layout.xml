@@ -8,50 +8,44 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:visibility="visible"
         android:id="@+id/dialog_view_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="60dp"
         android:background="@drawable/mn_dialog_view_bg"
+        android:gravity="center"
         android:minHeight="100dp"
-        android:minWidth="100dp">
+        android:minWidth="100dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp"
+        android:visibility="visible">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageStatus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerInside" />
+
+        <TextView
+            android:id="@+id/tvShow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@id/imageStatus"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
             android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            >
-
-            <ImageView
-                android:id="@+id/imageStatus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="centerInside"
-                />
-
-            <TextView
-                android:id="@+id/tvShow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:maxLines="6"
-                android:text=""
-                tools:text="成功"
-                android:textColor="@color/mn_colorDialogTextColor"
-                android:textSize="13sp"
-                android:visibility="visible"
-                />
-
-        </LinearLayout>
+            android:lineSpacingExtra="4dp"
+            android:maxLines="6"
+            android:text=""
+            android:textColor="@color/mn_colorDialogTextColor"
+            android:textSize="13sp"
+            android:visibility="visible"
+            tools:text="成功\n签到成功了" />
 
     </RelativeLayout>
 

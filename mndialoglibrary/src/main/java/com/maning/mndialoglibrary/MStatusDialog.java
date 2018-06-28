@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -83,20 +84,39 @@ public class MStatusDialog {
         if (mDialogConfig == null) {
             mDialogConfig = new MDialogConfig.Builder().build();
         }
+        //window背景
         dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
+
+        //文字设置
         tvShow.setTextColor(mDialogConfig.textColor);
         tvShow.setTextSize(mDialogConfig.textSize);
 
+        //弹框背景
         GradientDrawable myGrad = new GradientDrawable();
         myGrad.setColor(mDialogConfig.backgroundViewColor);
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
         dialog_view_bg.setBackground(myGrad);
+        dialog_view_bg.setPadding(
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingLeft),
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingTop),
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingRight),
+                MSizeUtils.dp2px(mContext, mDialogConfig.paddingBottom)
+        );
 
         //设置动画
         if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
             mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
         }
+
+        //图片宽高
+        if (mDialogConfig.imgWidth > 0 && mDialogConfig.imgHeight > 0) {
+            ViewGroup.LayoutParams layoutParams = imageStatus.getLayoutParams();
+            layoutParams.width = MSizeUtils.dp2px(mContext, mDialogConfig.imgWidth);
+            layoutParams.height = MSizeUtils.dp2px(mContext, mDialogConfig.imgHeight);
+            imageStatus.setLayoutParams(layoutParams);
+        }
+
     }
 
     public void show(String msg, Drawable drawable) {

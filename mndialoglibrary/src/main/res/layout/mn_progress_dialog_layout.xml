@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_window_background"
     android:layout_width="match_parent"
@@ -14,47 +15,41 @@
         android:layout_centerInParent="true"
         android:layout_margin="80dp"
         android:background="@drawable/mn_dialog_view_bg"
-        android:minHeight="98dp"
-        android:minWidth="98dp"
+        android:gravity="center"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
         android:paddingBottom="12dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingTop="12dp">
 
-        <LinearLayout
+
+        <com.maning.mndialoglibrary.view.MProgressWheel
+            android:id="@+id/progress_wheel"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            wheel:mn_barColor="@color/mn_colorDialogProgressBarColor"
+            wheel:mn_barWidth="2dp"
+            wheel:mn_fillRadius="true"
+            wheel:mn_progressIndeterminate="true" />
+
+
+        <TextView
+            android:id="@+id/tv_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@id/progress_wheel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
             android:gravity="center"
-            android:orientation="vertical"
-
-            >
-
-            <com.maning.mndialoglibrary.view.MProgressWheel
-                android:id="@+id/progress_wheel"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                wheel:mn_barColor="@color/mn_colorDialogProgressBarColor"
-                wheel:mn_barWidth="2dp"
-                android:layout_marginBottom="8dp"
-                wheel:mn_fillRadius="true"
-                wheel:mn_progressIndeterminate="true" />
-
-
-            <TextView
-                android:id="@+id/tv_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="6"
-                android:text="加载中"
-                android:textColor="@color/mn_colorDialogTextColor"
-                android:textSize="12sp"
-                android:visibility="visible" />
-
-        </LinearLayout>
+            android:lineSpacingExtra="4dp"
+            android:maxLines="6"
+            android:textColor="@color/mn_colorDialogTextColor"
+            android:textSize="12sp"
+            android:visibility="visible"
+            tools:text="加载中\n加载中" />
 
     </RelativeLayout>
 
