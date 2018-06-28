@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.0.9'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.0'
 	}
 ```
 
@@ -96,6 +96,10 @@
                  .setProgressColor(Color.GREEN)
                  //dialog动画
                  .setAnimationID(R.style.animate_dialog_custom)
+                 //文字的大小：sp
+                 .setTextSize(15)
+                 //padding
+                 .setPadding(40, 10, 40, 10)
                  //关闭的监听
                  .setOnDialogDismissListener(new OnDialogDismissListener() {
                      @Override
@@ -131,6 +135,12 @@
                         .setCornerRadius(10)
                         //dialog动画
                         .setAnimationID(R.style.animate_dialog_custom)
+                        //文字的大小：sp
+                        .setTextSize(15)
+                        //padding
+                        .setPadding(40, 10, 40, 10)
+                        //图片的宽高dp
+                        .setImgWidthAndHeight(60, 60)
                         //关闭的监听
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
@@ -159,6 +169,12 @@
                 .setBackgroundStrokeColor(Color.WHITE)
                 //背景边框的宽度
                 .setBackgroundStrokeWidth(1)
+                //文字的大小：sp
+                .setTextSize(15)
+                //padding
+                .setPadding(40, 10, 40, 10)
+                //图片的宽高dp
+                .setImgWidthAndHeight(60, 60)
                 .build();
 
         //多种方法
@@ -212,6 +228,12 @@
 
 
 ```
+
+## 版本记录：
+    V1.1.0:
+        1.新增这是字体大小
+        2.新增设置padding
+        3.新增设置图片大小
 
 
 ## 感谢：
