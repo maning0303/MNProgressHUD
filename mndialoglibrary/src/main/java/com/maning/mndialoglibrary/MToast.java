@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -71,12 +72,12 @@ public class MToast {
         }
         MToastConfig.MToastGravity ToastGravity = config.ToastGravity;
         int ToastTextColor = config.ToastTextColor;
+        float ToastTextSize = config.ToastTextSize;
         int ToastBackgroundColor = config.ToastBackgroundColor;
         float ToastBackgroundCornerRadius = config.ToastBackgroundCornerRadius;
         Drawable ToastIcon = config.ToastIcon;
         int ToastBackgroundStrokeColor = config.ToastBackgroundStrokeColor;
         float ToastBackgroundStrokeWidth = config.ToastBackgroundStrokeWidth;
-
 
         //图片的显示
         if (ToastIcon == null) {
@@ -87,12 +88,19 @@ public class MToast {
         }
         //文字的颜色
         tvShowToast.setTextColor(ToastTextColor);
+        tvShowToast.setTextSize(ToastTextSize);
         //背景色和圆角
         GradientDrawable myGrad = new GradientDrawable();
         myGrad.setCornerRadius(MSizeUtils.dp2px(context, ToastBackgroundCornerRadius));
         myGrad.setColor(ToastBackgroundColor);
         myGrad.setStroke(MSizeUtils.dp2px(context, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
         toastBackgroundView.setBackground(myGrad);
+        toastBackgroundView.setPadding(
+                MSizeUtils.dp2px(context, config.paddingLeft),
+                MSizeUtils.dp2px(context, config.paddingTop),
+                MSizeUtils.dp2px(context, config.paddingRight),
+                MSizeUtils.dp2px(context, config.paddingBottom)
+        );
         //文字
         tvShowToast.setText(message);
         //时间
@@ -102,6 +110,13 @@ public class MToast {
             currentToast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(context, 80));
+        }
+        //图片宽高
+        if (config.imgWidth > 0 && config.imgHeight > 0) {
+            ViewGroup.LayoutParams layoutParams = ivLeftShow.getLayoutParams();
+            layoutParams.width = MSizeUtils.dp2px(context, config.imgWidth);
+            layoutParams.height = MSizeUtils.dp2px(context, config.imgHeight);
+            ivLeftShow.setLayoutParams(layoutParams);
         }
 
         return currentToast;

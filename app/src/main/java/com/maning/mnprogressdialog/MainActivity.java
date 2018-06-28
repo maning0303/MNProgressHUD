@@ -239,7 +239,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setGravity(MToastConfig.MToastGravity.CENTRE)
                 .setTextColor(Color.MAGENTA)
                 .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                .setToastIcon(mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok))
                 .setBackgroundCornerRadius(10)
+                .setTextSize(13)
+                .setImgWidthAndHeight(40, 40)
+                .setPadding(20, 20, 20, 20)
                 .build();
         MToast.makeTextShort(mContext, text01, config);
     }
@@ -249,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setTextColor(getMyColor(R.color.white))
                 .setBackgroundColor(getMyColor(R.color.colorDialogTest))
                 .setToastIcon(mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok))
+                .setTextSize(18)
                 .build();
         MToast.makeTextShort(mContext, "欢迎使用自定义Toast", config);
 
