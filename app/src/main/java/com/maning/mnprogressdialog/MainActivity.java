@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setProgressRimWidth(4)
                         //文字的颜色
                         .setTextColor(getMyColor(R.color.colorDialogTextColor))
+                        //文字的大小
+                        .setTextSize(15)
                         //ProgressBar 颜色
                         .setProgressColor(Color.GREEN)
                         //dialog动画
@@ -274,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setBackgroundViewColor(getMyColor(R.color.colorDialogViewBg2))
                 //字体的颜色
                 .setTextColor(getMyColor(R.color.colorAccent))
+                //文字大小
+                .setTextSize(15)
                 //View边框的颜色
                 .setStrokeColor(getMyColor(R.color.white))
                 //View边框的宽度

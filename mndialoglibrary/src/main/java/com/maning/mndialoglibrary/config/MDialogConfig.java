@@ -35,6 +35,8 @@ public class MDialogConfig {
     public int progressRimWidth = 0;
     //文字的颜色
     public int textColor = Color.WHITE;
+    //文字的大小:默认12sp
+    public float textSize = 12;
     //消失的监听
     public OnDialogDismissListener onDialogDismissListener;
     //Dialog进出动画
@@ -114,6 +116,11 @@ public class MDialogConfig {
 
         public Builder setTextColor(@Nullable int textColor) {
             mToastConfig.textColor = textColor;
+            return this;
+        }
+
+        public Builder setTextSize(float textSize) {
+            mToastConfig.textSize = textSize;
             return this;
         }
 

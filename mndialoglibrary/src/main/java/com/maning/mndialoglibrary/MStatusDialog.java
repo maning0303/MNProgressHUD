@@ -80,8 +80,12 @@ public class MStatusDialog {
     }
 
     private void configView() {
+        if (mDialogConfig == null) {
+            mDialogConfig = new MDialogConfig.Builder().build();
+        }
         dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
         tvShow.setTextColor(mDialogConfig.textColor);
+        tvShow.setTextSize(mDialogConfig.textSize);
 
         GradientDrawable myGrad = new GradientDrawable();
         myGrad.setColor(mDialogConfig.backgroundViewColor);
@@ -90,7 +94,7 @@ public class MStatusDialog {
         dialog_view_bg.setBackground(myGrad);
 
         //设置动画
-        if (mDialogConfig.animationID != 0) {
+        if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
             mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
         }
     }

@@ -23,6 +23,8 @@ import com.maning.mndialoglibrary.view.MProgressWheel;
 
 public class MProgressDialog {
 
+    private static final String LoadingDefaultMsg = "加载中";
+
     private static Dialog mDialog;
     private static MDialogConfig mDialogConfig;
 
@@ -47,23 +49,48 @@ public class MProgressDialog {
         windowManager.getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;
         int screenH = dm.heightPixels;
-
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
         layoutParams.width = screenW;
         layoutParams.height = screenH;
         mDialog.getWindow().setAttributes(layoutParams);
-
 
         //布局相关
         dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
         dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
         progress_wheel = (MProgressWheel) mProgressDialogView.findViewById(R.id.progress_wheel);
         tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
-
-        //默认相关
         progress_wheel.spin();
 
         configView(mContext);
+    }
+
+    private static void configView(Context mContext) {
+        if (mDialogConfig == null) {
+            mDialogConfig = new MDialogConfig.Builder().build();
+        }
+        //设置动画
+        if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
+            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+        }
+        //点击外部可以取消
+        mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
+        //window背景色
+        dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
+        //弹框背景
+        GradientDrawable myGrad = new GradientDrawable();
+        myGrad.setColor(mDialogConfig.backgroundViewColor);
+        myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
+        dialog_view_bg.setBackground(myGrad);
+        //Progress设置
+        progress_wheel.setBarColor(mDialogConfig.progressColor);
+        progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mDialogConfig.progressWidth));
+        progress_wheel.setRimColor(mDialogConfig.progressRimColor);
+        progress_wheel.setRimWidth(mDialogConfig.progressRimWidth);
+        //文字颜色设置
+        tv_show.setTextColor(mDialogConfig.textColor);
+        tv_show.setTextSize(mDialogConfig.textSize);
+
         //点击事件
         dialog_window_background.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,30 +103,8 @@ public class MProgressDialog {
         });
     }
 
-    private static void configView(Context mContext) {
-        //设置动画
-        if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
-            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
-        }
-        mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
-        dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
-
-        GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setColor(mDialogConfig.backgroundViewColor);
-        myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
-        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
-        dialog_view_bg.setBackground(myGrad);
-
-        progress_wheel.setBarColor(mDialogConfig.progressColor);
-        progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mDialogConfig.progressWidth));
-        progress_wheel.setRimColor(mDialogConfig.progressRimColor);
-        progress_wheel.setRimWidth(mDialogConfig.progressRimWidth);
-
-        tv_show.setTextColor(mDialogConfig.textColor);
-    }
-
     public static void showProgress(Context context) {
-        showProgress(context, "加载中");
+        showProgress(context, LoadingDefaultMsg);
     }
 
     public static void showProgress(Context context, String msg) {
@@ -107,7 +112,7 @@ public class MProgressDialog {
     }
 
     public static void showProgress(Context context, MDialogConfig mDialogConfig) {
-        showProgress(context, "加载中", mDialogConfig);
+        showProgress(context, LoadingDefaultMsg, mDialogConfig);
     }
 
     public static void showProgress(Context context, String msg, MDialogConfig mDialogConfig) {
@@ -131,18 +136,17 @@ public class MProgressDialog {
 
     public static void dismissProgress() {
         if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
             //判断是不是有监听
             if (mDialogConfig.onDialogDismissListener != null) {
                 mDialogConfig.onDialogDismissListener.onDismiss();
             }
-            //清除
-            mDialog = null;
             mDialogConfig = null;
             dialog_window_background = null;
             dialog_view_bg = null;
             progress_wheel = null;
             tv_show = null;
+            mDialog.dismiss();
+            mDialog = null;
         }
     }
 
