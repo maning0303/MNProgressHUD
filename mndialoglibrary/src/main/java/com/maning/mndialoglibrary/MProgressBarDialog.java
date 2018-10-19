@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maning.mndialoglibrary.utils.MSizeUtils;
-import com.maning.mndialoglibrary.view.MCircularProgressBar;
+import com.maning.mndialoglibrary.view.MNHudCircularProgressBar;
 
 /**
  * Created by maning on 2017/12/29.
@@ -49,7 +49,7 @@ public class MProgressBarDialog {
     private RelativeLayout dialog_view_bg;
     private TextView tvShow;
     private ProgressBar horizontalProgressBar;
-    private MCircularProgressBar circularProgressBar;
+    private MNHudCircularProgressBar circularProgressBar;
 
     public MProgressBarDialog(Context context) {
         this(context, new MProgressBarDialog.Builder(context));
@@ -96,7 +96,7 @@ public class MProgressBarDialog {
         dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
         tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
         horizontalProgressBar = (ProgressBar) mProgressDialogView.findViewById(R.id.horizontalProgressBar);
-        circularProgressBar = (MCircularProgressBar) mProgressDialogView.findViewById(R.id.circularProgressBar);
+        circularProgressBar = (MNHudCircularProgressBar) mProgressDialogView.findViewById(R.id.circularProgressBar);
 
         horizontalProgressBar.setVisibility(View.GONE);
         circularProgressBar.setVisibility(View.GONE);

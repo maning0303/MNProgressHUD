@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
-import com.maning.mndialoglibrary.view.MProgressWheel;
+import com.maning.mndialoglibrary.view.MNHudProgressWheel;
 
 /**
  * Created by maning on 2017/8/9.
@@ -32,7 +32,7 @@ public class MProgressDialog {
     //布局
     private static RelativeLayout dialog_window_background;
     private static RelativeLayout dialog_view_bg;
-    private static MProgressWheel progress_wheel;
+    private static MNHudProgressWheel progress_wheel;
     private static TextView tv_show;
 
 
@@ -58,7 +58,7 @@ public class MProgressDialog {
         //布局相关
         dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
         dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
-        progress_wheel = (MProgressWheel) mProgressDialogView.findViewById(R.id.progress_wheel);
+        progress_wheel = (MNHudProgressWheel) mProgressDialogView.findViewById(R.id.progress_wheel);
         tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
         progress_wheel.spin();
 

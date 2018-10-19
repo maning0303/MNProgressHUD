@@ -15,7 +15,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <declare-styleable name="MNProgressWheel">
+    <declare-styleable name="MNHudProgressWheel">
         <attr name="mn_progressIndeterminate" format="boolean" />
         <attr name="mn_barColor" format="color" />
         <attr name="mn_rimColor" format="color" />
@@ -28,7 +28,7 @@
         <attr name="mn_linearProgress" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="MNCircularProgressBar">
+    <declare-styleable name="MNHudCircularProgressBar">
         <attr name="mn_progress" format="integer" />
         <attr name="mn_progressbar_color" format="color" />
         <attr name="mn_background_progressbar_color" format="color" />

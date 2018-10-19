@@ -28,8 +28,8 @@ import com.maning.mndialoglibrary.R;
  *         Licensed under the Apache License 2.0 license see:
  *         http://www.apache.org/licenses/LICENSE-2.0
  */
-public class MProgressWheel extends View {
-  private static final String TAG = MProgressWheel.class.getSimpleName();
+public class MNHudProgressWheel extends View {
+  private static final String TAG = MNHudProgressWheel.class.getSimpleName();
   private final int barLength = 16;
   private final int barMaxLength = 270;
   private final long pauseGrowingTime = 200;
@@ -79,10 +79,10 @@ public class MProgressWheel extends View {
   /**
    * The constructor for the ProgressWheel
    */
-  public MProgressWheel(Context context, AttributeSet attrs) {
+  public MNHudProgressWheel(Context context, AttributeSet attrs) {
     super(context, attrs);
 
-    parseAttributes(context.obtainStyledAttributes(attrs, R.styleable.MNProgressWheel));
+    parseAttributes(context.obtainStyledAttributes(attrs, R.styleable.MNHudProgressWheel));
 
     setAnimationEnabled();
   }
@@ -90,7 +90,7 @@ public class MProgressWheel extends View {
   /**
    * The constructor for the ProgressWheel
    */
-  public MProgressWheel(Context context) {
+  public MNHudProgressWheel(Context context) {
     super(context);
     setAnimationEnabled();
   }
@@ -227,28 +227,28 @@ public class MProgressWheel extends View {
         (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, circleRadius, metrics);
 
     circleRadius =
-        (int) a.getDimension(R.styleable.MNProgressWheel_mn_circleRadius, circleRadius);
+        (int) a.getDimension(R.styleable.MNHudProgressWheel_mn_circleRadius, circleRadius);
 
-    fillRadius = a.getBoolean(R.styleable.MNProgressWheel_mn_fillRadius, false);
+    fillRadius = a.getBoolean(R.styleable.MNHudProgressWheel_mn_fillRadius, false);
 
-    barWidth = (int) a.getDimension(R.styleable.MNProgressWheel_mn_barWidth, barWidth);
+    barWidth = (int) a.getDimension(R.styleable.MNHudProgressWheel_mn_barWidth, barWidth);
 
-    rimWidth = (int) a.getDimension(R.styleable.MNProgressWheel_mn_rimWidth, rimWidth);
+    rimWidth = (int) a.getDimension(R.styleable.MNHudProgressWheel_mn_rimWidth, rimWidth);
 
     float baseSpinSpeed =
-        a.getFloat(R.styleable.MNProgressWheel_mn_spinSpeed, spinSpeed / 360.0f);
+        a.getFloat(R.styleable.MNHudProgressWheel_mn_spinSpeed, spinSpeed / 360.0f);
     spinSpeed = baseSpinSpeed * 360;
 
     barSpinCycleTime =
-        a.getInt(R.styleable.MNProgressWheel_mn_barSpinCycleTime, (int) barSpinCycleTime);
+        a.getInt(R.styleable.MNHudProgressWheel_mn_barSpinCycleTime, (int) barSpinCycleTime);
 
-    barColor = a.getColor(R.styleable.MNProgressWheel_mn_barColor, barColor);
+    barColor = a.getColor(R.styleable.MNHudProgressWheel_mn_barColor, barColor);
 
-    rimColor = a.getColor(R.styleable.MNProgressWheel_mn_rimColor, rimColor);
+    rimColor = a.getColor(R.styleable.MNHudProgressWheel_mn_rimColor, rimColor);
 
-    linearProgress = a.getBoolean(R.styleable.MNProgressWheel_mn_linearProgress, false);
+    linearProgress = a.getBoolean(R.styleable.MNHudProgressWheel_mn_linearProgress, false);
 
-    if (a.getBoolean(R.styleable.MNProgressWheel_mn_progressIndeterminate, false)) {
+    if (a.getBoolean(R.styleable.MNHudProgressWheel_mn_progressIndeterminate, false)) {
       spin();
     }
 
