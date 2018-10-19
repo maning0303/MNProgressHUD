@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.0'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.2'
 	}
 ```
 
@@ -229,7 +229,74 @@
 
 ```
 
+### 5:BaseFragmentDialog使用（详细见Demo）:
+``` java
+    
+    1.继承BaseFragmentDialog
+    public class TestFragmentDialog extends BaseFragmentDialog {
+    
+        /**
+         * 布局初始化，必须实现
+         *
+         * @param inflater
+         * @return
+         */
+        @Override
+        protected View initView(LayoutInflater inflater) {
+            View view = inflater.inflate(R.layout.dialog_test, null);
+            return view;
+        }
+    
+        /**
+         * 动画，此方法默认不实现
+         *
+         * @return
+         */
+        @Override
+        public int initAnimations() {
+            return R.style.animate_dialog;
+        }
+    
+        /**
+         * Dialog初始化相关，此方法默认不实现
+         */
+        @Override
+        public void initDialog() {
+            //点击外部不可取消,默认false
+            getDialog().setCanceledOnTouchOutside(true);
+        }
+    
+        /**
+         * 背景透明度，此方法默认不实现
+         *
+         * @return
+         */
+        @Override
+        public float initBackgroundAlpha() {
+            //默认0.8f
+            return 0.8f;
+        }
+    }
+        
+    2.调用显示
+    private void showFragmentDialog() {
+            if (testFragmentDialog != null && testFragmentDialog.isShowing()) {
+                return;
+            }
+            testFragmentDialog = new TestFragmentDialog();
+            testFragmentDialog.showDialog(MainActivity.this);
+    }
+    
+
+
+```
+
 ## 版本记录：
+    V1.1.2:
+        1.优化代码，防止动画异常
+        2.minSdkVersion 14
+        3.BaseFragmentDialog 优化
+        
     V1.1.0:
         1.新增这是字体大小
         2.新增设置padding

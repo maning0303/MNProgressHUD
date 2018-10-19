@@ -16,18 +16,11 @@ import android.view.WindowManager;
 import com.maning.mndialoglibrary.R;
 
 /**
- * <pre>
- *     author : maning
- *     e-mail : xxx@xx
- *     time   : 2018/03/07
- *     desc   : 抽取公用的FragmentDialog
- *     version: 1.0
- * </pre>
+ * 抽取公用的FragmentDialog
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
 
     public FragmentActivity mActivity;
-    private boolean isShowing = false;
 
     @Nullable
     @Override
@@ -73,7 +66,9 @@ public abstract class BaseFragmentDialog extends DialogFragment {
 
     }
 
-    protected abstract int initAnimations();
+    public int initAnimations(){
+        return 0;
+    }
 
     public float initBackgroundAlpha() {
         return 0.8f;
@@ -81,14 +76,12 @@ public abstract class BaseFragmentDialog extends DialogFragment {
 
     @Override
     public void dismiss() {
-        isShowing = false;
         super.dismiss();
     }
 
     @Override
     public void dismissAllowingStateLoss() {
         super.dismissAllowingStateLoss();
-        isShowing = false;
     }
 
     public void showDialog(FragmentActivity mActivity) {
@@ -108,12 +101,11 @@ public abstract class BaseFragmentDialog extends DialogFragment {
 
     @Override
     public void show(FragmentManager manager, String tag) {
-        isShowing = true;
         super.show(manager, tag);
     }
 
     public boolean isShowing() {
-        if ((isShowing) || (getDialog() != null && getDialog().isShowing())) {
+        if (getDialog() != null && getDialog().isShowing()) {
             return true;
         }
         return false;
@@ -135,7 +127,6 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        isShowing = false;
         mActivity = null;
     }
 
