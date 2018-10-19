@@ -161,7 +161,6 @@ public class MProgressDialog {
                 mDialogConfig.onDialogDismissListener.onDismiss();
                 mDialogConfig.onDialogDismissListener = null;
             }
-            mDialogConfig = null;
             dialog_window_background = null;
             dialog_view_bg = null;
             progress_wheel = null;

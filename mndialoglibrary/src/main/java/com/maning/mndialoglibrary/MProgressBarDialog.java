@@ -8,6 +8,7 @@ import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
@@ -119,7 +120,11 @@ public class MProgressBarDialog {
         myGrad.setColor(mBuilder.backgroundViewColor);
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
-        dialog_view_bg.setBackground(myGrad);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            dialog_view_bg.setBackground(myGrad);
+        }else{
+            dialog_view_bg.setBackgroundDrawable(myGrad);
+        }
 
         //horizontalProgressBar 配置
         //背景
