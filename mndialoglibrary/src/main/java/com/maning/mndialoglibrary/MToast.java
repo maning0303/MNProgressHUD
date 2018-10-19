@@ -3,6 +3,7 @@ package com.maning.mndialoglibrary;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -94,7 +95,11 @@ public class MToast {
         myGrad.setCornerRadius(MSizeUtils.dp2px(context, ToastBackgroundCornerRadius));
         myGrad.setColor(ToastBackgroundColor);
         myGrad.setStroke(MSizeUtils.dp2px(context, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
-        toastBackgroundView.setBackground(myGrad);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            toastBackgroundView.setBackground(myGrad);
+        }else{
+            toastBackgroundView.setBackgroundDrawable(myGrad);
+        }
         toastBackgroundView.setPadding(
                 MSizeUtils.dp2px(context, config.paddingLeft),
                 MSizeUtils.dp2px(context, config.paddingTop),

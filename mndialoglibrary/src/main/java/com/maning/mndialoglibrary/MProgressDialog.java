@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ public class MProgressDialog {
     private static TextView tv_show;
 
 
-    private static void initDialog(Context mContext) {
+    private static void initDialog(Context mContext) throws Exception {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);// 得到加载view
         mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
@@ -70,7 +71,11 @@ public class MProgressDialog {
         }
         //设置动画
         if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
-            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+            try {
+                mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+            } catch (Exception e) {
+
+            }
         }
         //点击外部可以取消
         mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
@@ -81,7 +86,11 @@ public class MProgressDialog {
         myGrad.setColor(mDialogConfig.backgroundViewColor);
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
-        dialog_view_bg.setBackground(myGrad);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            dialog_view_bg.setBackground(myGrad);
+        } else {
+            dialog_view_bg.setBackgroundDrawable(myGrad);
+        }
         dialog_view_bg.setPadding(
                 MSizeUtils.dp2px(mContext, mDialogConfig.paddingLeft),
                 MSizeUtils.dp2px(mContext, mDialogConfig.paddingTop),
@@ -123,21 +132,25 @@ public class MProgressDialog {
     }
 
     public static void showProgress(Context context, String msg, MDialogConfig mDialogConfig) {
-        //设置配置
-        if (mDialogConfig == null) {
-            mDialogConfig = new MDialogConfig.Builder().build();
-        }
-        MProgressDialog.mDialogConfig = mDialogConfig;
-        dismissProgress();
-        initDialog(context);
-        if (mDialog != null && tv_show != null) {
-            if (TextUtils.isEmpty(msg)) {
-                tv_show.setVisibility(View.GONE);
-            } else {
-                tv_show.setVisibility(View.VISIBLE);
-                tv_show.setText(msg);
+        try {
+            dismissProgress();
+            //设置配置
+            if (mDialogConfig == null) {
+                mDialogConfig = new MDialogConfig.Builder().build();
             }
-            mDialog.show();
+            MProgressDialog.mDialogConfig = mDialogConfig;
+            initDialog(context);
+            if (mDialog != null && tv_show != null) {
+                if (TextUtils.isEmpty(msg)) {
+                    tv_show.setVisibility(View.GONE);
+                } else {
+                    tv_show.setVisibility(View.VISIBLE);
+                    tv_show.setText(msg);
+                }
+                mDialog.show();
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -146,6 +159,7 @@ public class MProgressDialog {
             //判断是不是有监听
             if (mDialogConfig.onDialogDismissListener != null) {
                 mDialogConfig.onDialogDismissListener.onDismiss();
+                mDialogConfig.onDialogDismissListener = null;
             }
             mDialogConfig = null;
             dialog_window_background = null;

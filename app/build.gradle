@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.maning.mnprogressdialog"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -22,11 +22,11 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.1.0'
 
-//    compile project(':mndialoglibrary')
+    compile project(':mndialoglibrary')
 
 
     //测试Gradle添加
-    compile 'com.github.maning0303:MNProgressHUD:V1.1.0'
+//    compile 'com.github.maning0303:MNProgressHUD:V1.1.0'
 
 
 }

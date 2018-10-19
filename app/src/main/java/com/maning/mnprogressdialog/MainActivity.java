@@ -94,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn01:
                 MProgressDialog.showProgress(this);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        MProgressDialog.showProgress(MainActivity.this, "");
+                    }
+                }, 1000);
+                MProgressDialog.showProgress(this);
                 //延时关闭
                 delayDismissProgressDialog();
                 break;
@@ -270,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * --------------------MStatusDialog start -------------------
      */
+
 
     private void showStatusDialog01() {
         new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));

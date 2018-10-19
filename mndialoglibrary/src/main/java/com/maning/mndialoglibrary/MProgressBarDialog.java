@@ -84,7 +84,11 @@ public class MProgressBarDialog {
         mDialog.getWindow().setAttributes(layoutParams);
         //设置动画
         if (mBuilder.animationID != 0) {
-            mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
+            try {
+                mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
+            } catch (Exception e) {
+
+            }
         }
 
         //获取布局

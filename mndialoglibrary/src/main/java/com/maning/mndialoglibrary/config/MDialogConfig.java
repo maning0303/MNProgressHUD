@@ -58,7 +58,7 @@ public class MDialogConfig {
 
     public static class Builder {
 
-        private MDialogConfig mDialogConfig = null;
+        private MDialogConfig mDialogConfig;
 
         public Builder() {
             mDialogConfig = new MDialogConfig();

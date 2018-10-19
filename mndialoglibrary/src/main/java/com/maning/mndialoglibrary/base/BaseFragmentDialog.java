@@ -26,7 +26,7 @@ import com.maning.mndialoglibrary.R;
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
 
-    private FragmentActivity mActivity;
+    public FragmentActivity mActivity;
     private boolean isShowing = false;
 
     @Nullable
@@ -40,7 +40,11 @@ public abstract class BaseFragmentDialog extends DialogFragment {
             //动画
             int animations = initAnimations();
             if (animations != 0) {
-                getDialog().getWindow().setWindowAnimations(animations);
+                try {
+                    getDialog().getWindow().setWindowAnimations(animations);
+                } catch (Exception e) {
+
+                }
             }
         }
         setStyle(R.style.MNCustomDialog, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
@@ -65,7 +69,7 @@ public abstract class BaseFragmentDialog extends DialogFragment {
 
     protected abstract View initView(LayoutInflater inflater);
 
-    public void initDialog(){
+    public void initDialog() {
 
     }
 
@@ -88,13 +92,17 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     }
 
     public void showDialog(FragmentActivity mActivity) {
-        if (isShowing()) {
-            return;
-        }
-        if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
-            this.mActivity = mActivity;
-            FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
-            show(supportFragmentManager, mActivity.getLocalClassName());
+        try {
+            if (isShowing()) {
+                return;
+            }
+            if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
+                this.mActivity = mActivity;
+                FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
+                show(supportFragmentManager, mActivity.getLocalClassName());
+            }
+        } catch (Exception e) {
+
         }
     }
 

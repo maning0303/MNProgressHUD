@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
@@ -96,7 +97,11 @@ public class MStatusDialog {
         myGrad.setColor(mDialogConfig.backgroundViewColor);
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mDialogConfig.strokeWidth), mDialogConfig.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mDialogConfig.cornerRadius));
-        dialog_view_bg.setBackground(myGrad);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            dialog_view_bg.setBackground(myGrad);
+        } else {
+            dialog_view_bg.setBackgroundDrawable(myGrad);
+        }
         dialog_view_bg.setPadding(
                 MSizeUtils.dp2px(mContext, mDialogConfig.paddingLeft),
                 MSizeUtils.dp2px(mContext, mDialogConfig.paddingTop),
@@ -106,7 +111,11 @@ public class MStatusDialog {
 
         //设置动画
         if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
-            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+            try {
+                mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
+            } catch (Exception e) {
+
+            }
         }
 
         //图片宽高
