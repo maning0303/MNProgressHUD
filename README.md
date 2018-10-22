@@ -300,7 +300,7 @@
 ```
 
 ## 版本记录：
-    V1.1.2:
+    V1.1.3:(还没有发布)
         1.内存泄漏相关优化
         2.Toast优化，添加cancleToast()方法
         3.MStatusDialog优化，添加dismiss()方法
