@@ -143,11 +143,13 @@ public class MStatusDialog {
         }, delayMillis);
     }
 
-    private void dismiss() {
+    public void dismiss() {
         try {
             mContext = null;
-            mHandler.removeCallbacksAndMessages(null);
-            mHandler = null;
+            if(mHandler != null){
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler = null;
+            }
             if (mDialog != null) {
                 mDialog.dismiss();
                 mDialog = null;

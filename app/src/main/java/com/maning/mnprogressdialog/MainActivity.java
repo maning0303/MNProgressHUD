@@ -279,9 +279,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * --------------------MStatusDialog start -------------------
      */
 
+    private MStatusDialog mStatusDialog;
 
     private void showStatusDialog01() {
-        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        mStatusDialog = new MStatusDialog(this);
+        mStatusDialog.show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok), 5000);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //关闭
+                mStatusDialog.dismiss();
+            }
+        }, 1000);
     }
 
     private void showStatusDialog02() {

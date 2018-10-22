@@ -116,8 +116,13 @@
 
 ### 2:MStatusDialog 状态Dialog代码使用:
 ``` java
+
         //默认
-        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        MStatusDialog mStatusDialog = new MStatusDialog(this);
+        //显示
+        mStatusDialog.show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        //手动取消
+        mStatusDialog.dismiss();
         
         //自定义
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
