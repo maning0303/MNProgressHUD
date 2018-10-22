@@ -59,6 +59,9 @@ public class MProgressBarDialog {
     public MProgressBarDialog(Context context, MProgressBarDialog.Builder builder) {
         mContext = context;
         mBuilder = builder;
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         //初始化
         initDialog();
     }
@@ -112,6 +115,9 @@ public class MProgressBarDialog {
     }
 
     private void configView() {
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
         tvShow.setTextColor(mBuilder.textColor);
 
@@ -121,7 +127,7 @@ public class MProgressBarDialog {
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             dialog_view_bg.setBackground(myGrad);
-        }else{
+        } else {
             dialog_view_bg.setBackgroundDrawable(myGrad);
         }
 
@@ -235,13 +241,28 @@ public class MProgressBarDialog {
     }
 
     public void dismiss() {
-        if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
+        try {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+                mDialog = null;
+                mContext = null;
+                mBuilder = null;
+                dialog_window_background = null;
+                dialog_view_bg = null;
+                tvShow = null;
+                horizontalProgressBar = null;
+                circularProgressBar = null;
+            }
+        } catch (Exception e) {
+
         }
     }
 
     public void refreshBuilder(MProgressBarDialog.Builder builder) {
         mBuilder = builder;
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         configView();
     }
 

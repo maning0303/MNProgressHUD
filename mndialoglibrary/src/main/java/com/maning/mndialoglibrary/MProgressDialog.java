@@ -36,7 +36,7 @@ public class MProgressDialog {
     private static TextView tv_show;
 
 
-    private static void initDialog(Context mContext) throws Exception {
+    private static void initDialog(Context mContext) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);// 得到加载view
         mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
@@ -131,14 +131,15 @@ public class MProgressDialog {
         showProgress(context, LoadingDefaultMsg, mDialogConfig);
     }
 
-    public static void showProgress(Context context, String msg, MDialogConfig mDialogConfig) {
+    public static void showProgress(Context context, String msg, MDialogConfig dialogConfig) {
         try {
             dismissProgress();
             //设置配置
-            if (mDialogConfig == null) {
-                mDialogConfig = new MDialogConfig.Builder().build();
+            if (dialogConfig == null) {
+                dialogConfig = new MDialogConfig.Builder().build();
             }
-            MProgressDialog.mDialogConfig = mDialogConfig;
+            mDialogConfig = dialogConfig;
+
             initDialog(context);
             if (mDialog != null && tv_show != null) {
                 if (TextUtils.isEmpty(msg)) {
@@ -155,18 +156,23 @@ public class MProgressDialog {
     }
 
     public static void dismissProgress() {
-        if (mDialog != null && mDialog.isShowing()) {
-            //判断是不是有监听
-            if (mDialogConfig.onDialogDismissListener != null) {
-                mDialogConfig.onDialogDismissListener.onDismiss();
-                mDialogConfig.onDialogDismissListener = null;
+        try {
+            if (mDialog != null && mDialog.isShowing()) {
+                //判断是不是有监听
+                if (mDialogConfig.onDialogDismissListener != null) {
+                    mDialogConfig.onDialogDismissListener.onDismiss();
+                    mDialogConfig.onDialogDismissListener = null;
+                }
+                mDialogConfig = null;
+                dialog_window_background = null;
+                dialog_view_bg = null;
+                progress_wheel = null;
+                tv_show = null;
+                mDialog.dismiss();
+                mDialog = null;
             }
-            dialog_window_background = null;
-            dialog_view_bg = null;
-            progress_wheel = null;
-            tv_show = null;
-            mDialog.dismiss();
-            mDialog = null;
+        } catch (Exception e) {
+
         }
     }
 

@@ -138,15 +138,25 @@ public class MStatusDialog {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mContext = null;
-                mHandler.removeCallbacksAndMessages(null);
-                mHandler = null;
-                mDialog.dismiss();
-                mDialog = null;
-                if (mDialogConfig != null && mDialogConfig.onDialogDismissListener != null) {
-                    mDialogConfig.onDialogDismissListener.onDismiss();
-                }
+                dismiss();
             }
         }, delayMillis);
+    }
+
+    private void dismiss() {
+        try {
+            mContext = null;
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+            if (mDialog != null) {
+                mDialog.dismiss();
+                mDialog = null;
+            }
+            if (mDialogConfig != null && mDialogConfig.onDialogDismissListener != null) {
+                mDialogConfig.onDialogDismissListener.onDismiss();
+            }
+        } catch (Exception e) {
+
+        }
     }
 }

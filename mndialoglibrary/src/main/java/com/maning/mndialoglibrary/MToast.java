@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,30 +71,31 @@ public class MToast {
         if (config == null) {
             config = new MToastConfig.Builder().build();
         }
-        MToastConfig.MToastGravity ToastGravity = config.ToastGravity;
-        int ToastTextColor = config.ToastTextColor;
-        float ToastTextSize = config.ToastTextSize;
-        int ToastBackgroundColor = config.ToastBackgroundColor;
-        float ToastBackgroundCornerRadius = config.ToastBackgroundCornerRadius;
-        Drawable ToastIcon = config.ToastIcon;
-        int ToastBackgroundStrokeColor = config.ToastBackgroundStrokeColor;
-        float ToastBackgroundStrokeWidth = config.ToastBackgroundStrokeWidth;
+        MToastConfig.MToastGravity toastGravity = config.toastGravity;
+        int toastTextColor = config.toastTextColor;
+        float toastTextSize = config.toastTextSize;
+        int toastBackgroundColor = config.toastBackgroundColor;
+        float toastBackgroundCornerRadius = config.toastBackgroundCornerRadius;
+        Drawable toastIcon = config.toastIcon;
+        int toastBackgroundStrokeColor = config.toastBackgroundStrokeColor;
+        float toastBackgroundStrokeWidth = config.toastBackgroundStrokeWidth;
 
         //图片的显示
-        if (ToastIcon == null) {
+        if (toastIcon == null) {
             ivLeftShow.setVisibility(View.GONE);
         } else {
             ivLeftShow.setVisibility(View.VISIBLE);
-            ivLeftShow.setImageDrawable(ToastIcon);
+            ivLeftShow.setImageDrawable(toastIcon);
         }
-        //文字的颜色
-        tvShowToast.setTextColor(ToastTextColor);
-        tvShowToast.setTextSize(ToastTextSize);
+        //文字
+        tvShowToast.setTextColor(toastTextColor);
+        tvShowToast.setTextSize(TypedValue.COMPLEX_UNIT_SP, toastTextSize);
+        tvShowToast.setText(message);
         //背景色和圆角
         GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setCornerRadius(MSizeUtils.dp2px(mCotext, ToastBackgroundCornerRadius));
-        myGrad.setColor(ToastBackgroundColor);
-        myGrad.setStroke(MSizeUtils.dp2px(mCotext, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mCotext, toastBackgroundCornerRadius));
+        myGrad.setColor(toastBackgroundColor);
+        myGrad.setStroke(MSizeUtils.dp2px(mCotext, toastBackgroundStrokeWidth), toastBackgroundStrokeColor);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             toastBackgroundView.setBackground(myGrad);
         } else {
@@ -105,10 +107,9 @@ public class MToast {
                 MSizeUtils.dp2px(mCotext, config.paddingRight),
                 MSizeUtils.dp2px(mCotext, config.paddingBottom)
         );
-        //文字
-        tvShowToast.setText(message);
+
         //显示位置
-        if (ToastGravity == MToastConfig.MToastGravity.CENTRE) {
+        if (toastGravity == MToastConfig.MToastGravity.CENTRE) {
             currentToast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(mCotext, 80));

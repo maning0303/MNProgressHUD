@@ -6,22 +6,22 @@ import android.support.annotation.ColorInt;
 
 /**
  * Created by maning on 2017/8/11.
+ * Toast自定义相关参数
  */
-
 public class MToastConfig {
 
     public enum MToastGravity {
         CENTRE, BOTTOM
     }
 
-    public float ToastTextSize = 13;
-    public int ToastTextColor = Color.parseColor("#FFFFFFFF");
-    public int ToastBackgroundColor = Color.parseColor("#b2000000");
-    public float ToastBackgroundCornerRadius = 6.0f;
-    public float ToastBackgroundStrokeWidth = 0.0f;
-    public int ToastBackgroundStrokeColor = Color.parseColor("#00000000");
-    public MToastGravity ToastGravity = MToastGravity.BOTTOM;
-    public Drawable ToastIcon = null;
+    public float toastTextSize = 13;
+    public int toastTextColor = Color.parseColor("#FFFFFFFF");
+    public int toastBackgroundColor = Color.parseColor("#b2000000");
+    public float toastBackgroundCornerRadius = 4.0f;
+    public float toastBackgroundStrokeWidth = 0.0f;
+    public int toastBackgroundStrokeColor = Color.parseColor("#00000000");
+    public MToastGravity toastGravity = MToastGravity.BOTTOM;
+    public Drawable toastIcon = null;
     //布局的Padding--int left, int top, int right, int bottom
     public int paddingLeft = 20;
     public int paddingTop = 12;
@@ -48,42 +48,42 @@ public class MToastConfig {
         }
 
         public Builder setTextColor(@ColorInt int textColor) {
-            mToastConfig.ToastTextColor = textColor;
+            mToastConfig.toastTextColor = textColor;
             return this;
         }
 
         public Builder setTextSize(float textSize) {
-            mToastConfig.ToastTextSize = textSize;
+            mToastConfig.toastTextSize = textSize;
             return this;
         }
 
         public Builder setBackgroundColor(@ColorInt int backgroundColor) {
-            mToastConfig.ToastBackgroundColor = backgroundColor;
+            mToastConfig.toastBackgroundColor = backgroundColor;
             return this;
         }
 
         public Builder setBackgroundCornerRadius(float radius) {
-            mToastConfig.ToastBackgroundCornerRadius = radius;
+            mToastConfig.toastBackgroundCornerRadius = radius;
             return this;
         }
 
         public Builder setGravity(MToastGravity toastGravity) {
-            mToastConfig.ToastGravity = toastGravity;
+            mToastConfig.toastGravity = toastGravity;
             return this;
         }
 
         public Builder setToastIcon(Drawable ToastIcon) {
-            mToastConfig.ToastIcon = ToastIcon;
+            mToastConfig.toastIcon = ToastIcon;
             return this;
         }
 
         public Builder setBackgroundStrokeWidth(float width) {
-            mToastConfig.ToastBackgroundStrokeWidth = width;
+            mToastConfig.toastBackgroundStrokeWidth = width;
             return this;
         }
 
         public Builder setBackgroundStrokeColor(@ColorInt int strokeColor) {
-            mToastConfig.ToastBackgroundStrokeColor = strokeColor;
+            mToastConfig.toastBackgroundStrokeColor = strokeColor;
             return this;
         }
 
