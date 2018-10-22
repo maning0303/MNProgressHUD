@@ -1,13 +1,14 @@
 package com.maning.mndialoglibrary;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import android.os.Looper;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
+import com.maning.mndialoglibrary.utils.WeakReferenceHandler;
 
 /**
  * Created by maning on 2017/8/10.
@@ -27,7 +29,7 @@ import com.maning.mndialoglibrary.utils.MSizeUtils;
 
 public class MStatusDialog {
 
-    private Handler mHandler = new Handler();
+    private Weakhandler mHandler;
     private Context mContext;
     private Dialog mDialog;
 
@@ -42,9 +44,10 @@ public class MStatusDialog {
         this(context, new MDialogConfig.Builder().build());
     }
 
-    public MStatusDialog(Context context, MDialogConfig mDialogConfig) {
+    public MStatusDialog(Context context, MDialogConfig dialogConfig) {
         mContext = context;
-        this.mDialogConfig = mDialogConfig;
+        mDialogConfig = dialogConfig;
+        mHandler = new Weakhandler(mContext);
         //初始化
         initDialog();
     }
@@ -54,14 +57,13 @@ public class MStatusDialog {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);// 得到加载view
         mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
-        mDialog.setCancelable(false);// 不可以用“返回键”取消
+        mDialog.setCancelable(false);
         mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setContentView(mProgressDialogView);// 设置布局
+        mDialog.setContentView(mProgressDialogView);
 
         //设置整个Dialog的宽高
-        DisplayMetrics dm = new DisplayMetrics();
-        WindowManager windowManager = ((Activity) mContext).getWindowManager();
-        windowManager.getDefaultDisplay().getMetrics(dm);
+        Resources resources = mContext.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
         int screenW = dm.widthPixels;
         int screenH = dm.heightPixels;
 
@@ -139,12 +141,26 @@ public class MStatusDialog {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mDialog.dismiss();
+                mContext = null;
                 mHandler.removeCallbacksAndMessages(null);
+                mHandler = null;
+                mDialog.dismiss();
+                mDialog = null;
                 if (mDialogConfig != null && mDialogConfig.onDialogDismissListener != null) {
                     mDialogConfig.onDialogDismissListener.onDismiss();
                 }
             }
         }, delayMillis);
     }
+
+    private static class Weakhandler extends WeakReferenceHandler {
+        public Weakhandler(Object reference) {
+            super(reference);
+        }
+        @Override
+        protected void handleMessage(Object reference, Message msg) {
+
+        }
+    }
+
 }

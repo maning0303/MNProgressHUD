@@ -1,8 +1,8 @@
 package com.maning.mndialoglibrary;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
@@ -45,11 +45,11 @@ public class MProgressDialog {
         mDialog.setContentView(mProgressDialogView);// 设置布局
 
         //设置整个Dialog的宽高
-        DisplayMetrics dm = new DisplayMetrics();
-        WindowManager windowManager = ((Activity) mContext).getWindowManager();
-        windowManager.getDefaultDisplay().getMetrics(dm);
+        Resources resources = mContext.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
         int screenW = dm.widthPixels;
         int screenH = dm.heightPixels;
+
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
         layoutParams.width = screenW;
         layoutParams.height = screenH;
