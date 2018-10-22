@@ -303,6 +303,7 @@
     V1.1.3:
         1.内存泄漏相关优化
         2.Toast优化，添加cancleToast()方法
+        3.MStatusDialog优化，添加dismiss()方法
         
     V1.1.2:
         1.优化代码，防止动画异常
