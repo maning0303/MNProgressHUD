@@ -180,6 +180,9 @@
         //多种方法
         MToast.makeTextShort(mContext, "Toast", config);
         MToast.makeTextShort(mContext, "Toast");
+        
+        //取消Toast
+        MToast.cancleToast();
 
 ```
 
@@ -292,6 +295,10 @@
 ```
 
 ## 版本记录：
+    V1.1.3:
+        1.内存泄漏相关优化
+        2.Toast优化，添加cancleToast()方法
+        
     V1.1.2:
         1.优化代码，防止动画异常
         2.minSdkVersion 14

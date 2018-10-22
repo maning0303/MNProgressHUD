@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +19,14 @@ import android.widget.TextView;
 
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
-import com.maning.mndialoglibrary.utils.WeakReferenceHandler;
 
 /**
  * Created by maning on 2017/8/10.
  * 提示Dialog
  */
-
 public class MStatusDialog {
 
-    private Weakhandler mHandler;
+    private Handler mHandler;
     private Context mContext;
     private Dialog mDialog;
 
@@ -47,7 +44,7 @@ public class MStatusDialog {
     public MStatusDialog(Context context, MDialogConfig dialogConfig) {
         mContext = context;
         mDialogConfig = dialogConfig;
-        mHandler = new Weakhandler(mContext);
+        mHandler = new Handler(Looper.getMainLooper());
         //初始化
         initDialog();
     }
@@ -152,15 +149,4 @@ public class MStatusDialog {
             }
         }, delayMillis);
     }
-
-    private static class Weakhandler extends WeakReferenceHandler {
-        public Weakhandler(Object reference) {
-            super(reference);
-        }
-        @Override
-        protected void handleMessage(Object reference, Message msg) {
-
-        }
-    }
-
 }

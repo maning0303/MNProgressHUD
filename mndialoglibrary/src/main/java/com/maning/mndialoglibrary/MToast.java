@@ -52,6 +52,7 @@ public class MToast {
     }
 
     private static Toast make(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
+        cancelToast();
         Context mCotext = context.getApplicationContext();
         if (currentToast == null) {
             currentToast = new Toast(mCotext);
@@ -95,7 +96,7 @@ public class MToast {
         myGrad.setStroke(MSizeUtils.dp2px(mCotext, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             toastBackgroundView.setBackground(myGrad);
-        }else{
+        } else {
             toastBackgroundView.setBackgroundDrawable(myGrad);
         }
         toastBackgroundView.setPadding(
@@ -106,8 +107,6 @@ public class MToast {
         );
         //文字
         tvShowToast.setText(message);
-        //时间
-        currentToast.setDuration(duration);
         //显示位置
         if (ToastGravity == MToastConfig.MToastGravity.CENTRE) {
             currentToast.setGravity(Gravity.CENTER, 0, 0);
@@ -121,8 +120,19 @@ public class MToast {
             layoutParams.height = MSizeUtils.dp2px(mCotext, config.imgHeight);
             ivLeftShow.setLayoutParams(layoutParams);
         }
-
+        //时间
+        currentToast.setDuration(duration);
         return currentToast;
+    }
+
+    /**
+     * 取消Toast
+     */
+    public static void cancelToast() {
+        if (currentToast != null) {
+            currentToast.cancel();
+            currentToast = null;
+        }
     }
 
 }
