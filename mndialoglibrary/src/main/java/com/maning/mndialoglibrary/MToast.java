@@ -3,7 +3,9 @@ package com.maning.mndialoglibrary;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +18,6 @@ import android.widget.Toast;
 import com.maning.mndialoglibrary.config.MToastConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 
-import java.lang.ref.WeakReference;
-
 
 /**
  * Created by maning on 2017/8/11.
@@ -26,8 +26,7 @@ import java.lang.ref.WeakReference;
 
 public class MToast {
 
-    private static WeakReference<Context> mWeakReference;
-    private static Toast currentToast = null;
+    private static Toast currentToast;
 
     public static void makeTextLong(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
         make(config, context, message, Toast.LENGTH_LONG).show();
@@ -54,15 +53,13 @@ public class MToast {
     }
 
     private static Toast make(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
-        Context mContext = context.getApplicationContext();
-
-        if (currentToast != null) {
-            currentToast.cancel();
-            currentToast = null;
+        cancelToast();
+        Context mCotext = context.getApplicationContext();
+        if (currentToast == null) {
+            currentToast = new Toast(mCotext);
         }
-        currentToast = new Toast(mContext);
 
-        View toastLayout = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+        View toastLayout = ((LayoutInflater) mCotext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.mn_toast_layout, null);
 
         TextView tvShowToast = (TextView) toastLayout.findViewById(R.id.tvShowToast);
@@ -74,56 +71,69 @@ public class MToast {
         if (config == null) {
             config = new MToastConfig.Builder().build();
         }
-        MToastConfig.MToastGravity ToastGravity = config.ToastGravity;
-        int ToastTextColor = config.ToastTextColor;
-        float ToastTextSize = config.ToastTextSize;
-        int ToastBackgroundColor = config.ToastBackgroundColor;
-        float ToastBackgroundCornerRadius = config.ToastBackgroundCornerRadius;
-        Drawable ToastIcon = config.ToastIcon;
-        int ToastBackgroundStrokeColor = config.ToastBackgroundStrokeColor;
-        float ToastBackgroundStrokeWidth = config.ToastBackgroundStrokeWidth;
+        MToastConfig.MToastGravity toastGravity = config.toastGravity;
+        int toastTextColor = config.toastTextColor;
+        float toastTextSize = config.toastTextSize;
+        int toastBackgroundColor = config.toastBackgroundColor;
+        float toastBackgroundCornerRadius = config.toastBackgroundCornerRadius;
+        Drawable toastIcon = config.toastIcon;
+        int toastBackgroundStrokeColor = config.toastBackgroundStrokeColor;
+        float toastBackgroundStrokeWidth = config.toastBackgroundStrokeWidth;
 
         //图片的显示
-        if (ToastIcon == null) {
+        if (toastIcon == null) {
             ivLeftShow.setVisibility(View.GONE);
         } else {
             ivLeftShow.setVisibility(View.VISIBLE);
-            ivLeftShow.setImageDrawable(ToastIcon);
+            ivLeftShow.setImageDrawable(toastIcon);
         }
-        //文字的颜色
-        tvShowToast.setTextColor(ToastTextColor);
-        tvShowToast.setTextSize(ToastTextSize);
+        //文字
+        tvShowToast.setTextColor(toastTextColor);
+        tvShowToast.setTextSize(TypedValue.COMPLEX_UNIT_SP, toastTextSize);
+        tvShowToast.setText(message);
         //背景色和圆角
         GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, ToastBackgroundCornerRadius));
-        myGrad.setColor(ToastBackgroundColor);
-        myGrad.setStroke(MSizeUtils.dp2px(mContext, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
-        toastBackgroundView.setBackground(myGrad);
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mCotext, toastBackgroundCornerRadius));
+        myGrad.setColor(toastBackgroundColor);
+        myGrad.setStroke(MSizeUtils.dp2px(mCotext, toastBackgroundStrokeWidth), toastBackgroundStrokeColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            toastBackgroundView.setBackground(myGrad);
+        } else {
+            toastBackgroundView.setBackgroundDrawable(myGrad);
+        }
         toastBackgroundView.setPadding(
-                MSizeUtils.dp2px(mContext, config.paddingLeft),
-                MSizeUtils.dp2px(mContext, config.paddingTop),
-                MSizeUtils.dp2px(mContext, config.paddingRight),
-                MSizeUtils.dp2px(mContext, config.paddingBottom)
+                MSizeUtils.dp2px(mCotext, config.paddingLeft),
+                MSizeUtils.dp2px(mCotext, config.paddingTop),
+                MSizeUtils.dp2px(mCotext, config.paddingRight),
+                MSizeUtils.dp2px(mCotext, config.paddingBottom)
         );
-        //文字
-        tvShowToast.setText(message);
-        //时间
-        currentToast.setDuration(duration);
+
         //显示位置
-        if (ToastGravity == MToastConfig.MToastGravity.CENTRE) {
+        if (toastGravity == MToastConfig.MToastGravity.CENTRE) {
             currentToast.setGravity(Gravity.CENTER, 0, 0);
         } else {
-            currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(mContext, 80));
+            currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(mCotext, 80));
         }
         //图片宽高
         if (config.imgWidth > 0 && config.imgHeight > 0) {
             ViewGroup.LayoutParams layoutParams = ivLeftShow.getLayoutParams();
-            layoutParams.width = MSizeUtils.dp2px(mContext, config.imgWidth);
-            layoutParams.height = MSizeUtils.dp2px(mContext, config.imgHeight);
+            layoutParams.width = MSizeUtils.dp2px(mCotext, config.imgWidth);
+            layoutParams.height = MSizeUtils.dp2px(mCotext, config.imgHeight);
             ivLeftShow.setLayoutParams(layoutParams);
         }
-
+        //时间
+        currentToast.setDuration(duration);
         return currentToast;
+    }
+
+    /**
+     * 取消Toast
+     */
+    public static void cancelToast() {
+        if (currentToast != null) {
+            currentToast.cancel();
+            currentToast = null;
+        }
     }
 
 }

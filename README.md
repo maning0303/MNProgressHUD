@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.1'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.4'
 	}
 ```
 
@@ -72,8 +72,6 @@
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                  //点击外部是否可以取消
                  .isCanceledOnTouchOutside(true)
-                 //物理返回键可以取消
-                 .isCancelable(false)
                  //全屏背景窗体的颜色
                  .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                  //View背景的颜色
@@ -118,8 +116,13 @@
 
 ### 2:MStatusDialog 状态Dialog代码使用:
 ``` java
+
         //默认
-        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        MStatusDialog mStatusDialog = new MStatusDialog(this);
+        //显示
+        mStatusDialog.show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        //手动取消
+        mStatusDialog.dismiss();
         
         //自定义
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
@@ -182,6 +185,9 @@
         //多种方法
         MToast.makeTextShort(mContext, "Toast", config);
         MToast.makeTextShort(mContext, "Toast");
+        
+        //取消Toast
+        MToast.cancleToast();
 
 ```
 
@@ -231,12 +237,81 @@
 
 ```
 
+### 5:BaseFragmentDialog使用（详细见Demo）:
+``` java
+    
+    1.继承BaseFragmentDialog
+    public class TestFragmentDialog extends BaseFragmentDialog {
+    
+        /**
+         * 布局初始化，必须实现
+         *
+         * @param inflater
+         * @return
+         */
+        @Override
+        protected View initView(LayoutInflater inflater) {
+            View view = inflater.inflate(R.layout.dialog_test, null);
+            return view;
+        }
+    
+        /**
+         * 动画，此方法默认不实现
+         *
+         * @return
+         */
+        @Override
+        public int initAnimations() {
+            return R.style.animate_dialog;
+        }
+    
+        /**
+         * Dialog初始化相关，此方法默认不实现
+         */
+        @Override
+        public void initDialog() {
+            //点击外部不可取消,默认false
+            getDialog().setCanceledOnTouchOutside(true);
+        }
+    
+        /**
+         * 背景透明度，此方法默认不实现
+         *
+         * @return
+         */
+        @Override
+        public float initBackgroundAlpha() {
+            //默认0.8f
+            return 0.8f;
+        }
+    }
+        
+    2.调用显示
+    private void showFragmentDialog() {
+            if (testFragmentDialog != null && testFragmentDialog.isShowing()) {
+                return;
+            }
+            testFragmentDialog = new TestFragmentDialog();
+            testFragmentDialog.showDialog(MainActivity.this);
+    }
+    
+
+
+```
+
 ## 版本记录：
-    V1.1.1:
-        1.代码优化
-        2.MProgressDialog可以设置物理返回键取消
+    V1.1.4:
+        1.内存泄漏相关优化
+        2.Toast优化，添加cancleToast()方法
+        3.MStatusDialog优化，添加dismiss()方法
+        
+    V1.1.2:
+        1.优化代码，防止动画异常
+        2.minSdkVersion 14
+        3.BaseFragmentDialog 优化
+        
     V1.1.0:
-        1.新增设置字体大小
+        1.新增这是字体大小
         2.新增设置padding
         3.新增设置图片大小
 

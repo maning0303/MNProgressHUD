@@ -1,6 +1,7 @@
 package com.maning.mnprogressdialog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -93,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn01:
+                MProgressDialog.showProgress(this);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        MProgressDialog.showProgress(MainActivity.this, "");
+                    }
+                }, 1000);
                 MProgressDialog.showProgress(this);
                 //延时关闭
                 delayDismissProgressDialog();
@@ -270,8 +278,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * --------------------MStatusDialog start -------------------
      */
 
+    private MStatusDialog mStatusDialog;
+
     private void showStatusDialog01() {
-        new MStatusDialog(this).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+        mStatusDialog = new MStatusDialog(this);
+        mStatusDialog.show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok), 5000);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //关闭
+                mStatusDialog.dismiss();
+            }
+        }, 1000);
     }
 
     private void showStatusDialog02() {

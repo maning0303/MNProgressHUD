@@ -46,7 +46,7 @@
                     android:secondaryProgress="80"
                     android:visibility="visible" />
 
-                <com.maning.mndialoglibrary.view.MCircularProgressBar
+                <com.maning.mndialoglibrary.view.MNHudCircularProgressBar
                     android:id="@+id/circularProgressBar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"

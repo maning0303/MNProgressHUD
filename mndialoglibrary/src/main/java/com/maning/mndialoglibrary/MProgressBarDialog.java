@@ -1,13 +1,14 @@
 package com.maning.mndialoglibrary;
 
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
@@ -22,7 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maning.mndialoglibrary.utils.MSizeUtils;
-import com.maning.mndialoglibrary.view.MCircularProgressBar;
+import com.maning.mndialoglibrary.view.MNHudCircularProgressBar;
 
 /**
  * Created by maning on 2017/12/29.
@@ -49,7 +50,7 @@ public class MProgressBarDialog {
     private RelativeLayout dialog_view_bg;
     private TextView tvShow;
     private ProgressBar horizontalProgressBar;
-    private MCircularProgressBar circularProgressBar;
+    private MNHudCircularProgressBar circularProgressBar;
 
     public MProgressBarDialog(Context context) {
         this(context, new MProgressBarDialog.Builder(context));
@@ -58,6 +59,9 @@ public class MProgressBarDialog {
     public MProgressBarDialog(Context context, MProgressBarDialog.Builder builder) {
         mContext = context;
         mBuilder = builder;
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         //初始化
         initDialog();
     }
@@ -72,9 +76,8 @@ public class MProgressBarDialog {
         mDialog.setContentView(mProgressDialogView);// 设置布局
 
         //设置整个Dialog的宽高
-        DisplayMetrics dm = new DisplayMetrics();
-        WindowManager windowManager = ((Activity) mContext).getWindowManager();
-        windowManager.getDefaultDisplay().getMetrics(dm);
+        Resources resources = mContext.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
         int screenW = dm.widthPixels;
         int screenH = dm.heightPixels;
 
@@ -84,7 +87,11 @@ public class MProgressBarDialog {
         mDialog.getWindow().setAttributes(layoutParams);
         //设置动画
         if (mBuilder.animationID != 0) {
-            mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
+            try {
+                mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
+            } catch (Exception e) {
+
+            }
         }
 
         //获取布局
@@ -92,7 +99,7 @@ public class MProgressBarDialog {
         dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
         tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
         horizontalProgressBar = (ProgressBar) mProgressDialogView.findViewById(R.id.horizontalProgressBar);
-        circularProgressBar = (MCircularProgressBar) mProgressDialogView.findViewById(R.id.circularProgressBar);
+        circularProgressBar = (MNHudCircularProgressBar) mProgressDialogView.findViewById(R.id.circularProgressBar);
 
         horizontalProgressBar.setVisibility(View.GONE);
         circularProgressBar.setVisibility(View.GONE);
@@ -108,6 +115,9 @@ public class MProgressBarDialog {
     }
 
     private void configView() {
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
         tvShow.setTextColor(mBuilder.textColor);
 
@@ -115,7 +125,11 @@ public class MProgressBarDialog {
         myGrad.setColor(mBuilder.backgroundViewColor);
         myGrad.setStroke(MSizeUtils.dp2px(mContext, mBuilder.strokeWidth), mBuilder.strokeColor);
         myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, mBuilder.cornerRadius));
-        dialog_view_bg.setBackground(myGrad);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            dialog_view_bg.setBackground(myGrad);
+        } else {
+            dialog_view_bg.setBackgroundDrawable(myGrad);
+        }
 
         //horizontalProgressBar 配置
         //背景
@@ -227,13 +241,28 @@ public class MProgressBarDialog {
     }
 
     public void dismiss() {
-        if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
+        try {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+                mDialog = null;
+                mContext = null;
+                mBuilder = null;
+                dialog_window_background = null;
+                dialog_view_bg = null;
+                tvShow = null;
+                horizontalProgressBar = null;
+                circularProgressBar = null;
+            }
+        } catch (Exception e) {
+
         }
     }
 
     public void refreshBuilder(MProgressBarDialog.Builder builder) {
         mBuilder = builder;
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         configView();
     }
 

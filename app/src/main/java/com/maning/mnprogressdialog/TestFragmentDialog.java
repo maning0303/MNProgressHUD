@@ -1,6 +1,5 @@
 package com.maning.mnprogressdialog;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,10 +7,7 @@ import android.widget.ImageView;
 import com.maning.mndialoglibrary.base.BaseFragmentDialog;
 
 /**
- * author : maning
- * time   : 2018/04/04
- * desc   : 测试
- * version: 1.0
+ * 测试
  */
 public class TestFragmentDialog extends BaseFragmentDialog {
 
@@ -41,17 +37,17 @@ public class TestFragmentDialog extends BaseFragmentDialog {
     }
 
     /**
-     * 动画
+     * 动画，此方法默认不实现
      *
      * @return
      */
     @Override
-    protected int initAnimations() {
+    public int initAnimations() {
         return R.style.animate_dialog;
     }
 
     /**
-     * Dialog初始化相关
+     * Dialog初始化相关，此方法默认不实现
      */
     @Override
     public void initDialog() {
@@ -60,7 +56,7 @@ public class TestFragmentDialog extends BaseFragmentDialog {
     }
 
     /**
-     * 背景透明度
+     * 背景透明度，此方法默认不实现
      *
      * @return
      */

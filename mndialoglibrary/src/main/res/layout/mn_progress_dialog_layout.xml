@@ -16,18 +16,18 @@
         android:layout_margin="80dp"
         android:background="@drawable/mn_dialog_view_bg"
         android:gravity="center"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
+        android:minHeight="90dp"
+        android:minWidth="90dp"
         android:paddingBottom="12dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingTop="12dp">
 
 
-        <com.maning.mndialoglibrary.view.MProgressWheel
+        <com.maning.mndialoglibrary.view.MNHudProgressWheel
             android:id="@+id/progress_wheel"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_centerHorizontal="true"
             wheel:mn_barColor="@color/mn_colorDialogProgressBarColor"
             wheel:mn_barWidth="2dp"
@@ -49,7 +49,7 @@
             android:textColor="@color/mn_colorDialogTextColor"
             android:textSize="12sp"
             android:visibility="visible"
-            tools:text="加载中\n加载中" />
+            tools:text="加载中" />
 
     </RelativeLayout>
 

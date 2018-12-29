@@ -19,7 +19,7 @@ import com.maning.mndialoglibrary.R;
  * Created by Mikhael LOPEZ on 16/10/2015.
  * 引用：https://github.com/lopspower/CircularProgressBar
  */
-public class MCircularProgressBar extends View {
+public class MNHudCircularProgressBar extends View {
 
     // Properties
     private float progress = 0;
@@ -38,24 +38,24 @@ public class MCircularProgressBar extends View {
     private Paint foregroundPaint;
 
     //region Constructor & Init Method
-    public MCircularProgressBar(Context context, AttributeSet attrs) {
+    public MNHudCircularProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
         rectF = new RectF();
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MNCircularProgressBar, 0, 0);
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MNHudCircularProgressBar, 0, 0);
         //Reading values from the XML layout
         try {
             // Value
-            progress = typedArray.getFloat(R.styleable.MNCircularProgressBar_mn_progress, progress);
+            progress = typedArray.getFloat(R.styleable.MNHudCircularProgressBar_mn_progress, progress);
             // StrokeWidth
-            strokeWidth = typedArray.getDimension(R.styleable.MNCircularProgressBar_mn_progressbar_width, strokeWidth);
-            backgroundStrokeWidth = typedArray.getDimension(R.styleable.MNCircularProgressBar_mn_background_progressbar_width, backgroundStrokeWidth);
+            strokeWidth = typedArray.getDimension(R.styleable.MNHudCircularProgressBar_mn_progressbar_width, strokeWidth);
+            backgroundStrokeWidth = typedArray.getDimension(R.styleable.MNHudCircularProgressBar_mn_background_progressbar_width, backgroundStrokeWidth);
             // Color
-            color = typedArray.getInt(R.styleable.MNCircularProgressBar_mn_progressbar_color, color);
-            backgroundColor = typedArray.getInt(R.styleable.MNCircularProgressBar_mn_background_progressbar_color, backgroundColor);
+            color = typedArray.getInt(R.styleable.MNHudCircularProgressBar_mn_progressbar_color, color);
+            backgroundColor = typedArray.getInt(R.styleable.MNHudCircularProgressBar_mn_background_progressbar_color, backgroundColor);
         } finally {
             typedArray.recycle();
         }
