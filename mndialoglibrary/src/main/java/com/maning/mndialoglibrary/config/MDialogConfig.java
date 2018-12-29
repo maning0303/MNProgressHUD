@@ -15,6 +15,8 @@ public class MDialogConfig {
 
     //点击外部可以取消
     public boolean canceledOnTouchOutside = false;
+    //是否可以返回键关闭
+    public boolean cancelable = false;
     //窗体背景色
     public int backgroundWindowColor = Color.TRANSPARENT;
     //View背景色
@@ -52,7 +54,6 @@ public class MDialogConfig {
     public int imgHeight = 40;
 
 
-
     private MDialogConfig() {
     }
 
@@ -76,6 +77,17 @@ public class MDialogConfig {
          */
         public Builder isCanceledOnTouchOutside(@Nullable boolean canceledOnTouchOutside) {
             mDialogConfig.canceledOnTouchOutside = canceledOnTouchOutside;
+            return this;
+        }
+
+        /**
+         * 返回键取消
+         *
+         * @param cancelable
+         * @return
+         */
+        public Builder isCancelable(@Nullable boolean cancelable) {
+            mDialogConfig.cancelable = cancelable;
             return this;
         }
 

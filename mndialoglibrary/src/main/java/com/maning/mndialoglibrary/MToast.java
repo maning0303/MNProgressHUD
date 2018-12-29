@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.maning.mndialoglibrary.config.MToastConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 
+import java.lang.ref.WeakReference;
+
 
 /**
  * Created by maning on 2017/8/11.
@@ -24,10 +26,8 @@ import com.maning.mndialoglibrary.utils.MSizeUtils;
 
 public class MToast {
 
-    private static Toast currentToast;
-    private static TextView tvShowToast;
-    private static ImageView ivLeftShow;
-    private static LinearLayout toastBackgroundView;
+    private static WeakReference<Context> mWeakReference;
+    private static Toast currentToast = null;
 
     public static void makeTextLong(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
         make(config, context, message, Toast.LENGTH_LONG).show();
@@ -54,16 +54,20 @@ public class MToast {
     }
 
     private static Toast make(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
-        if (currentToast == null) {
-            currentToast = new Toast(context);
-        }
+        Context mContext = context.getApplicationContext();
 
-        View toastLayout = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+        if (currentToast != null) {
+            currentToast.cancel();
+            currentToast = null;
+        }
+        currentToast = new Toast(mContext);
+
+        View toastLayout = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.mn_toast_layout, null);
 
-        tvShowToast = (TextView) toastLayout.findViewById(R.id.tvShowToast);
-        ivLeftShow = (ImageView) toastLayout.findViewById(R.id.ivLeftShow);
-        toastBackgroundView = (LinearLayout) toastLayout.findViewById(R.id.toastBackgroundView);
+        TextView tvShowToast = (TextView) toastLayout.findViewById(R.id.tvShowToast);
+        ImageView ivLeftShow = (ImageView) toastLayout.findViewById(R.id.ivLeftShow);
+        LinearLayout toastBackgroundView = (LinearLayout) toastLayout.findViewById(R.id.toastBackgroundView);
         currentToast.setView(toastLayout);
 
         //相关配置
@@ -91,15 +95,15 @@ public class MToast {
         tvShowToast.setTextSize(ToastTextSize);
         //背景色和圆角
         GradientDrawable myGrad = new GradientDrawable();
-        myGrad.setCornerRadius(MSizeUtils.dp2px(context, ToastBackgroundCornerRadius));
+        myGrad.setCornerRadius(MSizeUtils.dp2px(mContext, ToastBackgroundCornerRadius));
         myGrad.setColor(ToastBackgroundColor);
-        myGrad.setStroke(MSizeUtils.dp2px(context, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
+        myGrad.setStroke(MSizeUtils.dp2px(mContext, ToastBackgroundStrokeWidth), ToastBackgroundStrokeColor);
         toastBackgroundView.setBackground(myGrad);
         toastBackgroundView.setPadding(
-                MSizeUtils.dp2px(context, config.paddingLeft),
-                MSizeUtils.dp2px(context, config.paddingTop),
-                MSizeUtils.dp2px(context, config.paddingRight),
-                MSizeUtils.dp2px(context, config.paddingBottom)
+                MSizeUtils.dp2px(mContext, config.paddingLeft),
+                MSizeUtils.dp2px(mContext, config.paddingTop),
+                MSizeUtils.dp2px(mContext, config.paddingRight),
+                MSizeUtils.dp2px(mContext, config.paddingBottom)
         );
         //文字
         tvShowToast.setText(message);
@@ -109,13 +113,13 @@ public class MToast {
         if (ToastGravity == MToastConfig.MToastGravity.CENTRE) {
             currentToast.setGravity(Gravity.CENTER, 0, 0);
         } else {
-            currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(context, 80));
+            currentToast.setGravity(Gravity.BOTTOM, 0, MSizeUtils.dp2px(mContext, 80));
         }
         //图片宽高
         if (config.imgWidth > 0 && config.imgHeight > 0) {
             ViewGroup.LayoutParams layoutParams = ivLeftShow.getLayoutParams();
-            layoutParams.width = MSizeUtils.dp2px(context, config.imgWidth);
-            layoutParams.height = MSizeUtils.dp2px(context, config.imgHeight);
+            layoutParams.width = MSizeUtils.dp2px(mContext, config.imgWidth);
+            layoutParams.height = MSizeUtils.dp2px(mContext, config.imgHeight);
             ivLeftShow.setLayoutParams(layoutParams);
         }
 

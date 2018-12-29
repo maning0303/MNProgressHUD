@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                         //点击外部是否可以取消
                         .isCanceledOnTouchOutside(true)
+                        //物理返回键可以取消
+                        .isCancelable(true)
                         //全屏背景窗体的颜色
                         .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                         //View背景的颜色

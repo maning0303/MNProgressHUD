@@ -74,6 +74,8 @@ public class MProgressDialog {
         }
         //点击外部可以取消
         mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
+        //返回键取消
+        mDialog.setCancelable(mDialogConfig.cancelable);
         //window背景色
         dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
         //弹框背景
