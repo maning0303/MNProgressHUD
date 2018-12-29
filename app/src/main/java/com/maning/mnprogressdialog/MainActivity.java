@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn16;
     private Button btn17;
     private Button btn18;
-    private TestFragmentDialog testFragmentDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,10 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showFragmentDialog() {
-        if (testFragmentDialog != null && testFragmentDialog.isShowing()) {
-            return;
-        }
-        testFragmentDialog = new TestFragmentDialog();
+        TestFragmentDialog testFragmentDialog = new TestFragmentDialog();
         testFragmentDialog.showDialog(MainActivity.this);
     }
 

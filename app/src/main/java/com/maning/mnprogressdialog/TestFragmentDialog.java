@@ -8,13 +8,10 @@ import android.widget.ImageView;
 import com.maning.mndialoglibrary.base.BaseFragmentDialog;
 
 /**
- * <pre>
- *     author : maning
- *     e-mail : xxx@xx
- *     time   : 2018/04/04
- *     desc   : 测试
- *     version: 1.0
- * </pre>
+ * author : maning
+ * time   : 2018/04/04
+ * desc   : 测试
+ * version: 1.0
  */
 public class TestFragmentDialog extends BaseFragmentDialog {
 

@@ -25,7 +25,6 @@ import com.maning.mndialoglibrary.R;
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
 
-    public FragmentActivity mActivity;
     private boolean isShowing = false;
 
     @Nullable
@@ -92,7 +91,6 @@ public abstract class BaseFragmentDialog extends DialogFragment {
                 return;
             }
             if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
-                this.mActivity = mActivity;
                 FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
                 //在每个add事务前增加一个remove事务，防止连续的add
                 supportFragmentManager.beginTransaction().remove(this).commit();
@@ -133,7 +131,6 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         isShowing = false;
-        mActivity = null;
     }
 
 }
