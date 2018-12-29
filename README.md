@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.0'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.1'
 	}
 ```
 
@@ -232,8 +232,11 @@
 ```
 
 ## 版本记录：
+    V1.1.1:
+        1.代码优化
+        2.MProgressDialog可以设置物理返回键取消
     V1.1.0:
-        1.新增这是字体大小
+        1.新增设置字体大小
         2.新增设置padding
         3.新增设置图片大小
 
