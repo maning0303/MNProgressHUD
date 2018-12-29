@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +18,14 @@ import android.view.WindowManager;
 import com.maning.mndialoglibrary.R;
 
 /**
- * <pre>
- *     author : maning
- *     e-mail : xxx@xx
- *     time   : 2018/03/07
- *     desc   : 抽取公用的FragmentDialog
- *     version: 1.0
- * </pre>
+ * author : maning
+ * time   : 2018/03/07
+ * desc   : 抽取公用的FragmentDialog
+ * version: 1.0
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
 
-    private FragmentActivity mActivity;
+    public FragmentActivity mActivity;
     private boolean isShowing = false;
 
     @Nullable
@@ -36,7 +35,7 @@ public abstract class BaseFragmentDialog extends DialogFragment {
         //Window相关
         if (getDialog().getWindow() != null) {
             getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-            getDialog().getWindow().setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+            getDialog().getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.color.transparent));
             //动画
             int animations = initAnimations();
             if (animations != 0) {
@@ -65,14 +64,14 @@ public abstract class BaseFragmentDialog extends DialogFragment {
 
     protected abstract View initView(LayoutInflater inflater);
 
-    public void initDialog(){
+    public void initDialog() {
 
     }
 
     protected abstract int initAnimations();
 
     public float initBackgroundAlpha() {
-        return 0.8f;
+        return 0.6f;
     }
 
     @Override
@@ -88,13 +87,19 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     }
 
     public void showDialog(FragmentActivity mActivity) {
-        if (isShowing()) {
-            return;
-        }
-        if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
-            this.mActivity = mActivity;
-            FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
-            show(supportFragmentManager, mActivity.getLocalClassName());
+        try {
+            if (isShowing()) {
+                return;
+            }
+            if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
+                this.mActivity = mActivity;
+                FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
+                //在每个add事务前增加一个remove事务，防止连续的add
+                supportFragmentManager.beginTransaction().remove(this).commit();
+                show(supportFragmentManager, mActivity.getLocalClassName());
+            }
+        } catch (Exception e) {
+            Log.e("-------", e.toString());
         }
     }
 
