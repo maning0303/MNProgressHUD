@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.4'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.5'
 	}
 ```
 
@@ -72,6 +72,8 @@
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                  //点击外部是否可以取消
                  .isCanceledOnTouchOutside(true)
+                 //物理返回键可以取消
+                 .isCancelable(true)
                  //全屏背景窗体的颜色
                  .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                  //View背景的颜色
@@ -288,11 +290,8 @@
         
     2.调用显示
     private void showFragmentDialog() {
-            if (testFragmentDialog != null && testFragmentDialog.isShowing()) {
-                return;
-            }
-            testFragmentDialog = new TestFragmentDialog();
-            testFragmentDialog.showDialog(MainActivity.this);
+            TestFragmentDialog testFragmentDialog = new TestFragmentDialog();
+            testFragmentDialog.showDialog(mActivity);
     }
     
 
@@ -300,6 +299,10 @@
 ```
 
 ## 版本记录：
+    V1.1.5:
+        1.代码优化
+        2.MProgressDialog支持配置物理键取消
+
     V1.1.4:
         1.内存泄漏相关优化
         2.Toast优化，添加cancleToast()方法
