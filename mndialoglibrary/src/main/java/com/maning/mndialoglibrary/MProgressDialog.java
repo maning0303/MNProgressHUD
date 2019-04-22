@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -104,6 +105,10 @@ public class MProgressDialog {
         progress_wheel.setBarWidth(MSizeUtils.dp2px(mContext, mDialogConfig.progressWidth));
         progress_wheel.setRimColor(mDialogConfig.progressRimColor);
         progress_wheel.setRimWidth(mDialogConfig.progressRimWidth);
+        ViewGroup.LayoutParams layoutParamsProgress = progress_wheel.getLayoutParams();
+        layoutParamsProgress.width = MSizeUtils.dp2px(mContext, mDialogConfig.progressSize);
+        layoutParamsProgress.height = MSizeUtils.dp2px(mContext, mDialogConfig.progressSize);
+        progress_wheel.setLayoutParams(layoutParamsProgress);
         //文字颜色设置
         tv_show.setTextColor(mDialogConfig.textColor);
         tv_show.setTextSize(mDialogConfig.textSize);

@@ -121,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn04:
                 MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                        //Progress大小（宽高）
+                        .setProgressSize(60)
                         //点击外部是否可以取消
                         .isCanceledOnTouchOutside(true)
                         //物理返回键可以取消

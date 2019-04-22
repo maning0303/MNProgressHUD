@@ -31,6 +31,8 @@ public class MDialogConfig {
     public int progressColor = Color.WHITE;
     //Progress的宽度
     public float progressWidth = 2;
+    //ProgressSize(dp)
+    public float progressSize = 45;
     //progress背景环的颜色
     public int progressRimColor = Color.TRANSPARENT;
     //progress背景环的宽度
@@ -133,6 +135,11 @@ public class MDialogConfig {
 
         public Builder setProgressRimWidth(int progressRimWidth) {
             mDialogConfig.progressRimWidth = progressRimWidth;
+            return this;
+        }
+
+        public Builder setProgressSize(int progressSize) {
+            mDialogConfig.progressSize = progressSize;
             return this;
         }
 
