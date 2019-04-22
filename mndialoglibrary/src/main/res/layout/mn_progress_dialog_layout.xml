@@ -47,7 +47,7 @@
             android:lineSpacingExtra="4dp"
             android:maxLines="6"
             android:textColor="@color/mn_colorDialogTextColor"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:visibility="visible"
             tools:text="加载中" />
 

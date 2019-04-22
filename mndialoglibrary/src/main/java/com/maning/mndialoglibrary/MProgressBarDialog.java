@@ -3,7 +3,6 @@ package com.maning.mndialoglibrary;
 import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -11,7 +10,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,24 +67,21 @@ public class MProgressBarDialog {
     private void initDialog() {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mProgressDialogView = inflater.inflate(R.layout.mn_progress_bar_dialog_layout, null);// 得到加载view
-        mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
-        mDialog.setCancelable(false);// 不可以用“返回键”取消
+        View mProgressDialogView = inflater.inflate(R.layout.mn_progress_bar_dialog_layout, null);
+        mDialog = new Dialog(mContext, R.style.MNCustomDialog);
+        mDialog.setCancelable(false);
         mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setContentView(mProgressDialogView);// 设置布局
+        mDialog.setContentView(mProgressDialogView);
 
         //设置整个Dialog的宽高
-        Resources resources = mContext.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        int screenW = dm.widthPixels;
-        int screenH = dm.heightPixels;
-
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-        layoutParams.width = screenW;
-        layoutParams.height = screenH;
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.gravity = Gravity.CENTER;
         mDialog.getWindow().setAttributes(layoutParams);
+
         //设置动画
-        if (mBuilder.animationID != 0) {
+        if (mBuilder.animationID != 0 && mDialog.getWindow() != null) {
             try {
                 mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
             } catch (Exception e) {
@@ -114,10 +109,14 @@ public class MProgressBarDialog {
 
     }
 
-    private void configView() {
+    private void checkDialogConfig() {
         if (mBuilder == null) {
             mBuilder = new MProgressBarDialog.Builder(mContext);
         }
+    }
+
+    private void configView() {
+        checkDialogConfig();
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
         tvShow.setTextColor(mBuilder.textColor);
 
@@ -187,6 +186,9 @@ public class MProgressBarDialog {
      * @param animate        是否平滑过度动画
      */
     public void showProgress(final int progress, final int secondProgress, String message, boolean animate) {
+        if (mBuilder == null) {
+            mBuilder = new MProgressBarDialog.Builder(mContext);
+        }
         if (mBuilder.style == MProgressBarDialogStyle_Horizontal) {
             if (horizontalProgressBar.getVisibility() == View.GONE) {
                 horizontalProgressBar.setVisibility(View.VISIBLE);

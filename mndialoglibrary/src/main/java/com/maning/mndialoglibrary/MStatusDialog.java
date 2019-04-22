@@ -2,13 +2,12 @@ package com.maning.mndialoglibrary;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,21 +51,17 @@ public class MStatusDialog {
     private void initDialog() {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);// 得到加载view
-        mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
+        View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);
+        mDialog = new Dialog(mContext, R.style.MNCustomDialog);
         mDialog.setCancelable(false);
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setContentView(mProgressDialogView);
 
         //设置整个Dialog的宽高
-        Resources resources = mContext.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        int screenW = dm.widthPixels;
-        int screenH = dm.heightPixels;
-
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-        layoutParams.width = screenW;
-        layoutParams.height = screenH;
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.gravity = Gravity.CENTER;
         mDialog.getWindow().setAttributes(layoutParams);
 
         //获取布局
@@ -80,10 +75,14 @@ public class MStatusDialog {
 
     }
 
-    private void configView() {
+    private void checkDialogConfig() {
         if (mDialogConfig == null) {
             mDialogConfig = new MDialogConfig.Builder().build();
         }
+    }
+
+    private void configView() {
+        checkDialogConfig();
         //window背景
         dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
 
@@ -146,7 +145,7 @@ public class MStatusDialog {
     public void dismiss() {
         try {
             mContext = null;
-            if(mHandler != null){
+            if (mHandler != null) {
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler = null;
             }

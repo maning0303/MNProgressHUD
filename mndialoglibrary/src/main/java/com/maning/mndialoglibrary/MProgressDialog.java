@@ -2,11 +2,10 @@ package com.maning.mndialoglibrary;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,21 +37,17 @@ public class MProgressDialog {
 
     private static void initDialog(Context mContext) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);// 得到加载view
-        mDialog = new Dialog(mContext, R.style.MNCustomDialog);// 创建自定义样式dialog
-        mDialog.setCancelable(false);// 不可以用“返回键”取消
+        View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
+        mDialog = new Dialog(mContext, R.style.MNCustomDialog);
+        mDialog.setCancelable(false);
         mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setContentView(mProgressDialogView);// 设置布局
+        mDialog.setContentView(mProgressDialogView);
 
         //设置整个Dialog的宽高
-        Resources resources = mContext.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        int screenW = dm.widthPixels;
-        int screenH = dm.heightPixels;
-
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-        layoutParams.width = screenW;
-        layoutParams.height = screenH;
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.gravity = Gravity.CENTER;
         mDialog.getWindow().setAttributes(layoutParams);
 
         //布局相关
@@ -65,10 +60,14 @@ public class MProgressDialog {
         configView(mContext);
     }
 
-    private static void configView(Context mContext) {
+    private static void checkDialogConfig() {
         if (mDialogConfig == null) {
             mDialogConfig = new MDialogConfig.Builder().build();
         }
+    }
+
+    private static void configView(Context mContext) {
+        checkDialogConfig();
         //设置动画
         if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
             try {
@@ -184,4 +183,5 @@ public class MProgressDialog {
         }
         return false;
     }
+
 }

@@ -15,6 +15,12 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <!-- 自定义Dialog 全屏-->
+    <style name="MNCustomDialogFullScreen" parent="@style/MNCustomDialog">
+        <!--全屏-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <declare-styleable name="MNHudProgressWheel">
         <attr name="mn_progressIndeterminate" format="boolean" />
         <attr name="mn_barColor" format="color" />
