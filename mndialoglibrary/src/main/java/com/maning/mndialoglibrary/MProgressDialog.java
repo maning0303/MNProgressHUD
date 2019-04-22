@@ -70,12 +70,12 @@ public class MProgressDialog {
     private static void configView(Context mContext) {
         checkDialogConfig();
         //设置动画
-        if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
-            try {
+        try {
+            if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
                 mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
-            } catch (Exception e) {
-
             }
+        } catch (Exception e) {
+
         }
         //点击外部可以取消
         mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);

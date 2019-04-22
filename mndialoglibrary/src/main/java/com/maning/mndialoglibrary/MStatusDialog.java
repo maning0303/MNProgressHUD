@@ -108,12 +108,12 @@ public class MStatusDialog {
         );
 
         //设置动画
-        if (mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
-            try {
+        try {
+            if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
                 mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
-            } catch (Exception e) {
-
             }
+        } catch (Exception e) {
+
         }
 
         //图片宽高

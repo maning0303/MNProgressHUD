@@ -80,15 +80,6 @@ public class MProgressBarDialog {
         layoutParams.gravity = Gravity.CENTER;
         mDialog.getWindow().setAttributes(layoutParams);
 
-        //设置动画
-        if (mBuilder.animationID != 0 && mDialog.getWindow() != null) {
-            try {
-                mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
-            } catch (Exception e) {
-
-            }
-        }
-
         //获取布局
         dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
         dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
@@ -117,6 +108,14 @@ public class MProgressBarDialog {
 
     private void configView() {
         checkDialogConfig();
+        //设置动画
+        try {
+            if (mBuilder != null && mBuilder.animationID != 0 && mDialog.getWindow() != null) {
+                mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
+            }
+        } catch (Exception e) {
+
+        }
         dialog_window_background.setBackgroundColor(mBuilder.backgroundWindowColor);
         tvShow.setTextColor(mBuilder.textColor);
 
@@ -193,51 +192,56 @@ public class MProgressBarDialog {
      * @param animate        是否平滑过度动画
      */
     public void showProgress(final int progress, final int secondProgress, String message, boolean animate) {
-        if (mBuilder == null) {
-            mBuilder = new MProgressBarDialog.Builder(mContext);
-        }
-        if (mBuilder.style == MProgressBarDialogStyle_Horizontal) {
-            if (horizontalProgressBar.getVisibility() == View.GONE) {
-                horizontalProgressBar.setVisibility(View.VISIBLE);
+        try {
+            if (mDialog == null) {
+                return;
             }
-            if (!animate) {
-                horizontalProgressBar.setProgress(progress);
-                horizontalProgressBar.setSecondaryProgress(secondProgress);
+            checkDialogConfig();
+            if (mBuilder.style == MProgressBarDialogStyle_Horizontal) {
+                if (horizontalProgressBar.getVisibility() == View.GONE) {
+                    horizontalProgressBar.setVisibility(View.VISIBLE);
+                }
+                if (!animate) {
+                    horizontalProgressBar.setProgress(progress);
+                    horizontalProgressBar.setSecondaryProgress(secondProgress);
+                } else {
+                    //动画形式：一级进度
+                    ValueAnimator progressAnim = ValueAnimator.ofInt(horizontalProgressBar.getProgress(), progress);
+                    progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+                    progressAnim.setDuration(mDuration);
+                    progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int progressCurrent = (int) valueAnimator.getAnimatedValue();
+                            horizontalProgressBar.setProgress(progressCurrent);
+                        }
+                    });
+                    progressAnim.start();
+                    //动画形式：二级进度
+                    ValueAnimator progressSecondAnim = ValueAnimator.ofInt(horizontalProgressBar.getSecondaryProgress(), secondProgress);
+                    progressSecondAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+                    progressSecondAnim.setDuration(mDuration);
+                    progressSecondAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int progressCurrent = (int) valueAnimator.getAnimatedValue();
+                            horizontalProgressBar.setSecondaryProgress(progressCurrent);
+                        }
+                    });
+                    progressSecondAnim.start();
+                }
             } else {
-                //动画形式：一级进度
-                ValueAnimator progressAnim = ValueAnimator.ofInt(horizontalProgressBar.getProgress(), progress);
-                progressAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-                progressAnim.setDuration(mDuration);
-                progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        int progressCurrent = (int) valueAnimator.getAnimatedValue();
-                        horizontalProgressBar.setProgress(progressCurrent);
-                    }
-                });
-                progressAnim.start();
-                //动画形式：二级进度
-                ValueAnimator progressSecondAnim = ValueAnimator.ofInt(horizontalProgressBar.getSecondaryProgress(), secondProgress);
-                progressSecondAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-                progressSecondAnim.setDuration(mDuration);
-                progressSecondAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        int progressCurrent = (int) valueAnimator.getAnimatedValue();
-                        horizontalProgressBar.setSecondaryProgress(progressCurrent);
-                    }
-                });
-                progressSecondAnim.start();
+                if (circularProgressBar.getVisibility() == View.GONE) {
+                    circularProgressBar.setVisibility(View.VISIBLE);
+                }
+                //添加动画平滑过度
+                circularProgressBar.setProgress(progress, animate);
             }
-        } else {
-            if (circularProgressBar.getVisibility() == View.GONE) {
-                circularProgressBar.setVisibility(View.VISIBLE);
-            }
-            //添加动画平滑过度
-            circularProgressBar.setProgress(progress, animate);
+            tvShow.setText(message);
+            mDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        tvShow.setText(message);
-        mDialog.show();
     }
 
 
@@ -269,9 +273,6 @@ public class MProgressBarDialog {
 
     public void refreshBuilder(MProgressBarDialog.Builder builder) {
         mBuilder = builder;
-        if (mBuilder == null) {
-            mBuilder = new MProgressBarDialog.Builder(mContext);
-        }
         configView();
     }
 
@@ -280,7 +281,7 @@ public class MProgressBarDialog {
         private Context mContext;
 
         //全屏模式隐藏状态栏
-        public boolean windowFullscreen = false;
+        public boolean windowFullscreen;
         //窗体背景色
         int backgroundWindowColor;
         //View背景色
