@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.6'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.7'
 	}
 ```
 
@@ -307,11 +307,12 @@
 ```
 
 ## 版本记录：
-    V1.1.6:
+    V1.1.7:
         1.Dialog相关添加全屏模式，默认非全屏
         2.MProgressDialog添加修改Progress大小参数progressSize
         3.优化Dialog全屏样式
         4.library中build v4添加方式修改为implementation，防止冲突
+        5.优化代码，防止空指针异常
 
     V1.1.5:
         1.代码优化
