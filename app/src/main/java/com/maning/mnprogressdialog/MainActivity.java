@@ -121,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn04:
                 MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                        //全屏模式
+                        .isWindowFullscreen(true)
                         //Progress大小（宽高）
                         .setProgressSize(60)
                         //点击外部是否可以取消
@@ -300,6 +302,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showStatusDialog02() {
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                //全屏模式
+                .isWindowFullscreen(true)
                 //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                 //View背景的颜色
@@ -350,6 +354,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void configProgressbarCircleDialog2() {
         //新建一个Dialog
         mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+                //全屏模式
+                .isWindowFullscreen(true)
+                //样式
                 .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
                 //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))

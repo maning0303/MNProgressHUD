@@ -163,6 +163,13 @@ public class MProgressBarDialog {
         circularProgressBar.setProgressBarWidth(MSizeUtils.dp2px(mContext, mBuilder.circleProgressBarWidth));
         circularProgressBar.setBackgroundProgressBarWidth(MSizeUtils.dp2px(mContext, mBuilder.circleProgressBarBackgroundWidth));
 
+        //全屏模式
+        if (mBuilder.windowFullscreen) {
+            mDialog.getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
     }
 
     public void showProgress(int progress, String message) {
@@ -272,6 +279,8 @@ public class MProgressBarDialog {
 
         private Context mContext;
 
+        //全屏模式隐藏状态栏
+        public boolean windowFullscreen = false;
         //窗体背景色
         int backgroundWindowColor;
         //View背景色
@@ -317,12 +326,17 @@ public class MProgressBarDialog {
             circleProgressBarBackgroundWidth = 1;
             horizontalProgressBarHeight = 4;
             animationID = 0;
+            windowFullscreen = false;
         }
 
         public MProgressBarDialog build() {
             return new MProgressBarDialog(mContext, this);
         }
 
+        public Builder isWindowFullscreen(@Nullable boolean windowFullscreen) {
+            this.windowFullscreen = windowFullscreen;
+            return this;
+        }
 
         public Builder setBackgroundWindowColor(@Nullable int backgroundWindowColor) {
             this.backgroundWindowColor = backgroundWindowColor;

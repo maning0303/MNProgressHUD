@@ -123,6 +123,13 @@ public class MProgressDialog {
                 }
             }
         });
+
+        //全屏模式
+        if (mDialogConfig.windowFullscreen) {
+            mDialog.getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
     }
 
     public static void showProgress(Context context) {

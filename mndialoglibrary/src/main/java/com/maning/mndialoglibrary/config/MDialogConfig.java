@@ -13,6 +13,8 @@ import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
 
 public class MDialogConfig {
 
+    //全屏模式隐藏状态栏
+    public boolean windowFullscreen = false;
     //点击外部可以取消
     public boolean canceledOnTouchOutside = false;
     //是否可以返回键关闭
@@ -71,23 +73,16 @@ public class MDialogConfig {
             return mDialogConfig;
         }
 
-        /**
-         * 设置点击外部取消Dialog
-         *
-         * @param canceledOnTouchOutside
-         * @return
-         */
         public Builder isCanceledOnTouchOutside(@Nullable boolean canceledOnTouchOutside) {
             mDialogConfig.canceledOnTouchOutside = canceledOnTouchOutside;
             return this;
         }
+        
+        public Builder isWindowFullscreen(@Nullable boolean windowFullscreen) {
+            mDialogConfig.windowFullscreen = windowFullscreen;
+            return this;
+        }
 
-        /**
-         * 返回键取消
-         *
-         * @param cancelable
-         * @return
-         */
         public Builder isCancelable(@Nullable boolean cancelable) {
             mDialogConfig.cancelable = cancelable;
             return this;

@@ -124,6 +124,13 @@ public class MStatusDialog {
             imageStatus.setLayoutParams(layoutParams);
         }
 
+        //全屏模式
+        if (mDialogConfig.windowFullscreen) {
+            mDialog.getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
     }
 
     public void show(String msg, Drawable drawable) {
