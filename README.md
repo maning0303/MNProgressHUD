@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.5'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.6'
 	}
 ```
 
@@ -70,6 +70,10 @@
         
         //自定义背景
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                 //全屏模式
+                 .isWindowFullscreen(true)
+                 //Progress大小（宽高）
+                 .setProgressSize(60)
                  //点击外部是否可以取消
                  .isCanceledOnTouchOutside(true)
                  //物理返回键可以取消
@@ -128,6 +132,8 @@
         
         //自定义
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                        //全屏模式
+                        .isWindowFullscreen(true)
                         //全屏背景窗体的颜色
                         .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                         //View背景的颜色
@@ -198,6 +204,8 @@
 
         //新建一个Dialog
         mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
+               //全屏模式
+               .isWindowFullscreen(true)
                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
                //全屏背景窗体的颜色
                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
@@ -299,6 +307,11 @@
 ```
 
 ## 版本记录：
+    V1.1.6:
+        1.Dialog相关添加全屏模式，默认非全屏
+        2.MProgressDialog添加修改Progress大小参数progressSize
+        3.优化Dialog全屏样式
+
     V1.1.5:
         1.代码优化
         2.MProgressDialog支持配置物理键取消
