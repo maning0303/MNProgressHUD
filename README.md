@@ -311,6 +311,7 @@
         1.Dialog相关添加全屏模式，默认非全屏
         2.MProgressDialog添加修改Progress大小参数progressSize
         3.优化Dialog全屏样式
+        4.library中build v4添加方式修改为implementation，防止冲突
 
     V1.1.5:
         1.代码优化
