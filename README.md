@@ -42,7 +42,7 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.7'
+	     compile 'com.github.maning0303:MNProgressHUD:V1.1.8'
 	}
 ```
 
@@ -50,8 +50,11 @@
 #### 直接关联mndialoglibrary
 
 ``` gradle
-
-	compile project(':mndialoglibrary')
+    //需要v4,v7包
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.0'
+    //库
+	implementation project(':mndialoglibrary')
 
 ```
 
@@ -307,6 +310,11 @@
 ```
 
 ## 版本记录：
+
+    V1.1.8:
+        1.Dialog显示状态栏黑色优化
+        2.优化代码
+
     V1.1.7:
         1.Dialog相关添加全屏模式，默认非全屏
         2.MProgressDialog添加修改Progress大小参数progressSize
