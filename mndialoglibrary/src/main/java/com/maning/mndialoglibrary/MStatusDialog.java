@@ -143,15 +143,22 @@ public class MStatusDialog {
     }
 
     public void show(String msg, Drawable drawable, long delayMillis) {
-        imageStatus.setImageDrawable(drawable);
-        tvShow.setText(msg);
-        mDialog.show();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
+        try {
+            if (mDialog == null) {
+                return;
             }
-        }, delayMillis);
+            imageStatus.setImageDrawable(drawable);
+            tvShow.setText(msg);
+            mDialog.show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, delayMillis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void dismiss() {

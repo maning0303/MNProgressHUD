@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +18,9 @@ import android.view.WindowManager;
 
 import com.maning.mndialoglibrary.R;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
 /**
  * author : maning
  * time   : 2018/03/07
@@ -25,6 +29,7 @@ import com.maning.mndialoglibrary.R;
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
 
+    protected static FragmentActivity mActivity;
     private boolean isShowing = false;
 
     @Nullable
@@ -73,39 +78,47 @@ public abstract class BaseFragmentDialog extends DialogFragment {
         return 0.6f;
     }
 
-    @Override
-    public void dismiss() {
-        isShowing = false;
-        super.dismiss();
-    }
-
-    @Override
-    public void dismissAllowingStateLoss() {
-        super.dismissAllowingStateLoss();
-        isShowing = false;
-    }
-
-    public void showDialog(FragmentActivity mActivity) {
+    public void showDialog(FragmentActivity mAct) {
         try {
+            if (mAct == null) {
+                return;
+            }
+            mActivity = mAct;
             if (isShowing()) {
                 return;
             }
             if (mActivity != null && mActivity.getSupportFragmentManager() != null) {
                 FragmentManager supportFragmentManager = mActivity.getSupportFragmentManager();
                 //在每个add事务前增加一个remove事务，防止连续的add
-                supportFragmentManager.beginTransaction().remove(this).commit();
+                supportFragmentManager.beginTransaction().remove(this).commitAllowingStateLoss();
                 show(supportFragmentManager, mActivity.getLocalClassName());
             }
         } catch (Exception e) {
-            Log.e("-------", e.toString());
+            e.printStackTrace();
         }
     }
 
     @Override
     public void show(FragmentManager manager, String tag) {
         isShowing = true;
-        super.show(manager, tag);
+        try {
+            Class c = Class.forName("android.support.v4.app.DialogFragment");
+            Constructor con = c.getConstructor();
+            Object obj = con.newInstance();
+            Field dismissed = c.getDeclaredField("mDismissed");
+            dismissed.setAccessible(true);
+            dismissed.set(obj, false);
+            Field shownByMe = c.getDeclaredField("mShownByMe");
+            shownByMe.setAccessible(true);
+            shownByMe.set(obj, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.add(this, tag);
+        ft.commitAllowingStateLoss();
     }
+
 
     public boolean isShowing() {
         if ((isShowing) || (getDialog() != null && getDialog().isShowing())) {
@@ -131,6 +144,21 @@ public abstract class BaseFragmentDialog extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         isShowing = false;
+        mActivity = null;
+    }
+
+    @Override
+    public void dismiss() {
+        isShowing = false;
+        mActivity = null;
+        dismissAllowingStateLoss();
+    }
+
+    @Override
+    public void dismissAllowingStateLoss() {
+        isShowing = false;
+        mActivity = null;
+        super.dismissAllowingStateLoss();
     }
 
 }
