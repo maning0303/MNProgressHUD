@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MProgressDialog.showProgress(this, "数据上传中...", mDialogConfig);
                 break;
             case R.id.btn06:
-                showStatusDialog01("正在保存");
+                showStatusDialog01();
                 break;
             case R.id.btn07:
                 showStatusDialog02();
@@ -288,14 +288,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MStatusDialog mStatusDialog;
 
-    private void showStatusDialog01(String msg) {
+    private void showStatusDialog01() {
         mStatusDialog = new MStatusDialog(this);
-        mStatusDialog.show(msg, mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok), 5000);
+        mStatusDialog.show("正在保存,请稍等..", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok), 5000);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //关闭
                 mStatusDialog.dismiss();
+                new MStatusDialog(mContext).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
             }
         }, 1000);
     }
