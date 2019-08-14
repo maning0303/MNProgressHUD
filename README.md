@@ -42,7 +42,10 @@
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 	dependencies {
-	     compile 'com.github.maning0303:MNProgressHUD:V1.1.8'
+	    //需要v4,v7包
+        implementation 'com.android.support:appcompat-v7:27.1.0'
+        implementation 'com.android.support:support-v4:27.1.0'
+	    implementation 'com.github.maning0303:MNProgressHUD:V1.1.8'
 	}
 ```
 
@@ -50,10 +53,7 @@
 #### 直接关联mndialoglibrary
 
 ``` gradle
-    //需要v4,v7包
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:support-v4:27.1.0'
-    //库
+
 	implementation project(':mndialoglibrary')
 
 ```
