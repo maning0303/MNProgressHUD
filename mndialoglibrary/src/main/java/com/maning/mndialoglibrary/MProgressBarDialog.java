@@ -66,37 +66,41 @@ public class MProgressBarDialog {
 
     private void initDialog() {
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mProgressDialogView = inflater.inflate(R.layout.mn_progress_bar_dialog_layout, null);
-        mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-        mDialog.setCancelable(false);
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setContentView(mProgressDialogView);
+        try {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View mProgressDialogView = inflater.inflate(R.layout.mn_progress_bar_dialog_layout, null);
+            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
+            mDialog.setCancelable(false);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.setContentView(mProgressDialogView);
 
-        //设置整个Dialog的宽高
-        WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.gravity = Gravity.CENTER;
-        mDialog.getWindow().setAttributes(layoutParams);
+            //设置整个Dialog的宽高
+            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.gravity = Gravity.CENTER;
+            mDialog.getWindow().setAttributes(layoutParams);
 
-        //获取布局
-        dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
-        dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
-        tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
-        horizontalProgressBar = (ProgressBar) mProgressDialogView.findViewById(R.id.horizontalProgressBar);
-        circularProgressBar = (MNHudCircularProgressBar) mProgressDialogView.findViewById(R.id.circularProgressBar);
+            //获取布局
+            dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
+            dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
+            tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
+            horizontalProgressBar = (ProgressBar) mProgressDialogView.findViewById(R.id.horizontalProgressBar);
+            circularProgressBar = (MNHudCircularProgressBar) mProgressDialogView.findViewById(R.id.circularProgressBar);
 
-        horizontalProgressBar.setVisibility(View.GONE);
-        circularProgressBar.setVisibility(View.GONE);
+            horizontalProgressBar.setVisibility(View.GONE);
+            circularProgressBar.setVisibility(View.GONE);
 
-        horizontalProgressBar.setProgress(0);
-        horizontalProgressBar.setSecondaryProgress(0);
-        circularProgressBar.setProgress(0);
-        tvShow.setText("");
+            horizontalProgressBar.setProgress(0);
+            horizontalProgressBar.setSecondaryProgress(0);
+            circularProgressBar.setProgress(0);
+            tvShow.setText("");
 
-        //默认配置
-        configView();
+            //默认配置
+            configView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -108,8 +112,9 @@ public class MProgressBarDialog {
 
     private void configView() {
         checkDialogConfig();
-        //设置动画
+
         try {
+            //设置动画
             if (mBuilder != null && mBuilder.animationID != 0 && mDialog.getWindow() != null) {
                 mDialog.getWindow().setWindowAnimations(mBuilder.animationID);
             }

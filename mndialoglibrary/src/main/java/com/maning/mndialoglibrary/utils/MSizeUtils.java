@@ -1,6 +1,10 @@
 package com.maning.mndialoglibrary.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
+import android.view.WindowManager;
 
 /**
  * Created by maning on 2017/12/29.
@@ -50,6 +54,39 @@ public class MSizeUtils {
     public static int px2sp(Context context, final float pxValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * 得到屏幕高度
+     *
+     * @return 高度
+     */
+    public static int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            //noinspection ConstantConditions
+            wm.getDefaultDisplay().getRealSize(point);
+        } else {
+            //noinspection ConstantConditions
+            wm.getDefaultDisplay().getSize(point);
+        }
+        return point.y;
+    }
+
+    /**
+     * 状态栏高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 }

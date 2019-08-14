@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MNHudProgressWheel">
+        <attr name="mn_progressIndeterminate" format="boolean" />
+        <attr name="mn_barColor" format="color" />
+        <attr name="mn_rimColor" format="color" />
+        <attr name="mn_rimWidth" format="dimension" />
+        <attr name="mn_spinSpeed" format="float" />
+        <attr name="mn_barSpinCycleTime" format="integer" />
+        <attr name="mn_circleRadius" format="dimension" />
+        <attr name="mn_fillRadius" format="boolean" />
+        <attr name="mn_barWidth" format="dimension" />
+        <attr name="mn_linearProgress" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MNHudCircularProgressBar">
+        <attr name="mn_progress" format="integer" />
+        <attr name="mn_progressbar_color" format="color" />
+        <attr name="mn_background_progressbar_color" format="color" />
+        <attr name="mn_progressbar_width" format="dimension" />
+        <attr name="mn_background_progressbar_width" format="dimension" />
+    </declare-styleable>
+
+</resources>

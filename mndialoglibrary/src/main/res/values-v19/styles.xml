@@ -13,12 +13,10 @@
         <item name="android:windowNoTitle">true</item>
         <!--无遮罩效果-->
         <item name="android:backgroundDimEnabled">false</item>
-    </style>
-
-    <!-- 自定义Dialog 全屏-->
-    <style name="MNCustomDialogFullScreen" parent="@style/MNCustomDialog">
-        <!--全屏-->
-        <item name="android:windowFullscreen">true</item>
+        <!--设置状态栏颜色-->
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
 </resources>

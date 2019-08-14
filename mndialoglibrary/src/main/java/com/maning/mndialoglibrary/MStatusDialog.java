@@ -49,29 +49,34 @@ public class MStatusDialog {
     }
 
     private void initDialog() {
+        try {
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);
-        mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-        mDialog.setCancelable(false);
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setContentView(mProgressDialogView);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);
+            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
+            mDialog.setCancelable(false);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.setContentView(mProgressDialogView);
 
-        //设置整个Dialog的宽高
-        WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.gravity = Gravity.CENTER;
-        mDialog.getWindow().setAttributes(layoutParams);
+            //设置整个Dialog的宽高
+            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.gravity = Gravity.CENTER;
+            mDialog.getWindow().setAttributes(layoutParams);
 
-        //获取布局
-        dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
-        dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
-        imageStatus = (ImageView) mProgressDialogView.findViewById(R.id.imageStatus);
-        tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
+            //获取布局
+            dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
+            dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
+            imageStatus = (ImageView) mProgressDialogView.findViewById(R.id.imageStatus);
+            tvShow = (TextView) mProgressDialogView.findViewById(R.id.tvShow);
 
-        //默认配置
-        configView();
+            //默认配置
+            configView();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

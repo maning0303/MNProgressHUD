@@ -37,28 +37,32 @@ public class MProgressDialog {
 
 
     private static void initDialog(Context mContext) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
-        mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-        mDialog.setCancelable(false);
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setContentView(mProgressDialogView);
+        try {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
+            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
+            mDialog.setCancelable(false);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.setContentView(mProgressDialogView);
 
-        //设置整个Dialog的宽高
-        WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.gravity = Gravity.CENTER;
-        mDialog.getWindow().setAttributes(layoutParams);
+            //设置整个Dialog的宽高
+            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.gravity = Gravity.CENTER;
+            mDialog.getWindow().setAttributes(layoutParams);
 
-        //布局相关
-        dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
-        dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
-        progress_wheel = (MNHudProgressWheel) mProgressDialogView.findViewById(R.id.progress_wheel);
-        tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
-        progress_wheel.spin();
+            //布局相关
+            dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
+            dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
+            progress_wheel = (MNHudProgressWheel) mProgressDialogView.findViewById(R.id.progress_wheel);
+            tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
+            progress_wheel.spin();
 
-        configView(mContext);
+            configView(mContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void checkDialogConfig() {
@@ -69,14 +73,15 @@ public class MProgressDialog {
 
     private static void configView(Context mContext) {
         checkDialogConfig();
-        //设置动画
         try {
+            //设置动画
             if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
                 mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
             }
         } catch (Exception e) {
 
         }
+
         //点击外部可以取消
         mDialog.setCanceledOnTouchOutside(mDialogConfig.canceledOnTouchOutside);
         //返回键取消
@@ -164,7 +169,7 @@ public class MProgressDialog {
                 mDialog.show();
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -185,7 +190,7 @@ public class MProgressDialog {
                 mDialog = null;
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
