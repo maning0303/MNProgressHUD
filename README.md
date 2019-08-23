@@ -50,6 +50,7 @@
     }
 
     //android x 适配
+    //[androidx 版本源码](https://github.com/maning0303/MNProgressHUD/releases/tag/V1.1.8X)
     dependencies {
         implementation 'androidx.appcompat:appcompat:1.0.0'
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
