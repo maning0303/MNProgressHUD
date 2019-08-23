@@ -41,20 +41,30 @@
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
+    //android support library
 	dependencies {
-	    //需要v4,v7包
+	    //需要support v4,v7包
         implementation 'com.android.support:appcompat-v7:27.1.0'
         implementation 'com.android.support:support-v4:27.1.0'
 	    implementation 'com.github.maning0303:MNProgressHUD:V1.1.8'
 	}
+
+    //android x 适配
+    dependencies {
+        implementation 'androidx.appcompat:appcompat:1.0.0'
+        implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+        implementation 'com.github.maning0303:MNProgressHUD:V1.1.8X'
+    }
 ```
 
 ### 2:源码Module添加：
 #### 直接关联mndialoglibrary
 
 ``` gradle
-
+    //support
+    //需要 android x 适配，切换到androidx分支。
 	implementation project(':mndialoglibrary')
+
 
 ```
 
