@@ -8,8 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.view.MNHudCircularProgressBar;

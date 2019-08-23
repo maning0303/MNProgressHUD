@@ -1,9 +1,9 @@
 package com.maning.mndialoglibrary.config;
 
 import android.graphics.Color;
-import android.media.midi.MidiManager;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 
 import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
 
