@@ -1,5 +1,6 @@
 # MNProgressDialog [![](https://jitpack.io/v/maning0303/MNProgressHUD.svg)](https://jitpack.io/#maning0303/MNProgressHUD)
-一个常用的自定义弹框封装,加载ProgressDialog,状态显示的StatusDialog和自定义Toast,全部支持背景颜色,圆角,边框和文字的自定义,构建者模式,链式调用。
+一个常用的自定义弹框封装(适配AndroidX),加载ProgressDialog,状态显示的StatusDialog和自定义Toast,全部支持背景颜色,圆角,边框和文字的自定义,构建者模式,链式调用。
+
 
 
 ## 截图：
