@@ -32,23 +32,22 @@
 #### 1.在Project的build.gradle中添加仓库地址
 
 ``` gradle
-	allprojects {
-		repositories {
-			...
-			maven { url "https://jitpack.io" }
-		}
-	}
+    allprojects {
+    	repositories {
+    		...
+    		maven { url "https://jitpack.io" }
+    	}
+    }
 ```
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
     //android support library
-	dependencies {
-	    //需要support v4,v7包
+    dependencies {
         implementation 'com.android.support:appcompat-v7:27.1.0'
         implementation 'com.android.support:support-v4:27.1.0'
-	    implementation 'com.github.maning0303:MNProgressHUD:V1.1.8'
-	}
+        implementation 'com.github.maning0303:MNProgressHUD:V1.1.8'
+    }
 
     //android x 适配
     dependencies {
@@ -59,12 +58,11 @@
 ```
 
 ### 2:源码Module添加：
-#### 直接关联mndialoglibrary
+#### 直接关联mndialoglibrary(需要 android x 适配，切换到androidx分支。)
 
 ``` gradle
-    //support
-    //需要 android x 适配，切换到androidx分支。
-	implementation project(':mndialoglibrary')
+
+    implementation project(':mndialoglibrary')
 
 
 ```
