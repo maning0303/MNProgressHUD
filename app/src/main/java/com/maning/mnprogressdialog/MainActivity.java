@@ -1,25 +1,20 @@
 package com.maning.mnprogressdialog;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 
-import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.MProgressBarDialog;
 import com.maning.mndialoglibrary.MProgressDialog;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mndialoglibrary.MToast;
+import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.config.MToastConfig;
 import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -209,8 +204,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showFragmentDialog() {
-        TestFragmentDialog testFragmentDialog = new TestFragmentDialog();
-        testFragmentDialog.showDialog(MainActivity.this);
     }
 
 
@@ -264,13 +257,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showToastCustom() {
-        MToastConfig config = new MToastConfig.Builder()
-                .setTextColor(getMyColor(R.color.white))
-                .setBackgroundColor(getMyColor(R.color.colorDialogTest))
-                .setToastIcon(mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok))
-                .setTextSize(18)
-                .build();
-        MToast.makeTextShort(mContext, "欢迎使用自定义Toast", config);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MToastConfig config = new MToastConfig.Builder()
+                        .setTextColor(getMyColor(R.color.white))
+                        .setBackgroundColor(getMyColor(R.color.colorDialogTest))
+                        .setToastIcon(mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok))
+                        .setTextSize(18)
+                        .build();
+                MToast.makeTextShort(mContext, "欢迎使用自定义Toast-异步线程", config);
+            }
+        }).start();
 
     }
 

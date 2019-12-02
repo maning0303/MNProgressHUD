@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.base.BaseDialog;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.view.MNHudCircularProgressBar;
 
@@ -40,7 +41,7 @@ public class MProgressBarDialog {
 
 
     private Context mContext;
-    private Dialog mDialog;
+    private BaseDialog mDialog;
 
     private MProgressBarDialog.Builder mBuilder;
 
@@ -65,21 +66,13 @@ public class MProgressBarDialog {
     }
 
     private void initDialog() {
-
+        checkDialogConfig();
         try {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View mProgressDialogView = inflater.inflate(R.layout.mn_progress_bar_dialog_layout, null);
-            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-            mDialog.setCancelable(false);
-            mDialog.setCanceledOnTouchOutside(false);
+            mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-
-            //设置整个Dialog的宽高
-            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.gravity = Gravity.CENTER;
-            mDialog.getWindow().setAttributes(layoutParams);
+            mDialog.initStatusBar(mBuilder.windowFullscreen);
 
             //获取布局
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -111,8 +104,6 @@ public class MProgressBarDialog {
     }
 
     private void configView() {
-        checkDialogConfig();
-
         try {
             //设置动画
             if (mBuilder != null && mBuilder.animationID != 0 && mDialog.getWindow() != null) {
@@ -166,14 +157,6 @@ public class MProgressBarDialog {
         circularProgressBar.setColor(mBuilder.progressColor);
         circularProgressBar.setProgressBarWidth(MSizeUtils.dp2px(mContext, mBuilder.circleProgressBarWidth));
         circularProgressBar.setBackgroundProgressBarWidth(MSizeUtils.dp2px(mContext, mBuilder.circleProgressBarBackgroundWidth));
-
-        //全屏模式
-        if (mBuilder.windowFullscreen) {
-            mDialog.getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
     }
 
     public void showProgress(int progress, String message) {

@@ -1,24 +1,19 @@
 package com.maning.mndialoglibrary;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.base.BaseDialog;
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.view.MNHudProgressWheel;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by maning on 2017/8/9.
@@ -29,7 +24,7 @@ public class MProgressDialog {
 
     private static final String LoadingDefaultMsg = "加载中";
 
-    private static Dialog mDialog;
+    private static BaseDialog mDialog;
     private static MDialogConfig mDialogConfig;
 
     //布局
@@ -40,20 +35,13 @@ public class MProgressDialog {
 
 
     private static void initDialog(Context mContext) {
+        checkDialogConfig();
         try {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
-            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-            mDialog.setCancelable(false);
-            mDialog.setCanceledOnTouchOutside(false);
+            mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-
-            //设置整个Dialog的宽高
-            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.gravity = Gravity.CENTER;
-            mDialog.getWindow().setAttributes(layoutParams);
+            mDialog.initStatusBar(mDialogConfig.windowFullscreen);
 
             //布局相关
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -62,7 +50,9 @@ public class MProgressDialog {
             tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
             progress_wheel.spin();
 
+            //配置相关
             configView(mContext);
+
         } catch (Exception e) {
         }
     }
@@ -74,7 +64,6 @@ public class MProgressDialog {
     }
 
     private static void configView(Context mContext) {
-        checkDialogConfig();
         try {
             //设置动画
             if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
@@ -130,35 +119,6 @@ public class MProgressDialog {
                 }
             }
         });
-
-        //全屏模式
-        if (mDialogConfig.windowFullscreen) {
-//            mDialog.getWindow().setFlags(
-//                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            } else {
-//                mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//                mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            }
-        }
-
-//        //解决 状态栏变色的bug
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            mDialog.getWindow().setStatusBarColor(Color.TRANSPARENT);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                try {
-//                    Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
-//                    Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
-//                    field.setAccessible(true);
-//                    field.setInt(mDialog.getWindow().getDecorView(), Color.TRANSPARENT);  //去掉高版本蒙层改为透明
-//                } catch (Exception e) {
-//                }
-//            }
-//        }
     }
 
     public static void showProgress(Context context) {
