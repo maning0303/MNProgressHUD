@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.base.BaseDialog;
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.view.MNHudProgressWheel;
@@ -26,7 +27,7 @@ public class MProgressDialog {
 
     private static final String LoadingDefaultMsg = "加载中";
 
-    private static Dialog mDialog;
+    private static BaseDialog mDialog;
     private static MDialogConfig mDialogConfig;
 
     //布局
@@ -37,20 +38,13 @@ public class MProgressDialog {
 
 
     private static void initDialog(Context mContext) {
+        checkDialogConfig();
         try {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
-            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-            mDialog.setCancelable(false);
-            mDialog.setCanceledOnTouchOutside(false);
+            mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-
-            //设置整个Dialog的宽高
-            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.gravity = Gravity.CENTER;
-            mDialog.getWindow().setAttributes(layoutParams);
+            mDialog.initStatusBar(mDialogConfig.windowFullscreen);
 
             //布局相关
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -59,9 +53,10 @@ public class MProgressDialog {
             tv_show = (TextView) mProgressDialogView.findViewById(R.id.tv_show);
             progress_wheel.spin();
 
+            //配置相关
             configView(mContext);
+
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -72,7 +67,6 @@ public class MProgressDialog {
     }
 
     private static void configView(Context mContext) {
-        checkDialogConfig();
         try {
             //设置动画
             if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
@@ -128,13 +122,6 @@ public class MProgressDialog {
                 }
             }
         });
-
-        //全屏模式
-        if (mDialogConfig.windowFullscreen) {
-            mDialog.getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
     }
 
     public static void showProgress(Context context) {
@@ -169,7 +156,6 @@ public class MProgressDialog {
                 mDialog.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -190,7 +176,6 @@ public class MProgressDialog {
                 mDialog = null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

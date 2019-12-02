@@ -1,9 +1,15 @@
 package com.maning.mndialoglibrary;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +25,8 @@ import androidx.annotation.NonNull;
 import com.maning.mndialoglibrary.config.MToastConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 
+import java.lang.reflect.InvocationTargetException;
+
 
 /**
  * Created by maning on 2017/8/11.
@@ -27,33 +35,75 @@ import com.maning.mndialoglibrary.utils.MSizeUtils;
 
 public class MToast {
 
+    private static Handler UIHandler = new Handler(Looper.getMainLooper());
+
     private static Toast currentToast;
 
+    private static Context mAppContext;
+
+    //----对外提供方法---------
+    public static void init(Context context) {
+        MToast.mAppContext = context.getApplicationContext();
+    }
+
+
     public static void makeTextLong(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
-        make(config, context, message, Toast.LENGTH_LONG).show();
+        show(config, context, message, Toast.LENGTH_LONG);
     }
 
     public static void makeTextShort(@NonNull Context context, @NonNull CharSequence message, MToastConfig config) {
-        make(config, context, message, Toast.LENGTH_SHORT).show();
+        show(config, context, message, Toast.LENGTH_SHORT);
     }
 
     public static void makeTextLong(@NonNull Context context, @NonNull CharSequence message) {
-        make(null, context, message, Toast.LENGTH_LONG).show();
+        show(null, context, message, Toast.LENGTH_LONG);
     }
 
     public static void makeTextShort(@NonNull Context context, @NonNull CharSequence message) {
-        make(null, context, message, Toast.LENGTH_SHORT).show();
+        show(null, context, message, Toast.LENGTH_SHORT);
     }
 
-    private static void makeText(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
-        make(config, context, message, duration).show();
+    public static void makeTextLong(@NonNull CharSequence message) {
+        show(null, mAppContext, message, Toast.LENGTH_LONG);
     }
 
-    private static void makeText(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        make(null, context, message, duration).show();
+    public static void makeTextShort(@NonNull CharSequence message) {
+        show(null, mAppContext, message, Toast.LENGTH_SHORT);
+    }
+    //----对外提供方法---------
+
+    private static void show(final MToastConfig config, final Context context, final CharSequence message, final int duration) {
+        if (TextUtils.isEmpty(message)) {
+            return;
+        }
+        try {
+            if (mAppContext == null) {
+                if (context != null) {
+                    mAppContext = context.getApplicationContext();
+                } else {
+                    mAppContext = getApplicationByReflect().getApplicationContext();
+                }
+            }
+            if (mAppContext == null) {
+                return;
+            }
+            if (Looper.getMainLooper() == Looper.myLooper()) {
+                getToast(config, mAppContext, message, duration).show();
+            } else {
+                UIHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getToast(config, mAppContext, message, duration).show();
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(">>>MToast>>>", "MToast异常：" + e.toString());
+        }
     }
 
-    private static Toast make(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
+    private static Toast getToast(MToastConfig config, Context context, CharSequence message, int duration) {
         cancelToast();
         Context mCotext = context.getApplicationContext();
         if (currentToast == null) {
@@ -135,6 +185,28 @@ public class MToast {
             currentToast.cancel();
             currentToast = null;
         }
+    }
+
+    private static Application getApplicationByReflect() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
+            Object thread = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(thread);
+            if (app == null) {
+                throw new NullPointerException("u should init first");
+            }
+            return (Application) app;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("u should init first");
     }
 
 }

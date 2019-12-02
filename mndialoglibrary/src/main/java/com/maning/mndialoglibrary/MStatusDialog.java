@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maning.mndialoglibrary.base.BaseDialog;
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 
@@ -27,7 +28,7 @@ public class MStatusDialog {
 
     private Handler mHandler;
     private Context mContext;
-    private Dialog mDialog;
+    private BaseDialog mDialog;
 
     private MDialogConfig mDialogConfig;
 
@@ -49,21 +50,13 @@ public class MStatusDialog {
     }
 
     private void initDialog() {
+        checkDialogConfig();
         try {
-
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View mProgressDialogView = inflater.inflate(R.layout.mn_status_dialog_layout, null);
-            mDialog = new Dialog(mContext, R.style.MNCustomDialog);
-            mDialog.setCancelable(false);
-            mDialog.setCanceledOnTouchOutside(false);
+            mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-
-            //设置整个Dialog的宽高
-            WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.gravity = Gravity.CENTER;
-            mDialog.getWindow().setAttributes(layoutParams);
+            mDialog.initStatusBar(mDialogConfig.windowFullscreen);
 
             //获取布局
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -87,7 +80,6 @@ public class MStatusDialog {
     }
 
     private void configView() {
-        checkDialogConfig();
         //window背景
         dialog_window_background.setBackgroundColor(mDialogConfig.backgroundWindowColor);
 
