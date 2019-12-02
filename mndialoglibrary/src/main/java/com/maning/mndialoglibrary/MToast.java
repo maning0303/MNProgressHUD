@@ -102,7 +102,7 @@ public class MToast {
         }
     }
 
-    private static Toast getToast(MToastConfig config, @NonNull Context context, @NonNull CharSequence message, int duration) {
+    private static Toast getToast(MToastConfig config, Context context, CharSequence message, int duration) {
         cancelToast();
         Context mCotext = context.getApplicationContext();
         if (currentToast == null) {
