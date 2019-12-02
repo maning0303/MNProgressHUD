@@ -261,67 +261,7 @@
 
 ```
 
-### 5:BaseFragmentDialog使用（详细见Demo）:
-``` java
-    
-    1.继承BaseFragmentDialog
-    public class TestFragmentDialog extends BaseFragmentDialog {
-    
-        /**
-         * 布局初始化，必须实现
-         *
-         * @param inflater
-         * @return
-         */
-        @Override
-        protected View initView(LayoutInflater inflater) {
-            View view = inflater.inflate(R.layout.dialog_test, null);
-            return view;
-        }
-    
-        /**
-         * 动画，此方法默认不实现
-         *
-         * @return
-         */
-        @Override
-        public int initAnimations() {
-            return R.style.animate_dialog;
-        }
-    
-        /**
-         * Dialog初始化相关，此方法默认不实现
-         */
-        @Override
-        public void initDialog() {
-            //点击外部不可取消,默认false
-            getDialog().setCanceledOnTouchOutside(true);
-        }
-    
-        /**
-         * 背景透明度，此方法默认不实现
-         *
-         * @return
-         */
-        @Override
-        public float initBackgroundAlpha() {
-            //默认0.8f
-            return 0.8f;
-        }
-    }
-        
-    2.调用显示
-    private void showFragmentDialog() {
-            TestFragmentDialog testFragmentDialog = new TestFragmentDialog();
-            testFragmentDialog.showDialog(mActivity);
-    }
-    
-
-
-```
-
 ## 版本记录：
-
     V1.1.8:
         1.Dialog显示状态栏黑色优化
         2.优化代码
@@ -332,25 +272,6 @@
         3.优化Dialog全屏样式
         4.library中build v4添加方式修改为implementation，防止冲突
         5.优化代码，防止空指针异常
-
-    V1.1.5:
-        1.代码优化
-        2.MProgressDialog支持配置物理键取消
-
-    V1.1.4:
-        1.内存泄漏相关优化
-        2.Toast优化，添加cancleToast()方法
-        3.MStatusDialog优化，添加dismiss()方法
-        
-    V1.1.2:
-        1.优化代码，防止动画异常
-        2.minSdkVersion 14
-        3.BaseFragmentDialog 优化
-        
-    V1.1.0:
-        1.新增这是字体大小
-        2.新增设置padding
-        3.新增设置图片大小
 
 
 ## 感谢：
