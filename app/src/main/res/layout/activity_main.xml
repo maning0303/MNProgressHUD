@@ -246,31 +246,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:background="#ffe100" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn18"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:stateListAnimator="@null"
-                android:text="BaseFragmentDialog使用"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
 </ScrollView>

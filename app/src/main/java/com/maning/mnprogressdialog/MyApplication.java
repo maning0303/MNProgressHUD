@@ -2,6 +2,7 @@ package com.maning.mnprogressdialog;
 
 import android.app.Application;
 
+import com.maning.mndialoglibrary.MToast;
 import com.squareup.leakcanary.LeakCanary;
 
 public class MyApplication extends Application {
@@ -16,7 +17,8 @@ public class MyApplication extends Application {
             return;
         }
         LeakCanary.install(this);
-
+        //初始化
+        MToast.init(this);
     }
 
 
