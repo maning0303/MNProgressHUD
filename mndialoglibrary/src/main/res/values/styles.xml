@@ -1,24 +1,35 @@
 <resources>
 
     <!-- 自定义Dialog -->
-    <style name="MNCustomDialog" parent="@style/Theme.AppCompat.Dialog">
-        <!-- 无边框 -->
-        <item name="android:windowFrame">@null</item>
-        <!-- 是否浮现在activity之上 -->
+    <style name="MNCustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
-        <!--无遮罩效果-->
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <!-- 自定义Dialog 全屏-->
+    <!-- 自定义Dialog 全屏 -->
     <style name="MNCustomDialogFullScreen" parent="@style/MNCustomDialog">
         <!--全屏-->
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- FragmentDialog -->
+    <style name="MNCustomFragmentDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog.NoActionBar.MinWidth">
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
 </resources>

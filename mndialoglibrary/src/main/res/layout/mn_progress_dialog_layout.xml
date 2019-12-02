@@ -16,12 +16,12 @@
         android:layout_margin="80dp"
         android:background="@drawable/mn_dialog_view_bg"
         android:gravity="center"
-        android:minHeight="90dp"
         android:minWidth="90dp"
-        android:paddingBottom="12dp"
+        android:minHeight="90dp"
         android:paddingLeft="12dp"
+        android:paddingTop="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="12dp">
+        android:paddingBottom="12dp">
 
 
         <com.maning.mndialoglibrary.view.MNHudProgressWheel
@@ -29,6 +29,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
             wheel:mn_barColor="@color/mn_colorDialogProgressBarColor"
             wheel:mn_barWidth="2dp"
             wheel:mn_fillRadius="true"
@@ -42,6 +43,7 @@
             android:layout_below="@id/progress_wheel"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
             android:ellipsize="end"
             android:gravity="center"
             android:lineSpacingExtra="4dp"

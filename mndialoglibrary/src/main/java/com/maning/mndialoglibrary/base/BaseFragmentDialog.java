@@ -29,6 +29,21 @@ import java.lang.reflect.Field;
  */
 public abstract class BaseFragmentDialog extends DialogFragment {
 
+    private DialogInterface.OnDismissListener mOnClickListener;
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener listener) {
+        this.mOnClickListener = listener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        Log.e(">>>>>>>","onDismiss(DialogInterface dialog)");
+        super.onDismiss(dialog);
+        if (mOnClickListener != null) {
+            mOnClickListener.onDismiss(dialog);
+        }
+    }
+
     protected static FragmentActivity mActivity;
     private boolean isShowing = false;
 
@@ -46,7 +61,7 @@ public abstract class BaseFragmentDialog extends DialogFragment {
                 getDialog().getWindow().setWindowAnimations(animations);
             }
         }
-        setStyle(R.style.MNCustomDialog, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        setStyle(R.style.MNCustomFragmentDialog, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);
         //隐藏title
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         //点击外部不可取消

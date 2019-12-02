@@ -14,25 +14,27 @@
         android:layout_centerInParent="true"
         android:layout_margin="40dp"
         android:background="@drawable/mn_dialog_view_bg"
-        android:minHeight="100dp"
         android:minWidth="100dp"
+        android:minHeight="100dp"
         android:visibility="visible">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
+            android:paddingTop="10dp"
             android:paddingRight="20dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent">
 
                 <ProgressBar
                     android:id="@+id/horizontalProgressBar"
@@ -41,6 +43,7 @@
                     android:layout_height="4dp"
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
                     android:max="100"
                     android:progress="20"
                     android:secondaryProgress="80"
@@ -51,6 +54,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
                     app:mn_background_progressbar_color="#a3a3a3"
                     app:mn_background_progressbar_width="1dp"
                     app:mn_progress="10"
@@ -64,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:maxLines="6"
                 android:text="当前进度0%"

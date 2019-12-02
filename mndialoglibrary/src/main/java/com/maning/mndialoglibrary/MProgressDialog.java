@@ -2,6 +2,7 @@ package com.maning.mndialoglibrary;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.view.MNHudProgressWheel;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by maning on 2017/8/9.
@@ -61,7 +64,6 @@ public class MProgressDialog {
 
             configView(mContext);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -131,10 +133,32 @@ public class MProgressDialog {
 
         //全屏模式
         if (mDialogConfig.windowFullscreen) {
-            mDialog.getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//            mDialog.getWindow().setFlags(
+//                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            } else {
+//                mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//                mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            }
         }
+
+//        //解决 状态栏变色的bug
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            mDialog.getWindow().setStatusBarColor(Color.TRANSPARENT);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                try {
+//                    Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
+//                    Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
+//                    field.setAccessible(true);
+//                    field.setInt(mDialog.getWindow().getDecorView(), Color.TRANSPARENT);  //去掉高版本蒙层改为透明
+//                } catch (Exception e) {
+//                }
+//            }
+//        }
     }
 
     public static void showProgress(Context context) {
@@ -169,7 +193,6 @@ public class MProgressDialog {
                 mDialog.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -190,7 +213,6 @@ public class MProgressDialog {
                 mDialog = null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
