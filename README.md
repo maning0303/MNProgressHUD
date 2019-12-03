@@ -182,6 +182,10 @@
 ### 3:MToast 代码使用:
 ``` java
 
+        //首页Application初始化
+        MToast.init(application);
+
+        //配置
         MToastConfig config = new MToastConfig.Builder()
                 //设置显示的位置
                 .setGravity(MToastConfig.MToastGravity.CENTRE)
@@ -204,9 +208,10 @@
                 .build();
 
         //多种方法
-        MToast.makeTextShort(mContext, "Toast", config);
-        MToast.makeTextShort(mContext, "Toast");
-        
+        makeTextLong(@NonNull Context context, @NonNull CharSequence message, MToastConfig config)
+        makeTextShort(@NonNull Context context, @NonNull CharSequence message, MToastConfig config)
+        makeTextLong(@NonNull Context context, @NonNull CharSequence message)
+
         //取消Toast
         MToast.cancleToast();
 
@@ -261,6 +266,9 @@
 ```
 
 ## 版本记录：
+    V1.1.89
+        1.当设置应用的theme背景为黑色后，加载框会覆盖覆盖全屏,是全屏变黑 问题优化
+        2.MToast支持异步线程
 
     V1.1.8:
         1.Dialog显示状态栏黑色优化

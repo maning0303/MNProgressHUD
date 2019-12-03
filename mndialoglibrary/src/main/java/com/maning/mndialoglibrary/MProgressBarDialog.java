@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -246,17 +247,19 @@ public class MProgressBarDialog {
         try {
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
-                mDialog = null;
-                mContext = null;
-                mBuilder = null;
-                dialog_window_background = null;
-                dialog_view_bg = null;
-                tvShow = null;
-                horizontalProgressBar = null;
-                circularProgressBar = null;
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
+            Log.e(">>>MProgress>>>", "MProgressBarDialog-dismiss异常:" + e.toString());
+        }finally {
+            mDialog = null;
+            mContext = null;
+            mBuilder = null;
+            dialog_window_background = null;
+            dialog_view_bg = null;
+            tvShow = null;
+            horizontalProgressBar = null;
+            circularProgressBar = null;
         }
     }
 

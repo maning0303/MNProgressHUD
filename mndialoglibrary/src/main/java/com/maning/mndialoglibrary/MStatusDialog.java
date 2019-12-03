@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,6 +139,9 @@ public class MStatusDialog {
         try {
             if (mDialog == null) {
                 return;
+            }
+            if (mDialog.isShowing()) {
+                mDialog.dismiss();
             }
             imageStatus.setImageDrawable(drawable);
             tvShow.setText(msg);
