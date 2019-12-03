@@ -40,7 +40,7 @@
     }
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNProgressHUD/releases/tag/V1.1.8X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNProgressHUD/releases/tag/V1.1.9X)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -48,14 +48,14 @@
     dependencies {
         implementation 'com.android.support:appcompat-v7:27.1.0'
         implementation 'com.android.support:support-v4:27.1.0'
-        implementation 'com.github.maning0303:MNProgressHUD:V1.1.8'
+        implementation 'com.github.maning0303:MNProgressHUD:V1.1.9'
     }
 
     //android x 适配
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.0.0'
+        implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-        implementation 'com.github.maning0303:MNProgressHUD:V1.1.8X'
+        implementation 'com.github.maning0303:MNProgressHUD:V1.1.9X'
     }
 ```
 
@@ -262,6 +262,11 @@
 ```
 
 ## 版本记录：
+   V1.1.9:
+        1.当设置应用的theme背景为黑色后，加载框会覆盖覆盖全屏,是全屏变黑 问题优化
+        2.MToast支持异步线程
+        3.去掉FragmentDialog
+
     V1.1.8:
         1.Dialog显示状态栏黑色优化
         2.优化代码
