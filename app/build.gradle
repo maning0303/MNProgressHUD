@@ -21,8 +21,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-//    implementation 'com.github.maning0303:MNProgressHUD:V1.1.8X'
 
+//    implementation 'com.github.maning0303:MNProgressHUD:V1.1.9X'
     implementation project(':mndialoglibrary')
 
 
