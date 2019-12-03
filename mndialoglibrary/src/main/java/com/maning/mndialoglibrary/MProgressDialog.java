@@ -42,7 +42,7 @@ public class MProgressDialog {
             View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-            mDialog.initStatusBar(mDialogConfig.windowFullscreen);
+            mDialog.initStatusBar(mDialogConfig.windowFullscreen,mDialogConfig.statusBarDarkFont);
 
             //布局相关
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);

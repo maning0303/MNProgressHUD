@@ -3,10 +3,15 @@ package com.maning.mndialoglibrary.base;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.maning.mndialoglibrary.utils.StatusBarUtils;
+
+import java.lang.reflect.Field;
 
 /**
  * @author : maning
@@ -47,7 +52,7 @@ public class BaseDialog extends Dialog {
     }
 
 
-    public void initStatusBar(boolean windowFullscreen) {
+    public void initStatusBar(boolean windowFullscreen, boolean isDarkFont) {
         //全屏模式
         if (windowFullscreen) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
@@ -63,7 +68,14 @@ public class BaseDialog extends Dialog {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
                 getWindow().getDecorView().setSystemUiVisibility(uiOptions);
             }
+        } else {
+            StatusBarUtils.setStatusBarMode(getWindow(), isDarkFont);
         }
+    }
+
+    @Override
+    public void show() {
+        super.show();
     }
 
 }

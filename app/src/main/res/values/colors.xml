@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBar">#FFC107</color>
 
     <color name="colorDialogProgressRimColor">#a9a9a9</color>
     <color name="colorDialogWindowBg">#2aff5555</color>

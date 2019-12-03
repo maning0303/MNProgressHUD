@@ -71,7 +71,7 @@ public class MProgressBarDialog {
             View mProgressDialogView = inflater.inflate(R.layout.mn_progress_bar_dialog_layout, null);
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-            mDialog.initStatusBar(mBuilder.windowFullscreen);
+            mDialog.initStatusBar(mBuilder.windowFullscreen, mBuilder.statusBarDarkFont);
 
             //获取布局
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -248,7 +248,7 @@ public class MProgressBarDialog {
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(">>>MProgress>>>", "MProgressBarDialog-dismiss异常:" + e.toString());
-        }finally {
+        } finally {
             mDialog = null;
             mContext = null;
             mBuilder = null;
@@ -270,7 +270,9 @@ public class MProgressBarDialog {
         private Context mContext;
 
         //全屏模式隐藏状态栏
-        public boolean windowFullscreen;
+        boolean windowFullscreen;
+        //非全屏模式下状态栏文字的颜色：true黑色，false:白色
+        boolean statusBarDarkFont = false;
         //窗体背景色
         int backgroundWindowColor;
         //View背景色
@@ -317,6 +319,7 @@ public class MProgressBarDialog {
             horizontalProgressBarHeight = 4;
             animationID = 0;
             windowFullscreen = false;
+            statusBarDarkFont = false;
         }
 
         public MProgressBarDialog build() {
@@ -325,6 +328,11 @@ public class MProgressBarDialog {
 
         public Builder isWindowFullscreen(@Nullable boolean windowFullscreen) {
             this.windowFullscreen = windowFullscreen;
+            return this;
+        }
+
+        public Builder isStatusBarDarkFont(@Nullable boolean statusBarDarkFont) {
+            this.statusBarDarkFont = statusBarDarkFont;
             return this;
         }
 

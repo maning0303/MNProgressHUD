@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.maning.mndialoglibrary.MProgressBarDialog;
 import com.maning.mndialoglibrary.MProgressDialog;
 import com.maning.mndialoglibrary.MStatusDialog;
@@ -15,6 +16,7 @@ import com.maning.mndialoglibrary.MToast;
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.config.MToastConfig;
 import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
+import com.maning.mndialoglibrary.utils.StatusBarUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,6 +50,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        ImmersionBar.with(this)
+                .fullScreen(true)
+                .statusBarDarkFont(false)
+                .fitsSystemWindows(true)
+                .transparentStatusBar()
+                .statusBarColor(R.color.colorBar)
+                .init();
+
         mContext = this;
 
         initViews();
@@ -107,7 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 delayDismissProgressDialog();
                 break;
             case R.id.btn03:
-                MProgressDialog.showProgress(this, "");
+                MDialogConfig mDialogConfig2 = new MDialogConfig.Builder()
+                        //全屏模式
+                        .isWindowFullscreen(false)
+                        .isStatusBarDarkFont(true)
+                        .build();
+                MProgressDialog.showProgress(this, "", mDialogConfig2);
                 //延时关闭
                 delayDismissProgressDialog();
                 break;
@@ -115,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                         //全屏模式
                         .isWindowFullscreen(true)
+                        //状态栏文字颜色
+                        .isStatusBarDarkFont(false)
                         //Progress大小（宽高）
                         .setProgressSize(60)
                         //点击外部是否可以取消
