@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import com.maning.mndialoglibrary.view.MNHudProgressWheel;
 
 public class MProgressDialog {
 
-    private static final String LoadingDefaultMsg = "加载中";
+    private static final String LOADING_DEFAULT_MSG = "加载中";
 
     private static BaseDialog mDialog;
     private static MDialogConfig mDialogConfig;
@@ -54,6 +55,8 @@ public class MProgressDialog {
             configView(mContext);
 
         } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(">>>MProgressDialog>>>", "MProgressDialog-initDialog异常:" + e.toString());
         }
     }
 
@@ -70,7 +73,6 @@ public class MProgressDialog {
                 mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
             }
         } catch (Exception e) {
-
         }
 
         //点击外部可以取消
@@ -122,7 +124,7 @@ public class MProgressDialog {
     }
 
     public static void showProgress(Context context) {
-        showProgress(context, LoadingDefaultMsg);
+        showProgress(context, LOADING_DEFAULT_MSG);
     }
 
     public static void showProgress(Context context, String msg) {
@@ -130,12 +132,12 @@ public class MProgressDialog {
     }
 
     public static void showProgress(Context context, MDialogConfig mDialogConfig) {
-        showProgress(context, LoadingDefaultMsg, mDialogConfig);
+        showProgress(context, LOADING_DEFAULT_MSG, mDialogConfig);
     }
 
     public static void showProgress(Context context, String msg, MDialogConfig dialogConfig) {
+        dismissProgress();
         try {
-            dismissProgress();
             //设置配置
             if (dialogConfig == null) {
                 dialogConfig = new MDialogConfig.Builder().build();
@@ -153,6 +155,8 @@ public class MProgressDialog {
                 mDialog.show();
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(">>>MProgressDialog>>>", "MProgressDialog-showProgress异常:" + e.toString());
         }
     }
 
@@ -160,19 +164,22 @@ public class MProgressDialog {
         try {
             if (mDialog != null && mDialog.isShowing()) {
                 //判断是不是有监听
-                if (mDialogConfig.onDialogDismissListener != null) {
+                if (mDialogConfig != null && mDialogConfig.onDialogDismissListener != null) {
                     mDialogConfig.onDialogDismissListener.onDismiss();
                     mDialogConfig.onDialogDismissListener = null;
                 }
-                mDialogConfig = null;
-                dialog_window_background = null;
-                dialog_view_bg = null;
-                progress_wheel = null;
-                tv_show = null;
                 mDialog.dismiss();
-                mDialog = null;
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(">>>MProgressDialog>>>", "MProgressDialog-dismissProgress异常:" + e.toString());
+        } finally {
+            mDialogConfig = null;
+            mDialog = null;
+            dialog_window_background = null;
+            dialog_view_bg = null;
+            progress_wheel = null;
+            tv_show = null;
         }
     }
 
@@ -182,5 +189,4 @@ public class MProgressDialog {
         }
         return false;
     }
-
 }

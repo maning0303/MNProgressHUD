@@ -1,7 +1,6 @@
 package com.maning.mndialoglibrary;
 
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,11 +9,11 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -245,17 +244,19 @@ public class MProgressBarDialog {
         try {
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
-                mDialog = null;
-                mContext = null;
-                mBuilder = null;
-                dialog_window_background = null;
-                dialog_view_bg = null;
-                tvShow = null;
-                horizontalProgressBar = null;
-                circularProgressBar = null;
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
+            Log.e(">>>MProgress>>>", "MProgressBarDialog-dismiss异常:" + e.toString());
+        }finally {
+            mDialog = null;
+            mContext = null;
+            mBuilder = null;
+            dialog_window_background = null;
+            dialog_view_bg = null;
+            tvShow = null;
+            horizontalProgressBar = null;
+            circularProgressBar = null;
         }
     }
 

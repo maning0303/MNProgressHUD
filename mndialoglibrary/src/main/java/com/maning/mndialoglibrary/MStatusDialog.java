@@ -139,6 +139,9 @@ public class MStatusDialog {
             if (mDialog == null) {
                 return;
             }
+            if (mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
             imageStatus.setImageDrawable(drawable);
             tvShow.setText(msg);
             mDialog.show();
