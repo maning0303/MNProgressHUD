@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
+import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.utils.StatusBarUtils;
 
 import java.lang.reflect.Field;
@@ -45,7 +48,7 @@ public class BaseDialog extends Dialog {
         //设置整个Dialog的宽高
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = MSizeUtils.getScreenHeight(getContext());
         layoutParams.gravity = Gravity.CENTER;
         getWindow().setAttributes(layoutParams);
 

@@ -1,6 +1,7 @@
 package com.maning.mndialoglibrary;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
@@ -43,6 +44,17 @@ public class MProgressDialog {
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
             mDialog.initStatusBar(mDialogConfig.windowFullscreen,mDialogConfig.statusBarDarkFont);
+            mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    //判断是不是有监听
+                    if (mDialogConfig != null && mDialogConfig.onDialogDismissListener != null) {
+                        mDialogConfig.onDialogDismissListener.onDismiss();
+                        mDialogConfig.onDialogDismissListener = null;
+                    }
+                    releaseDialog();
+                }
+            });
 
             //布局相关
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
@@ -155,7 +167,6 @@ public class MProgressDialog {
                 mDialog.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             Log.e(">>>MProgressDialog>>>", "MProgressDialog-showProgress异常:" + e.toString());
         }
     }
@@ -171,16 +182,19 @@ public class MProgressDialog {
                 mDialog.dismiss();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             Log.e(">>>MProgressDialog>>>", "MProgressDialog-dismissProgress异常:" + e.toString());
         } finally {
-            mDialogConfig = null;
-            mDialog = null;
-            dialog_window_background = null;
-            dialog_view_bg = null;
-            progress_wheel = null;
-            tv_show = null;
+            releaseDialog();
         }
+    }
+
+    private static void releaseDialog() {
+        mDialogConfig = null;
+        mDialog = null;
+        dialog_window_background = null;
+        dialog_view_bg = null;
+        progress_wheel = null;
+        tv_show = null;
     }
 
     public static boolean isShowing() {

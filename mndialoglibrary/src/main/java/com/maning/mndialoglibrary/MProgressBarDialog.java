@@ -2,6 +2,7 @@ package com.maning.mndialoglibrary;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -72,7 +73,12 @@ public class MProgressBarDialog {
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
             mDialog.initStatusBar(mBuilder.windowFullscreen, mBuilder.statusBarDarkFont);
-
+            mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    releaseDialog();
+                }
+            });
             //获取布局
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
             dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);
@@ -249,15 +255,19 @@ public class MProgressBarDialog {
             e.printStackTrace();
             Log.e(">>>MProgress>>>", "MProgressBarDialog-dismiss异常:" + e.toString());
         } finally {
-            mDialog = null;
-            mContext = null;
-            mBuilder = null;
-            dialog_window_background = null;
-            dialog_view_bg = null;
-            tvShow = null;
-            horizontalProgressBar = null;
-            circularProgressBar = null;
+            releaseDialog();
         }
+    }
+
+    private void releaseDialog() {
+        mDialog = null;
+        mContext = null;
+        mBuilder = null;
+        dialog_window_background = null;
+        dialog_view_bg = null;
+        tvShow = null;
+        horizontalProgressBar = null;
+        circularProgressBar = null;
     }
 
     public void refreshBuilder(MProgressBarDialog.Builder builder) {

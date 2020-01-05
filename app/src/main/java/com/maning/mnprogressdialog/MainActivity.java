@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.maning.mndialoglibrary.MProgressBarDialog;
 import com.maning.mndialoglibrary.MProgressDialog;
 import com.maning.mndialoglibrary.MStatusDialog;
@@ -16,7 +15,6 @@ import com.maning.mndialoglibrary.MToast;
 import com.maning.mndialoglibrary.config.MDialogConfig;
 import com.maning.mndialoglibrary.config.MToastConfig;
 import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
-import com.maning.mndialoglibrary.utils.StatusBarUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,13 +48,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        ImmersionBar.with(this)
-                .fullScreen(true)
-                .statusBarDarkFont(false)
-                .fitsSystemWindows(true)
-                .transparentStatusBar()
-                .statusBarColor(R.color.colorBar)
-                .init();
+        StatusBarUtil.setColor(MainActivity.this, Color.WHITE);
+        StatusBarUtil.setTranslucent(MainActivity.this,0);
+        StatusBarUtil.setLightMode(MainActivity.this);
+//        ImmersionBar.with(this)
+//                .fullScreen(true)
+//                .statusBarDarkFont(true)
+//                .fitsSystemWindows(true)
+//                .transparentStatusBar()
+//                .statusBarColor(R.color.white)
+//                .init();
 
         mContext = this;
 
@@ -295,13 +296,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showStatusDialog01() {
         mStatusDialog = new MStatusDialog(this);
-        mStatusDialog.show("正在保存,请稍等..", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok), 5000);
+        mStatusDialog.show(
+                "正在保存,请稍等..",
+                mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok),
+                5000);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //关闭
                 mStatusDialog.dismiss();
-                new MStatusDialog(mContext).show("保存成功", mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
+                new MStatusDialog(mContext).show(
+                        "保存成功",
+                        mContext.getResources().getDrawable(R.drawable.mn_icon_dialog_ok));
             }
         }, 1000);
     }
@@ -310,6 +316,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                 //全屏模式
                 .isWindowFullscreen(true)
+                //状态栏文字颜色
+                .isStatusBarDarkFont(false)
                 //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                 //View背景的颜色
@@ -400,6 +408,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //新建一个Dialog
         mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
                 .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Horizontal)
+                //状态栏文字颜色
+                .isStatusBarDarkFont(true)
                 //全屏背景窗体的颜色
                 .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                 //View背景的颜色

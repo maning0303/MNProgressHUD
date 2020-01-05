@@ -2,6 +2,7 @@ package com.maning.mndialoglibrary;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -120,14 +121,6 @@ public class MStatusDialog {
             layoutParams.height = MSizeUtils.dp2px(mContext, mDialogConfig.imgHeight);
             imageStatus.setLayoutParams(layoutParams);
         }
-
-        //全屏模式
-        if (mDialogConfig.windowFullscreen) {
-            mDialog.getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
     }
 
     public void show(String msg, Drawable drawable) {

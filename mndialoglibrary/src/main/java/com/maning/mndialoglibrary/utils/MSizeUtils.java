@@ -73,6 +73,23 @@ public class MSizeUtils {
         }
         return point.y;
     }
+    /**
+     * 得到屏幕宽度
+     *
+     * @return 宽度
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            //noinspection ConstantConditions
+            wm.getDefaultDisplay().getRealSize(point);
+        } else {
+            //noinspection ConstantConditions
+            wm.getDefaultDisplay().getSize(point);
+        }
+        return point.x;
+    }
 
     /**
      * 状态栏高度

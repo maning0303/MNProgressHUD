@@ -86,6 +86,8 @@
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                  //全屏模式
                  .isWindowFullscreen(true)
+                 //状态栏文字颜色
+                 .isStatusBarDarkFont(true)
                  //Progress大小（宽高）
                  .setProgressSize(60)
                  //点击外部是否可以取消
@@ -148,6 +150,8 @@
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                         //全屏模式
                         .isWindowFullscreen(true)
+                        //状态栏文字颜色
+                        .isStatusBarDarkFont(true)
                         //全屏背景窗体的颜色
                         .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                         //View背景的颜色
@@ -220,6 +224,8 @@
         mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
                //全屏模式
                .isWindowFullscreen(true)
+               //状态栏文字颜色
+               .isStatusBarDarkFont(true)
                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
                //全屏背景窗体的颜色
                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
@@ -262,6 +268,8 @@
 ```
 
 ## 版本记录：
+    V2.0.0:
+        1.状态栏文字颜色支持修改
 
     V1.1.9:
         1.当设置应用的theme背景为黑色后，加载框会覆盖覆盖全屏,是全屏变黑 问题优化
