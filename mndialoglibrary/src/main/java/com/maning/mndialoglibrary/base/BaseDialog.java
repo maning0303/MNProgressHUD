@@ -2,19 +2,13 @@ package com.maning.mndialoglibrary.base;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.maning.mndialoglibrary.listeners.OnDialogDismissListener;
 import com.maning.mndialoglibrary.utils.MSizeUtils;
 import com.maning.mndialoglibrary.utils.StatusBarUtils;
-
-import java.lang.reflect.Field;
 
 /**
  * @author : maning
@@ -23,8 +17,7 @@ import java.lang.reflect.Field;
 public class BaseDialog extends Dialog {
 
     public BaseDialog(Context context) {
-        super(context);
-        init();
+        this(context,0);
     }
 
     public BaseDialog(Context context, int themeResId) {
@@ -32,10 +25,6 @@ public class BaseDialog extends Dialog {
         init();
     }
 
-    protected BaseDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-        init();
-    }
 
     private void init() {
         setCancelable(false);
@@ -45,9 +34,12 @@ public class BaseDialog extends Dialog {
     @Override
     protected void onStart() {
         super.onStart();
-        //设置整个Dialog的宽高
+        setDialogWidthHeight();
+    }
+
+    public void setDialogWidthHeight() {
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.width = MSizeUtils.getScreenWidth(getContext());
         layoutParams.height = MSizeUtils.getScreenHeight(getContext());
         layoutParams.gravity = Gravity.CENTER;
         getWindow().setAttributes(layoutParams);

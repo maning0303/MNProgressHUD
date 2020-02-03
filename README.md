@@ -277,17 +277,6 @@
         2.MToast支持异步线程
         3.去掉FragmentDialog
 
-    V1.1.8:
-        1.Dialog显示状态栏黑色优化
-        2.优化代码
-
-    V1.1.7:
-        1.Dialog相关添加全屏模式，默认非全屏
-        2.MProgressDialog添加修改Progress大小参数progressSize
-        3.优化Dialog全屏样式
-        4.library中build v4添加方式修改为implementation，防止冲突
-        5.优化代码，防止空指针异常
-
 
 ## 感谢：
 #### 源码里面使用了下面库,改了个名字,以免冲突，非常感谢!

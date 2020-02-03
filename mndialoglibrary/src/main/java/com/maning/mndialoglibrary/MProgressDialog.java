@@ -2,13 +2,16 @@ package com.maning.mndialoglibrary;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,7 +22,7 @@ import com.maning.mndialoglibrary.view.MNHudProgressWheel;
 
 /**
  * Created by maning on 2017/8/9.
- * 进度Dialog
+ * LoadingDialog
  */
 
 public class MProgressDialog {
@@ -39,11 +42,10 @@ public class MProgressDialog {
     private static void initDialog(Context mContext) {
         checkDialogConfig();
         try {
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            View mProgressDialogView = inflater.inflate(R.layout.mn_progress_dialog_layout, null);
+            View mProgressDialogView = LayoutInflater.from(mContext).inflate(R.layout.mn_progress_dialog_layout, null);
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-            mDialog.initStatusBar(mDialogConfig.windowFullscreen,mDialogConfig.statusBarDarkFont);
+            mDialog.initStatusBar(mDialogConfig.windowFullscreen, mDialogConfig.statusBarDarkFont);
             mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
@@ -65,7 +67,6 @@ public class MProgressDialog {
 
             //配置相关
             configView(mContext);
-
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(">>>MProgressDialog>>>", "MProgressDialog-initDialog异常:" + e.toString());
@@ -79,12 +80,9 @@ public class MProgressDialog {
     }
 
     private static void configView(Context mContext) {
-        try {
-            //设置动画
-            if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
-                mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
-            }
-        } catch (Exception e) {
+        //设置动画
+        if (mDialogConfig != null && mDialogConfig.animationID != 0 && mDialog.getWindow() != null) {
+            mDialog.getWindow().setWindowAnimations(mDialogConfig.animationID);
         }
 
         //点击外部可以取消

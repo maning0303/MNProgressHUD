@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         StatusBarUtil.setColor(MainActivity.this, Color.WHITE);
         StatusBarUtil.setTranslucent(MainActivity.this,0);
@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .isStatusBarDarkFont(true)
                         .isCanceledOnTouchOutside(true)
                         .isCancelable(true)
+                        //dialog动画
+                        .setAnimationID(R.style.animate_dialog_custom)
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
                             public void onDismiss() {

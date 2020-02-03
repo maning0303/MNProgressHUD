@@ -1,8 +1,8 @@
 <resources>
 
     <!-- 自定义Dialog -->
-    <style name="MNCustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
-        <item name="android:windowFrame">@android:color/transparent</item>
+    <style name="MNCustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>

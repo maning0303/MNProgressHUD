@@ -7,21 +7,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -74,56 +68,6 @@ public class StatusBarUtil {
                 decorView.addView(createStatusBarView(activity, color, statusBarAlpha));
             }
             setRootView(activity);
-        }
-    }
-
-    /**
-     * 为滑动返回界面设置状态栏颜色
-     *
-     * @param activity 需要设置的activity
-     * @param color    状态栏颜色值
-     */
-    public static void setColorForSwipeBack(Activity activity, int color) {
-        setColorForSwipeBack(activity, color, DEFAULT_STATUS_BAR_ALPHA);
-    }
-
-    /**
-     * 为滑动返回界面设置状态栏颜色
-     *
-     * @param activity       需要设置的activity
-     * @param color          状态栏颜色值
-     * @param statusBarAlpha 状态栏透明度
-     */
-    public static void setColorForSwipeBack(Activity activity, @ColorInt int color,
-                                            @IntRange(from = 0, to = 255) int statusBarAlpha) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-            ViewGroup contentView = ((ViewGroup) activity.findViewById(android.R.id.content));
-            View rootView = contentView.getChildAt(0);
-            int statusBarHeight = getStatusBarHeight(activity);
-            if (rootView != null && rootView instanceof CoordinatorLayout) {
-                final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) rootView;
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    coordinatorLayout.setFitsSystemWindows(false);
-                    contentView.setBackgroundColor(calculateStatusColor(color, statusBarAlpha));
-                    boolean isNeedRequestLayout = contentView.getPaddingTop() < statusBarHeight;
-                    if (isNeedRequestLayout) {
-                        contentView.setPadding(0, statusBarHeight, 0, 0);
-                        coordinatorLayout.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                coordinatorLayout.requestLayout();
-                            }
-                        });
-                    }
-                } else {
-                    coordinatorLayout.setStatusBarBackgroundColor(calculateStatusColor(color, statusBarAlpha));
-                }
-            } else {
-                contentView.setPadding(0, statusBarHeight, 0, 0);
-                contentView.setBackgroundColor(calculateStatusColor(color, statusBarAlpha));
-            }
-            setTransparentForWindow(activity);
         }
     }
 
