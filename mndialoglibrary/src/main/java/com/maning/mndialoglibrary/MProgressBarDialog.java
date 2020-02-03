@@ -74,7 +74,6 @@ public class MProgressBarDialog {
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
             mDialog.initStatusBar(mBuilder.windowFullscreen, mBuilder.statusBarDarkFont);
-            mDialog.initBackgroundColor(mBuilder.backgroundWindowColor);
             mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {

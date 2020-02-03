@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setFlags(
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         StatusBarUtil.setColor(MainActivity.this, Color.WHITE);
         StatusBarUtil.setTranslucent(MainActivity.this,0);
@@ -123,6 +123,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //全屏模式
                         .isWindowFullscreen(true)
                         .isStatusBarDarkFont(true)
+                        .isCanceledOnTouchOutside(true)
+                        .isCancelable(true)
+                        .setOnDialogDismissListener(new OnDialogDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                mHandler.removeCallbacksAndMessages(null);
+                            }
+                        })
                         .build();
                 MProgressDialog.showProgress(this, "", mDialogConfig2);
                 //延时关闭
@@ -172,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
                             @Override
                             public void onDismiss() {
+                                mHandler.removeCallbacksAndMessages(null);
                                 MToast.makeTextShort(mContext, "监听到了ProgressDialog关闭了");
                             }
                         })
