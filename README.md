@@ -46,8 +46,8 @@
 ``` gradle
     //android support library
     dependencies {
-        implementation 'com.android.support:appcompat-v7:27.1.0'
-        implementation 'com.android.support:support-v4:27.1.0'
+        implementation 'com.android.support:appcompat-v7:28.0.0'
+        implementation 'com.android.support:support-v4:28.0.0'
         implementation 'com.github.maning0303:MNProgressHUD:V1.1.9'
     }
 
@@ -86,8 +86,6 @@
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                  //全屏模式
                  .isWindowFullscreen(true)
-                 //状态栏文字颜色
-                 .isStatusBarDarkFont(true)
                  //Progress大小（宽高）
                  .setProgressSize(60)
                  //点击外部是否可以取消
@@ -150,8 +148,6 @@
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                         //全屏模式
                         .isWindowFullscreen(true)
-                        //状态栏文字颜色
-                        .isStatusBarDarkFont(true)
                         //全屏背景窗体的颜色
                         .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
                         //View背景的颜色
@@ -224,8 +220,6 @@
         mProgressBarDialog = new MProgressBarDialog.Builder(mContext)
                //全屏模式
                .isWindowFullscreen(true)
-               //状态栏文字颜色
-               .isStatusBarDarkFont(true)
                .setStyle(MProgressBarDialog.MProgressBarDialogStyle_Circle)
                //全屏背景窗体的颜色
                .setBackgroundWindowColor(getMyColor(R.color.colorDialogWindowBg))
@@ -269,7 +263,7 @@
 
 ## 版本记录：
     V2.0.0:
-        1.状态栏文字颜色支持修改
+        1.代码优化
         2.监听dialog消失方法优化
 
     V1.1.9:
