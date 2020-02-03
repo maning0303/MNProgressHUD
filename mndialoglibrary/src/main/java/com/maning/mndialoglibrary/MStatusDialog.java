@@ -58,7 +58,7 @@ public class MStatusDialog {
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
             mDialog.initStatusBar(mDialogConfig.windowFullscreen,mDialogConfig.statusBarDarkFont);
-
+            mDialog.initBackgroundColor(mDialogConfig.backgroundWindowColor);
             //获取布局
             dialog_window_background = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_window_background);
             dialog_view_bg = (RelativeLayout) mProgressDialogView.findViewById(R.id.dialog_view_bg);

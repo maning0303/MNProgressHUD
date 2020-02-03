@@ -45,13 +45,20 @@ public class BaseDialog extends Dialog {
     @Override
     protected void onStart() {
         super.onStart();
-        //设置整个Dialog的宽高
-        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = MSizeUtils.getScreenHeight(getContext());
-        layoutParams.gravity = Gravity.CENTER;
-        getWindow().setAttributes(layoutParams);
+        int transColor = Color.TRANSPARENT;
+        if (transColor != backgroundColor) {
+            //设置整个Dialog的宽高
+            WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.height = MSizeUtils.getScreenHeight(getContext());
+            getWindow().setAttributes(layoutParams);
+        }
+    }
 
+    private int backgroundColor;
+
+    public void initBackgroundColor(int color) {
+        backgroundColor = color;
     }
 
 

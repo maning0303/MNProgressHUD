@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.maning.mndialoglibrary.MProgressBarDialog;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn03:
                 MDialogConfig mDialogConfig2 = new MDialogConfig.Builder()
                         //全屏模式
-                        .isWindowFullscreen(false)
+                        .isWindowFullscreen(true)
                         .isStatusBarDarkFont(true)
                         .build();
                 MProgressDialog.showProgress(this, "", mDialogConfig2);
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn04:
                 MDialogConfig mDialogConfig = new MDialogConfig.Builder()
                         //全屏模式
-                        .isWindowFullscreen(true)
+                        .isWindowFullscreen(false)
                         //状态栏文字颜色
                         .isStatusBarDarkFont(false)
                         //Progress大小（宽高）

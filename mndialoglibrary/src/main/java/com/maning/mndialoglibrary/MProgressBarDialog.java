@@ -3,6 +3,7 @@ package com.maning.mndialoglibrary;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -73,6 +74,7 @@ public class MProgressBarDialog {
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
             mDialog.initStatusBar(mBuilder.windowFullscreen, mBuilder.statusBarDarkFont);
+            mDialog.initBackgroundColor(mBuilder.backgroundWindowColor);
             mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
@@ -314,7 +316,7 @@ public class MProgressBarDialog {
         public Builder(Context context) {
             mContext = context;
             //默认配置
-            backgroundWindowColor = mContext.getResources().getColor(R.color.mn_colorDialogWindowBg);
+            backgroundWindowColor = Color.TRANSPARENT;
             backgroundViewColor = mContext.getResources().getColor(R.color.mn_colorDialogViewBg);
             strokeColor = mContext.getResources().getColor(R.color.mn_colorDialogTrans);
             textColor = mContext.getResources().getColor(R.color.mn_colorDialogTextColor);
