@@ -1,7 +1,6 @@
 package com.maning.mndialoglibrary.config;
 
 import android.graphics.Color;
-import android.media.midi.MidiManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 
@@ -15,8 +14,6 @@ public class MDialogConfig {
 
     //全屏模式隐藏状态栏
     public boolean windowFullscreen = false;
-    //非全屏模式下状态栏文字的颜色：true黑色，false:白色
-    public boolean statusBarDarkFont = false;
     //点击外部可以取消
     public boolean canceledOnTouchOutside = false;
     //是否可以返回键关闭
@@ -82,11 +79,6 @@ public class MDialogConfig {
 
         public Builder isWindowFullscreen(@Nullable boolean windowFullscreen) {
             mDialogConfig.windowFullscreen = windowFullscreen;
-            return this;
-        }
-
-        public Builder isStatusBarDarkFont(@Nullable boolean statusBarDarkFont) {
-            mDialogConfig.statusBarDarkFont = statusBarDarkFont;
             return this;
         }
 

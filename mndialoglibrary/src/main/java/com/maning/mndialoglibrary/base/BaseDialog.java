@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.maning.mndialoglibrary.utils.MSizeUtils;
-import com.maning.mndialoglibrary.utils.StatusBarUtils;
 
 /**
  * @author : maning
@@ -45,7 +44,7 @@ public class BaseDialog extends Dialog {
         getWindow().setAttributes(layoutParams);
     }
 
-    public void initStatusBar(boolean windowFullscreen, boolean isDarkFont) {
+    public void initStatusBar(boolean windowFullscreen) {
         //全屏模式
         if (windowFullscreen) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
@@ -61,8 +60,6 @@ public class BaseDialog extends Dialog {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
                 getWindow().getDecorView().setSystemUiVisibility(uiOptions);
             }
-        } else {
-            StatusBarUtils.setStatusBarMode(getWindow(), isDarkFont);
         }
     }
 

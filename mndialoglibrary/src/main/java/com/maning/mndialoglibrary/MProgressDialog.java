@@ -45,7 +45,7 @@ public class MProgressDialog {
             View mProgressDialogView = LayoutInflater.from(mContext).inflate(R.layout.mn_progress_dialog_layout, null);
             mDialog = new BaseDialog(mContext, R.style.MNCustomDialog);
             mDialog.setContentView(mProgressDialogView);
-            mDialog.initStatusBar(mDialogConfig.windowFullscreen, mDialogConfig.statusBarDarkFont);
+            mDialog.initStatusBar(mDialogConfig.windowFullscreen);
             mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
