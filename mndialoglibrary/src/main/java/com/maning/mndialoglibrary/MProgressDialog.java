@@ -2,16 +2,13 @@ package com.maning.mndialoglibrary;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,8 +23,6 @@ import com.maning.mndialoglibrary.view.MNHudProgressWheel;
  */
 
 public class MProgressDialog {
-
-    private static final String LOADING_DEFAULT_MSG = "加载中";
 
     private static BaseDialog mDialog;
     private static MDialogConfig mDialogConfig;
@@ -107,6 +102,10 @@ public class MProgressDialog {
                 MSizeUtils.dp2px(mContext, mDialogConfig.paddingRight),
                 MSizeUtils.dp2px(mContext, mDialogConfig.paddingBottom)
         );
+        if (mDialogConfig.minWidth > 0 && mDialogConfig.minHeight > 0) {
+            dialog_view_bg.setMinimumWidth(MSizeUtils.dp2px(mContext, mDialogConfig.minWidth));
+            dialog_view_bg.setMinimumHeight(MSizeUtils.dp2px(mContext, mDialogConfig.minHeight));
+        }
 
         //Progress设置
         progress_wheel.setBarColor(mDialogConfig.progressColor);
@@ -134,18 +133,18 @@ public class MProgressDialog {
     }
 
     public static void showProgress(Context context) {
-        showProgress(context, LOADING_DEFAULT_MSG);
+        showProgress(context, null,null);
     }
 
-    public static void showProgress(Context context, String msg) {
+    public static void showProgress(Context context, CharSequence msg) {
         showProgress(context, msg, null);
     }
 
     public static void showProgress(Context context, MDialogConfig mDialogConfig) {
-        showProgress(context, LOADING_DEFAULT_MSG, mDialogConfig);
+        showProgress(context, null, mDialogConfig);
     }
 
-    public static void showProgress(Context context, String msg, MDialogConfig dialogConfig) {
+    public static void showProgress(Context context, CharSequence msg, MDialogConfig dialogConfig) {
         dismissProgress();
         try {
             //设置配置

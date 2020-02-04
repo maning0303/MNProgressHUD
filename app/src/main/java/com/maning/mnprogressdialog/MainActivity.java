@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-//        StatusBarUtil.setColor(MainActivity.this, Color.WHITE);
-//        StatusBarUtil.setTranslucent(MainActivity.this,0);
-//        StatusBarUtil.setLightMode(MainActivity.this);
-        ImmersionBar.with(this)
-                .fullScreen(false)
-                .statusBarDarkFont(true)
-                .fitsSystemWindows(true)
-                .transparentStatusBar()
-                .statusBarColor(R.color.white)
-                .init();
+        StatusBarUtil.setColor(MainActivity.this, Color.WHITE);
+        StatusBarUtil.setTranslucent(MainActivity.this,0);
+        StatusBarUtil.setLightMode(MainActivity.this);
+//        ImmersionBar.with(this)
+//                .fullScreen(false)
+//                .statusBarDarkFont(false)
+//                .fitsSystemWindows(true)
+//                .transparentStatusBar()
+//                .statusBarColor(R.color.colorPrimary)
+//                .init();
 
         mContext = this;
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        MProgressDialog.showProgress(MainActivity.this, "");
+                        MProgressDialog.showProgress(MainActivity.this, "加载中...");
                     }
                 }, 1000);
                 MProgressDialog.showProgress(this);
@@ -124,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .isWindowFullscreen(true)
                         .isCanceledOnTouchOutside(true)
                         .isCancelable(true)
+                        .setProgressSize(30)
+                        .setMinWidthAndHeight(50,50)
+                        .setPadding(16,16,16,16)
                         //dialog动画
                         .setAnimationID(R.style.animate_dialog_custom)
                         .setOnDialogDismissListener(new OnDialogDismissListener() {
@@ -133,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .build();
-                MProgressDialog.showProgress(this, "", mDialogConfig2);
+                MProgressDialog.showProgress(this, mDialogConfig2);
                 //延时关闭
                 delayDismissProgressDialog();
                 break;

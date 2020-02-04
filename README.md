@@ -84,6 +84,8 @@
         
         //自定义背景
         MDialogConfig mDialogConfig = new MDialogConfig.Builder()
+                 //设置dialog最小宽度和最小高度
+                 .setMinWidthAndHeight(50,50)
                  //全屏模式
                  .isWindowFullscreen(true)
                  //Progress大小（宽高）
@@ -162,9 +164,9 @@
                         .setCornerRadius(10)
                         //dialog动画
                         .setAnimationID(R.style.animate_dialog_custom)
-                        //文字的大小：sp
+                        //文字的大小sp
                         .setTextSize(15)
-                        //padding
+                        //paddingdp
                         .setPadding(40, 10, 40, 10)
                         //图片的宽高dp
                         .setImgWidthAndHeight(60, 60)
@@ -265,6 +267,8 @@
     V2.0.0（未发布）:
         1.修复动画不居中问题
         2.监听dialog消失方法优化
+        3.MProgressDialog添加最小宽度和最小高度的设置
+        4.MProgressDialog默认不显示文字
 
     V1.1.9:
         1.当设置应用的theme背景为黑色后，加载框会覆盖覆盖全屏,是全屏变黑 问题优化

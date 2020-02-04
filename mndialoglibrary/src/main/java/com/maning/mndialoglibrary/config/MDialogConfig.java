@@ -55,6 +55,9 @@ public class MDialogConfig {
     //StatusDialog专用：中间图片宽高
     public int imgWidth = 40;
     public int imgHeight = 40;
+    //LoadingDialog专用，最小宽度和高度
+    public int minWidth = 90;
+    public int minHeight = 90;
 
 
     private MDialogConfig() {
@@ -160,6 +163,12 @@ public class MDialogConfig {
         public Builder setImgWidthAndHeight(int imgWidth, int imgHeight) {
             mDialogConfig.imgWidth = imgWidth;
             mDialogConfig.imgHeight = imgHeight;
+            return this;
+        }
+
+        public Builder setMinWidthAndHeight(int minWidth, int minHeight) {
+            mDialogConfig.minWidth = minWidth;
+            mDialogConfig.minHeight = minHeight;
             return this;
         }
 
