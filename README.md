@@ -40,7 +40,8 @@
     }
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNProgressHUD/releases/tag/V1.1.9X)
+### [Android X 适配版本源码](https://github.com/maning0303/MNProgressHUD/releases/tag/V2.0.0X)
+### [Android Support 适配版本源码](https://github.com/maning0303/MNProgressHUD/releases/tag/V2.0.0)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -55,7 +56,7 @@
     dependencies {
         implementation 'androidx.appcompat:appcompat:1.1.0'
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-        implementation 'com.github.maning0303:MNProgressHUD:V1.1.9X'
+        implementation 'com.github.maning0303:MNProgressHUD:V2.0.0X'
     }
 ```
 
