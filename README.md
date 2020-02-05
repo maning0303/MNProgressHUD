@@ -48,7 +48,7 @@
     dependencies {
         implementation 'com.android.support:appcompat-v7:28.0.0'
         implementation 'com.android.support:support-v4:28.0.0'
-        implementation 'com.github.maning0303:MNProgressHUD:V1.1.9'
+        implementation 'com.github.maning0303:MNProgressHUD:V2.0.0'
     }
 
     //android x 适配
@@ -264,7 +264,7 @@
 ```
 
 ## 版本记录：
-    V2.0.0（未发布）:
+    V2.0.0:
         1.修复动画不居中问题
         2.监听dialog消失方法优化
         3.MProgressDialog添加最小宽度和最小高度的设置
