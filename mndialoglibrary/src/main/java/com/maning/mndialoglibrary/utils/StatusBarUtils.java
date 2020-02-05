@@ -2,7 +2,7 @@ package com.maning.mndialoglibrary.utils;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.graphics.ColorUtils;
+import androidx.core.graphics.ColorUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;

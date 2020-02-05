@@ -2,7 +2,7 @@ package com.maning.mndialoglibrary.config;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 /**
  * Created by maning on 2017/8/11.
